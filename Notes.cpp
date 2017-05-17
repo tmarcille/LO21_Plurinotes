@@ -22,7 +22,7 @@ void Note::saveInFile(QString& folder) const
 	stream.setAutoFormatting(true);
 	stream.writeStartDocument();
 	stream.writeStartElement("notes");
-	stream.writeStartElement("article");
+    stream.writeStartElement(getType());
 	stream.writeTextElement("id", id);
 	stream.writeTextElement("title", title);
 

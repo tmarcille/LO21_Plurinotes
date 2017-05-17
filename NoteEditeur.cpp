@@ -1,33 +1,33 @@
 #include "NoteEditeur.h"
 
-NoteEditeur::NoteEditeur(Note& a, QWidget *parent) : QWidget(), note(&a)
+NoteEditeur::NoteEditeur(Note& a, QWidget *parent) : QWidget(parent), note(&a)
 {
 	idl = new QLabel("Identificateur");
-
 	titrel = new QLabel("Titre");
-
 	save = new QPushButton("Sauver");
 
-	id = new QLineEdit;
-	titre = new QLineEdit;
+    idl->setMinimumWidth(75);
+    titrel->setMinimumWidth(75);
+    id = new QLineEdit();
+    titre = new QLineEdit();
 
-	Vlayout = new QVBoxLayout;
-	Hlayout = new QHBoxLayout;
-	Hlayout2 = new QHBoxLayout;
-	Hlayout3 = new QHBoxLayout;
+    mainLayout = new QVBoxLayout();
+    idLayout = new QHBoxLayout();
+    titreLayout = new QHBoxLayout();
+    centralLayout = new QHBoxLayout();
 
-	Hlayout->addWidget(idl);
-	Hlayout2->addWidget(titrel);
+    idLayout->addWidget(idl);
+    titreLayout->addWidget(titrel);
 
-	Hlayout->addWidget(id);
-	Hlayout2->addWidget(titre);
+    idLayout->addWidget(id);
+    titreLayout->addWidget(titre);
 
-	Vlayout->addLayout(Hlayout);
-	Vlayout->addLayout(Hlayout2);
-	Vlayout->addLayout(Hlayout3);
-	Vlayout->addWidget(save);
+    mainLayout->addLayout(idLayout);
+    mainLayout->addLayout(titreLayout);
+    mainLayout->addLayout(centralLayout);
+    mainLayout->addWidget(save);
 
-	this->setLayout(Vlayout);
+    this->setLayout(mainLayout);
 
 	id->setReadOnly(true);
 	id->setText(a.getId());

@@ -22,11 +22,15 @@ void PluriNotes::closeEvent(QCloseEvent *event)
 }
 
 void PluriNotes::ouvrirProjet() {
-	//a faire : dossier fixe, changeable dans les parametres
 
+    //a faire : dossier fixe, changeable dans les parametres
+    QString dir = QFileDialog::getExistingDirectory();
 
+    NotesManager& m = NotesManager::getManager();
 
-	NotesManager& m = NotesManager::getManager();
+    m.setFoldername(dir);
+    qDebug()<<dir;
+
 	m.load();
 	for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
 			new QListWidgetItem(it.current().getId(), ui.listWidget);

@@ -29,15 +29,15 @@ private:
 
 	QPushButton* save;
 
-	QHBoxLayout *Hlayout;
-	QHBoxLayout *Hlayout2;
+    QHBoxLayout *titreLayout;
+    QHBoxLayout *idLayout;
 	
-	QVBoxLayout *Vlayout;
+    QVBoxLayout *mainLayout;
 
 	virtual void sauvegardeAttributs() = 0;
 
 protected :
-	QHBoxLayout *Hlayout3;
+    QHBoxLayout *centralLayout;
 	Note& getNote()  { return *note; }
 
 public:

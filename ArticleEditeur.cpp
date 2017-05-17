@@ -2,15 +2,15 @@
 
 
 
-ArticleEditeur::ArticleEditeur(Article& a, QWidget *parent) : NoteEditeur(a)
+ArticleEditeur::ArticleEditeur(Article& a, QWidget *parent) : NoteEditeur(a,parent)
 {
 	textl = new QLabel("Text");
 
 	text = new QTextEdit;
 
-	Hlayout3->addWidget(textl);
+    centralLayout->addWidget(textl);
 
-	Hlayout3->addWidget(text);
+    centralLayout->addWidget(text);
 
 	text->setText(a.getText());
 	

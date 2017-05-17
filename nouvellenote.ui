@@ -3,7 +3,7 @@
  <class>NouvelleNote</class>
  <widget class="QDialog" name="NouvelleNote">
   <property name="windowModality">
-   <enum>Qt::WindowModal</enum>
+   <enum>Qt::ApplicationModal</enum>
   </property>
   <property name="geometry">
    <rect>
@@ -34,9 +34,9 @@
       </layout>
      </item>
      <item>
-      <widget class="QRadioButton" name="Image">
+      <widget class="QRadioButton" name="Media">
        <property name="text">
-        <string>Image</string>
+        <string>Media</string>
        </property>
        <attribute name="buttonGroup">
         <string notr="true">buttonGroup</string>

@@ -40,7 +40,7 @@ Note& NotesManager::getNote(const QString& id){
 	for(unsigned int i=0; i<nbNotes; i++){
 		if (notes[i]->getId()==id) return *notes[i];
 	}
-    //// sinon il est créé
+    // sinon il est créé
     //Article* a=new Article(id,"","");
     //addArticle(a);
 	Note* note = NULL;
@@ -67,13 +67,9 @@ void NotesManager::saveAllNotes() const {
 
 void NotesManager::load() {
 
-	//Nom de dossier choisit plus tard dans les parametres
+    // A refaire pour eviter le crash quand 2 notes dans le même fichier
 
-	QString fichier = QFileDialog::getOpenFileName(nullptr, "Ouvrir un fichier", QString(), "Note (*.xml)");
-	QDir d = QFileInfo(fichier).absoluteDir();
-	QDirIterator it(d.absolutePath(), QStringList() << "*.xml", QDir::Files);
-	setFoldername(d.absolutePath());
-
+    QDirIterator it(foldername, QStringList() << "*.xml", QDir::Files);
 	while (it.hasNext()) {
 		QString fichier = it.next();
 		QFile fin(fichier);
@@ -86,19 +82,18 @@ void NotesManager::load() {
 		QXmlStreamReader xml(&fin);
 		qDebug() << "debut fichier\n";
 		// We'll parse the XML until we reach end of it.
-
-		while (!xml.atEnd() && !xml.hasError()) {
+        bool end = false;
+        while (!xml.atEnd() && !xml.hasError() && !end) {
 			// Read next element.
 			QXmlStreamReader::TokenType token = xml.readNext();
 			// If token is just StartDocument, we'll go to next.
 			if (token == QXmlStreamReader::StartDocument) continue;
 			// If token is StartElement, we'll see if we can read it.
-			if (token == QXmlStreamReader::StartElement) {
-				if (xml.name() == "notes") continue;
+            if (token == QXmlStreamReader::StartElement) {
+                if (xml.name() == "notes") continue;
 				// If it's named tache, we'll dig the information from there.
-
-				QString type = xml.name().toString();
-
+                //end = true;
+                QString type = xml.name().toString();
 				QString identificateur;
 				QString path = fin.fileName();
 				QString file = path.section("/", -1, -1);
@@ -124,7 +119,7 @@ void NotesManager::load() {
 					xml.readNext();
 				}
 				qDebug() << "ajout note " << identificateur << "\n";
-				Note* n = create(type, identificateur, parameters);
+                create(type, identificateur, parameters);
 			}
 		}
 		// Error handling.

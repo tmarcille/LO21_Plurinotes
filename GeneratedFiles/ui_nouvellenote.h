@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'nouvellenote.ui'
 **
-** Created by: Qt User Interface Compiler version 5.6.2
+** Created by: Qt User Interface Compiler version 5.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -33,7 +33,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *label;
     QLineEdit *lineEdit;
-    QRadioButton *Image;
+    QRadioButton *Media;
     QRadioButton *Article;
     QDialogButtonBox *buttonBox;
     QButtonGroup *buttonGroup;
@@ -42,7 +42,7 @@ public:
     {
         if (NouvelleNote->objectName().isEmpty())
             NouvelleNote->setObjectName(QStringLiteral("NouvelleNote"));
-        NouvelleNote->setWindowModality(Qt::WindowModal);
+        NouvelleNote->setWindowModality(Qt::ApplicationModal);
         NouvelleNote->resize(423, 173);
         gridLayout = new QGridLayout(NouvelleNote);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
@@ -63,13 +63,13 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        Image = new QRadioButton(NouvelleNote);
+        Media = new QRadioButton(NouvelleNote);
         buttonGroup = new QButtonGroup(NouvelleNote);
         buttonGroup->setObjectName(QStringLiteral("buttonGroup"));
-        buttonGroup->addButton(Image);
-        Image->setObjectName(QStringLiteral("Image"));
+        buttonGroup->addButton(Media);
+        Media->setObjectName(QStringLiteral("Media"));
 
-        verticalLayout->addWidget(Image);
+        verticalLayout->addWidget(Media);
 
         Article = new QRadioButton(NouvelleNote);
         buttonGroup->addButton(Article);
@@ -102,10 +102,10 @@ public:
 
     void retranslateUi(QDialog *NouvelleNote)
     {
-        NouvelleNote->setWindowTitle(QApplication::translate("NouvelleNote", "Dialog", 0));
-        label->setText(QApplication::translate("NouvelleNote", "Nom", 0));
-        Image->setText(QApplication::translate("NouvelleNote", "Image", 0));
-        Article->setText(QApplication::translate("NouvelleNote", "Article", 0));
+        NouvelleNote->setWindowTitle(QApplication::translate("NouvelleNote", "Dialog", Q_NULLPTR));
+        label->setText(QApplication::translate("NouvelleNote", "Nom", Q_NULLPTR));
+        Media->setText(QApplication::translate("NouvelleNote", "Media", Q_NULLPTR));
+        Article->setText(QApplication::translate("NouvelleNote", "Article", Q_NULLPTR));
     } // retranslateUi
 
 };

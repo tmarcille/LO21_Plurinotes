@@ -5,7 +5,7 @@
 TEMPLATE = app
 TARGET = PluriNotes
 DESTDIR = ../Win32/Debug
-QT += core xml widgets gui
+QT += core xml widgets gui multimedia multimediawidgets
 CONFIG += debug
 DEFINES += WIN64 QT_DLL QT_WIDGETS_LIB QT_XML_LIB
 INCLUDEPATH += ./GeneratedFiles \
@@ -22,7 +22,13 @@ HEADERS += ./Article.h \
     ./NoteManager.h \
     ./Notes.h \
     ./nouvellenote.h \
-    ./PluriNotes.h
+    ./PluriNotes.h \
+    Media.h \
+    MediaEditeur.h \
+    player.h \
+    playercontrols.h \
+    playlistmodel.h \
+    videowidget.h
 SOURCES += ./Article.cpp \
     ./ArticleEditeur.cpp \
     ./main.cpp \
@@ -30,7 +36,13 @@ SOURCES += ./Article.cpp \
     ./NoteManager.cpp \
     ./Notes.cpp \
     ./nouvellenote.cpp \
-    ./PluriNotes.cpp
+    ./PluriNotes.cpp \
+    Media.cpp \
+    MediaEditeur.cpp \
+    player.cpp \
+    playercontrols.cpp \
+    playlistmodel.cpp \
+    videowidget.cpp
 FORMS += ./PluriNotes.ui \
     ./nouvellenote.ui
 RESOURCES += PluriNotes.qrc

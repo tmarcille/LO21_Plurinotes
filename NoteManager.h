@@ -3,12 +3,14 @@
 #include <QString>
 #include "Notes.h"
 #include "Article.h"
+#include "Media.h"
 #include <QVector>
 #include <QFile>
 #include <QTextCodec>
 #include <QtXml>
 #include <QMessageBox>
 #include "ArticleEditeur.h"
+#include "MediaEditeur.h"
 
 class NotesException {
 public:
@@ -57,17 +59,31 @@ public:
 				text = param.at(param.indexOf("text") + 1);
 			note = new Article(id,title,text);			
 		}
+        if (type.toLower() == "media") {
+            QString desc = "";
+            if (param.contains("description"))
+                desc = param.at(param.indexOf("description") + 1);
+            note = new Media(id,title,desc);
+        }
 		addNote(note);
 		return note;
 	}
 
 	NoteEditeur* createEditor(Note* n) {
 		
-		NoteEditeur*edit = NULL;
+        qDebug()<<"ajout editeur";
+        NoteEditeur* edit = NULL;
 		QString type = n->getType();
 		if (type == "article") {
-			edit = new ArticleEditeur(*dynamic_cast<Article*>(n));			
+            edit = new ArticleEditeur(*dynamic_cast<Article*>(n));
+            qDebug()<<"article";
+
 		}
+        if (type == "media") {
+            edit = new MediaEditeur(*dynamic_cast<Media*>(n));
+            qDebug()<<"media";
+
+        }
 		return edit;
 	}
 
