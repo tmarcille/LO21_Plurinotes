@@ -13,7 +13,6 @@ INPUT(
 ./debug\playercontrols.o
 ./debug\playlistmodel.o
 ./debug\videowidget.o
-./debug\qrc_PluriNotes.o
 ./debug\moc_ArticleEditeur.o
 ./debug\moc_NoteEditeur.o
 ./debug\moc_nouvellenote.o

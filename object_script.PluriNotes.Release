@@ -13,7 +13,6 @@ INPUT(
 ./release\playercontrols.o
 ./release\playlistmodel.o
 ./release\videowidget.o
-./release\qrc_PluriNotes.o
 ./release\moc_ArticleEditeur.o
 ./release\moc_NoteEditeur.o
 ./release\moc_nouvellenote.o
