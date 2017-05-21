@@ -2,7 +2,7 @@
 
 
 
-ArticleEditeur::ArticleEditeur(Article& a, QWidget *parent) : NoteEditeur(a,parent)
+ArticleEditeur::ArticleEditeur(Article* a, QWidget *parent) : NoteEditeur(a,parent)
 {
 	textl = new QLabel("Text");
 
@@ -12,7 +12,7 @@ ArticleEditeur::ArticleEditeur(Article& a, QWidget *parent) : NoteEditeur(a,pare
 
     centralLayout->addWidget(text);
 
-	text->setText(a.getText());
+    text->setText(a->getText());
 	
 	QObject::connect(text, SIGNAL(textChanged()), this, SLOT(activerSave()));
 
@@ -24,8 +24,10 @@ ArticleEditeur::~ArticleEditeur()
 
 }
 void ArticleEditeur::sauvegardeAttributs()
-{	
-	dynamic_cast<Article&>(getNote()).setText(text->toPlainText());
+{
+    if (dynamic_cast<Article*>(getNote()))
+        qDebug()<<"Article";
+    dynamic_cast<Article*>(getNote())->setText(text->toPlainText());
 }
 
 

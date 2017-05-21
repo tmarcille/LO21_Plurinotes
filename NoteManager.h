@@ -61,9 +61,12 @@ public:
 		}
         if (type.toLower() == "media") {
             QString desc = "";
+            QString file = "";
             if (param.contains("description"))
                 desc = param.at(param.indexOf("description") + 1);
-            note = new Media(id,title,desc);
+            if (param.contains("file"))
+                file = param.at(param.indexOf("file") + 1);
+            note = new Media(id,title,desc,file);
         }
 		addNote(note);
 		return note;
@@ -75,12 +78,12 @@ public:
         NoteEditeur* edit = NULL;
 		QString type = n->getType();
 		if (type == "article") {
-            edit = new ArticleEditeur(*dynamic_cast<Article*>(n));
+            edit = new ArticleEditeur(dynamic_cast<Article*>(n));
             qDebug()<<"article";
 
 		}
         if (type == "media") {
-            edit = new MediaEditeur(*dynamic_cast<Media*>(n));
+            edit = new MediaEditeur(dynamic_cast<Media*>(n));
             qDebug()<<"media";
 
         }

@@ -10,16 +10,10 @@ INPUT(
 ./release\Media.o
 ./release\MediaEditeur.o
 ./release\player.o
-./release\playercontrols.o
-./release\playlistmodel.o
-./release\videowidget.o
 ./release\moc_ArticleEditeur.o
 ./release\moc_NoteEditeur.o
 ./release\moc_nouvellenote.o
 ./release\moc_PluriNotes.o
 ./release\moc_MediaEditeur.o
 ./release\moc_player.o
-./release\moc_playercontrols.o
-./release\moc_playlistmodel.o
-./release\moc_videowidget.o
 );

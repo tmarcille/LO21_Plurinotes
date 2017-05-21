@@ -38,15 +38,15 @@ private:
 
 protected :
     QHBoxLayout *centralLayout;
-	Note& getNote()  { return *note; }
+    Note* getNote()  { return note; }
 
 public:
-	NoteEditeur(Note& a, QWidget *parent = 0);
+    NoteEditeur(Note* a, QWidget *parent = 0);
 	virtual ~NoteEditeur();
 	const QString getId() const { return "a"; }
 
 
-	public slots :
+public slots :
 	void activerSave();
 	void sauvegarde();
 	void verifSave();
@@ -55,6 +55,7 @@ public:
 class NoteEditeurFermeture : public QDialog
 {
 public:
+
 	NoteEditeurFermeture(QWidget *parent = 0) :QDialog(parent)
 	{
 		Vlayout = new QVBoxLayout(this);

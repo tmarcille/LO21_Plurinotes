@@ -15,9 +15,9 @@ PluriNotes::PluriNotes(QWidget *parent)
 
 void PluriNotes::closeEvent(QCloseEvent *event)
 {
-	ArticleEditeur* articleEdit = dynamic_cast<ArticleEditeur*>(ui.horizontalLayout->itemAt(1)->widget());
-	if (articleEdit) {
-		articleEdit->verifSave();
+    NoteEditeur* noteEdit = dynamic_cast<NoteEditeur*>(ui.horizontalLayout->itemAt(1)->widget());
+    if (noteEdit) {
+        noteEdit->verifSave();
 	}
 }
 

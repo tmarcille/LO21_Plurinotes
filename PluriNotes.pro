@@ -16,10 +16,7 @@ HEADERS += Article.h \
     PluriNotes.h \
     Media.h \
     MediaEditeur.h \
-    player.h \
-    playercontrols.h \
-    playlistmodel.h \
-    videowidget.h
+    player.h
 SOURCES += Article.cpp \
     ArticleEditeur.cpp \
     main.cpp \
@@ -30,10 +27,7 @@ SOURCES += Article.cpp \
     PluriNotes.cpp \
     Media.cpp \
     MediaEditeur.cpp \
-    player.cpp \
-    playercontrols.cpp \
-    playlistmodel.cpp \
-    videowidget.cpp
+    player.cpp
 FORMS += PluriNotes.ui \
     nouvellenote.ui
 

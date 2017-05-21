@@ -10,16 +10,10 @@ INPUT(
 ./debug\Media.o
 ./debug\MediaEditeur.o
 ./debug\player.o
-./debug\playercontrols.o
-./debug\playlistmodel.o
-./debug\videowidget.o
 ./debug\moc_ArticleEditeur.o
 ./debug\moc_NoteEditeur.o
 ./debug\moc_nouvellenote.o
 ./debug\moc_PluriNotes.o
 ./debug\moc_MediaEditeur.o
 ./debug\moc_player.o
-./debug\moc_playercontrols.o
-./debug\moc_playlistmodel.o
-./debug\moc_videowidget.o
 );

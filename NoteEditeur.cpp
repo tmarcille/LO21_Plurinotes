@@ -1,6 +1,6 @@
 #include "NoteEditeur.h"
 
-NoteEditeur::NoteEditeur(Note& a, QWidget *parent) : QWidget(parent), note(&a)
+NoteEditeur::NoteEditeur(Note* a, QWidget *parent) : QWidget(parent), note(a)
 {
 	idl = new QLabel("Identificateur");
 	titrel = new QLabel("Titre");
@@ -30,8 +30,8 @@ NoteEditeur::NoteEditeur(Note& a, QWidget *parent) : QWidget(parent), note(&a)
     this->setLayout(mainLayout);
 
 	id->setReadOnly(true);
-	id->setText(a.getId());
-	titre->setText(a.getTitle());
+    id->setText(a->getId());
+    titre->setText(a->getTitle());
 	save->setEnabled(false);
 
 	QObject::connect(titre, SIGNAL(textChanged(QString)), this, SLOT(activerSave()));
@@ -42,8 +42,8 @@ NoteEditeur::NoteEditeur(Note& a, QWidget *parent) : QWidget(parent), note(&a)
 
 NoteEditeur::~NoteEditeur()
 {
-
 }
+
 void NoteEditeur::sauvegarde()
 {
 	note->setTitle(titre->text());
@@ -53,6 +53,7 @@ void NoteEditeur::sauvegarde()
 	
 	save->setDisabled(true);
 }
+
 void NoteEditeur::verifSave()  {
 
 	if (save->isEnabled()) {

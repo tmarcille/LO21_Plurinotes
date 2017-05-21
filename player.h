@@ -41,76 +41,44 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "videowidget.h"
-
 #include <QWidget>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include <QLineEdit>
+#include <QSlider>
+#include <QAbstractButton>
+#include <QLabel>
+#include <QVideoWidget>
 
-QT_BEGIN_NAMESPACE
-class QAbstractItemView;
-class QLabel;
-class QMediaPlayer;
-class QModelIndex;
-class QPushButton;
-class QSlider;
-class QVideoProbe;
-class QVideoWidget;
-QT_END_NAMESPACE
 
-class PlaylistModel;
-
-class Player : public QWidget
+class VideoPlayer : public QWidget
 {
     Q_OBJECT
-
 public:
-    Player(QWidget *parent = 0);
-    ~Player();
+    VideoPlayer(QWidget *parent = 0);
+    ~VideoPlayer();
 
-    bool isPlayerAvailable() const;
+    void setUrl(const QUrl &url);
+    QString getFile() const;
 
-    void addToPlaylist(const QList<QUrl> urls);
-
-signals:
-    void fullScreenChanged(bool fullScreen);
+public slots:
+    void play();
 
 private slots:
-    void open();
+    void mediaStateChanged(QMediaPlayer::State state);
+    void positionChanged(qint64 position);
     void durationChanged(qint64 duration);
-    void positionChanged(qint64 progress);
-    void metaDataChanged();
+    void setPosition(int position);
+    void handleError();
 
-    void seek(int seconds);
-    void jump(const QModelIndex &index);
-    void playlistPositionChanged(int);
-
-    void statusChanged(QMediaPlayer::MediaStatus status);
-    void bufferingProgress(int progress);
-    void videoAvailableChanged(bool available);
-
-    void displayErrorMessage();
+signals:
+    void fileChanged();
 
 private:
-    void setTrackInfo(const QString &info);
-    void setStatusInfo(const QString &info);
-    void handleCursor(QMediaPlayer::MediaStatus status);
-    void updateDurationInfo(qint64 currentInfo);
-
-    QMediaPlayer *player;
-    QMediaPlaylist *playlist;
-    VideoWidget *videoWidget;
-    QLabel *coverLabel;
-    QSlider *slider;
-    QLabel *labelDuration;
-    QPushButton *fullScreenButton;
-    QVideoProbe *probe;
-
-    PlaylistModel *playlistModel;
-    QAbstractItemView *playlistView;
-    QString trackInfo;
-    QString statusInfo;
-    qint64 duration;
+    QMediaPlayer mediaPlayer;
+    QAbstractButton *playButton;
+    QSlider *positionSlider;
+    QLabel *errorLabel;
 };
 
 #endif // PLAYER_H

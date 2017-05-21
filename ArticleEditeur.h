@@ -13,7 +13,7 @@ private:
 	void sauvegardeAttributs();
 
 public:
-	ArticleEditeur(Article& a, QWidget *parent = 0);
+    ArticleEditeur(Article* a, QWidget *parent = 0);
 	~ArticleEditeur();
 
 
