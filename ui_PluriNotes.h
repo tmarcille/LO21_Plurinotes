@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QListWidget>
@@ -31,8 +30,10 @@ class Ui_PluriNotesClass
 public:
     QAction *actionNote;
     QAction *actionOuvrir;
+    QAction *actionDossier_de_stockage;
+    QAction *actionOptions;
     QWidget *centralWidget;
-    QGridLayout *gridLayout;
+    QHBoxLayout *horizontalLayout_2;
     QHBoxLayout *horizontalLayout;
     QListWidget *listWidget;
     QWidget *widget2;
@@ -53,12 +54,16 @@ public:
         actionNote->setEnabled(false);
         actionOuvrir = new QAction(PluriNotesClass);
         actionOuvrir->setObjectName(QStringLiteral("actionOuvrir"));
+        actionDossier_de_stockage = new QAction(PluriNotesClass);
+        actionDossier_de_stockage->setObjectName(QStringLiteral("actionDossier_de_stockage"));
+        actionOptions = new QAction(PluriNotesClass);
+        actionOptions->setObjectName(QStringLiteral("actionOptions"));
         centralWidget = new QWidget(PluriNotesClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        gridLayout = new QGridLayout(centralWidget);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        horizontalLayout_2 = new QHBoxLayout(centralWidget);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
@@ -82,7 +87,7 @@ public:
         horizontalLayout->addWidget(widget2);
 
 
-        gridLayout->addLayout(horizontalLayout, 0, 0, 1, 1);
+        horizontalLayout_2->addLayout(horizontalLayout);
 
         PluriNotesClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(PluriNotesClass);
@@ -107,7 +112,8 @@ public:
         menuBar->addAction(menuFichier->menuAction());
         menuBar->addAction(menuEdition->menuAction());
         menuFichier->addAction(menuNouveau->menuAction());
-        menuFichier->addAction(actionOuvrir);
+        menuFichier->addSeparator();
+        menuFichier->addAction(actionOptions);
         menuNouveau->addAction(actionNote);
 
         retranslateUi(PluriNotesClass);
@@ -120,6 +126,8 @@ public:
         PluriNotesClass->setWindowTitle(QApplication::translate("PluriNotesClass", "PluriNotes", Q_NULLPTR));
         actionNote->setText(QApplication::translate("PluriNotesClass", "Note", Q_NULLPTR));
         actionOuvrir->setText(QApplication::translate("PluriNotesClass", "Ouvrir...", Q_NULLPTR));
+        actionDossier_de_stockage->setText(QApplication::translate("PluriNotesClass", "Dossier de stockage", Q_NULLPTR));
+        actionOptions->setText(QApplication::translate("PluriNotesClass", "Settings...", Q_NULLPTR));
         menuFichier->setTitle(QApplication::translate("PluriNotesClass", "Fichiers", Q_NULLPTR));
         menuNouveau->setTitle(QApplication::translate("PluriNotesClass", "Nouveau", Q_NULLPTR));
         menuEdition->setTitle(QApplication::translate("PluriNotesClass", "Edition", Q_NULLPTR));

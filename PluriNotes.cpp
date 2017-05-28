@@ -8,10 +8,38 @@ PluriNotes::PluriNotes(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	QObject::connect(ui.actionOuvrir, SIGNAL(triggered()), this, SLOT(ouvrirProjet()));
+
+    m_sSettingsFile = QDir::currentPath() + "/config.ini";
+
+
+    QFileInfo check_file(m_sSettingsFile);
+
+    if (!check_file.exists()){
+        QSettings* settings = new QSettings(m_sSettingsFile, QSettings::IniFormat);
+        settings->setValue("folder", "");
+        settings->sync();
+        qDebug()<<"file created"<<endl;
+    }
+
+    loadSettings();
+    ouvrirProjet();
 	QObject::connect(ui.actionNote, SIGNAL(triggered()), this, SLOT(nouvelleNote()));
+    QObject::connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(openSettings()));
 }
 
+
+void PluriNotes::loadSettings()
+{
+
+    QSettings settings(m_sSettingsFile, QSettings::IniFormat);
+    QString sText = settings.value("folder", "").toString();
+
+    NotesManager& m = NotesManager::getManager();
+    m.setFoldername(sText);
+
+    qDebug()<<"settings loaded"<<settings.value("folder", "").toString()<<endl;
+
+}
 
 void PluriNotes::closeEvent(QCloseEvent *event)
 {
@@ -21,15 +49,34 @@ void PluriNotes::closeEvent(QCloseEvent *event)
 	}
 }
 
-void PluriNotes::ouvrirProjet() {
+void PluriNotes::openSettings()
+{
+    SettingsDialog* x = new SettingsDialog(m_sSettingsFile);
+    if(x->exec() == QDialog::Accepted){
 
-    //a faire : dossier fixe, changeable dans les parametres
-    QString dir = QFileDialog::getExistingDirectory();
+        //si on a sauvegardé des changements dans les paramètres, on recharge le projet
+
+
+
+        QWidget* old = ui.horizontalLayout->itemAt(1)->widget();
+        NoteEditeur* noteEdit = dynamic_cast<NoteEditeur*>(old);
+        if (noteEdit){
+            noteEdit->verifSave();
+            ui.horizontalLayout->replaceWidget(old,new QWidget());
+            delete old;
+        }
+        NotesManager::freeManager();
+        ui.listWidget->clear();
+        loadSettings();
+        ouvrirProjet();
+    }
+}
+
+void PluriNotes::ouvrirProjet() {
 
     NotesManager& m = NotesManager::getManager();
 
-    m.setFoldername(dir);
-    qDebug()<<dir;
+    qDebug()<<"folder:"<<m.getFoldername();
 
 	m.load();
 	for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
@@ -40,15 +87,6 @@ void PluriNotes::ouvrirProjet() {
 	//On active le bouton nouvelle note
 	ui.actionNote->setEnabled(true);
 }
-
-
-
-PluriNotes::~PluriNotes()
-{
-	NotesManager::freeManager();
-}
-
-
 
 void PluriNotes::ouvrirNote(QListWidgetItem* item) {
 
@@ -79,8 +117,6 @@ void PluriNotes::ouvrirNote(QListWidgetItem* item) {
 	//QList<QMdiSubWindow*> fenetres = ui.mdiArea->subWindowList();
 }
 
-
-
 void PluriNotes::nouvelleNote()
 {
 	NouvelleNote* x = new NouvelleNote();
@@ -96,4 +132,9 @@ void PluriNotes::nouvelleNote()
 
 	}
 	delete x;
+}
+
+PluriNotes::~PluriNotes()
+{
+    NotesManager::freeManager();
 }

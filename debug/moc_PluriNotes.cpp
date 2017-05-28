@@ -32,7 +32,7 @@ struct qt_meta_stringdata_PluriNotes_t {
 static const qt_meta_stringdata_PluriNotes_t qt_meta_stringdata_PluriNotes = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "PluriNotes"
-QT_MOC_LITERAL(1, 11, 12), // "ouvrirProjet"
+QT_MOC_LITERAL(1, 11, 12), // "openSettings"
 QT_MOC_LITERAL(2, 24, 0), // ""
 QT_MOC_LITERAL(3, 25, 10), // "ouvrirNote"
 QT_MOC_LITERAL(4, 36, 16), // "QListWidgetItem*"
@@ -40,7 +40,7 @@ QT_MOC_LITERAL(5, 53, 4), // "item"
 QT_MOC_LITERAL(6, 58, 12) // "nouvelleNote"
 
     },
-    "PluriNotes\0ouvrirProjet\0\0ouvrirNote\0"
+    "PluriNotes\0openSettings\0\0ouvrirNote\0"
     "QListWidgetItem*\0item\0nouvelleNote"
 };
 #undef QT_MOC_LITERAL
@@ -77,7 +77,7 @@ void PluriNotes::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         PluriNotes *_t = static_cast<PluriNotes *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->ouvrirProjet(); break;
+        case 0: _t->openSettings(); break;
         case 1: _t->ouvrirNote((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 2: _t->nouvelleNote(); break;
         default: ;

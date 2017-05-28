@@ -15,21 +15,30 @@
 #include "Notes.h"
 #include <QDirIterator>
 #include "NoteManager.h"
+#include "SettingsDialog.h"
 
 class PluriNotes : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	PluriNotes(QWidget *parent = Q_NULLPTR);
-	
-	~PluriNotes();
+    explicit PluriNotes(QWidget *parent = Q_NULLPTR);
+    virtual ~PluriNotes();
+    void ouvrirProjet();
+    void loadSettings();
+
 private:
+
 	Ui::PluriNotesClass ui;
 	void closeEvent(QCloseEvent * event);
 
+
+    QString m_sSettingsFile;
+
 public slots:
-	void ouvrirProjet();
+
+    void openSettings();
 	void ouvrirNote(QListWidgetItem* item);
 	void nouvelleNote();
+
 };

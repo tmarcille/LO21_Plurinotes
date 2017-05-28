@@ -6,6 +6,7 @@
 #include <QtXml>
 #include <QVector>
 #include <QMessageBox>
+#include <iostream>
 
 class Note {
 

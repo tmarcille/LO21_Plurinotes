@@ -1,47 +1,43 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
+# Created by https://www.gitignore.io/api/qt
 
-# Folder config file
-Desktop.ini
+### Qt ###
+# C++ objects and libs
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.so
+*.dll
+*.dylib
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
+# Qt-es
 
-# Windows shortcuts
-*.lnk
+/.qmake.cache
+/.qmake.stash
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+*.moc
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+Makefile*
+*build-*
 
-# =========================
-# Operating System Files
-# =========================
+# QtCreator
 
-# OSX
-# =========================
+*.autosave
 
-.DS_Store
-.AppleDouble
-.LSOverride
+# QtCtreator Qml
+*.qmlproject.user
+*.qmlproject.user.*
 
-# Thumbnails
-._*
+# QtCtreator CMake
+CMakeLists.txt.user*
 
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
 
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
+# End of https://www.gitignore.io/api/qt

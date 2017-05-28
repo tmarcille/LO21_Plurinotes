@@ -16,7 +16,8 @@ HEADERS += Article.h \
     PluriNotes.h \
     Media.h \
     MediaEditeur.h \
-    player.h
+    player.h \
+    SettingsDialog.h
 SOURCES += Article.cpp \
     ArticleEditeur.cpp \
     main.cpp \
@@ -27,7 +28,9 @@ SOURCES += Article.cpp \
     PluriNotes.cpp \
     Media.cpp \
     MediaEditeur.cpp \
-    player.cpp
+    player.cpp \
+    SettingsDialog.cpp
 FORMS += PluriNotes.ui \
-    nouvellenote.ui
+    nouvellenote.ui \
+    SettingsDialog.ui
 

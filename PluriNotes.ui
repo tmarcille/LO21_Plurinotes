@@ -14,8 +14,8 @@
    <string>PluriNotes</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="sizeConstraint">
        <enum>QLayout::SetDefaultConstraint</enum>
@@ -75,7 +75,8 @@
      <addaction name="actionNote"/>
     </widget>
     <addaction name="menuNouveau"/>
-    <addaction name="actionOuvrir"/>
+    <addaction name="separator"/>
+    <addaction name="actionOptions"/>
    </widget>
    <widget class="QMenu" name="menuEdition">
     <property name="title">
@@ -110,10 +111,18 @@
     <string>Ouvrir...</string>
    </property>
   </action>
+  <action name="actionDossier_de_stockage">
+   <property name="text">
+    <string>Dossier de stockage</string>
+   </property>
+  </action>
+  <action name="actionOptions">
+   <property name="text">
+    <string>Settings...</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="PluriNotes.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
