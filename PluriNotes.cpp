@@ -16,7 +16,7 @@ PluriNotes::PluriNotes(QWidget *parent)
 
     if (!check_file.exists()){
         QSettings* settings = new QSettings(m_sSettingsFile, QSettings::IniFormat);
-        settings->setValue("folder", "");
+        settings->setValue("folder", QDir::currentPath());
         settings->sync();
         qDebug()<<"file created"<<endl;
     }

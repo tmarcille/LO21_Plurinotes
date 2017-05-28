@@ -40,4 +40,9 @@ Makefile*
 CMakeLists.txt.user*
 
 
+<<<<<<< HEAD
 # End of https://www.gitignore.io/api/qt
+=======
+# End of https://www.gitignore.io/api/qt
+
+>>>>>>> origin/master
