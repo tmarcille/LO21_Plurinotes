@@ -3,6 +3,7 @@
 #include "nouvellenote.h"
 #include <qDebug>
 #include <QList>
+#include <QTabWidget>
 
 PluriNotes::PluriNotes(QWidget *parent)
 	: QMainWindow(parent)
@@ -25,6 +26,7 @@ PluriNotes::PluriNotes(QWidget *parent)
     ouvrirProjet();
 	QObject::connect(ui.actionNote, SIGNAL(triggered()), this, SLOT(nouvelleNote()));
     QObject::connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(openSettings()));
+
 }
 
 
@@ -90,31 +92,56 @@ void PluriNotes::ouvrirProjet() {
 
 void PluriNotes::ouvrirNote(QListWidgetItem* item) {
 
+    /*
 	QWidget* old = ui.horizontalLayout->itemAt(1)->widget();
 	NoteEditeur* noteEdit = dynamic_cast<NoteEditeur*>(old);
-
+    */
 	//On lance la fenetre de verification de fermeture si on ferme un article, si le bouton de sauvegarde est activé, et si la nouvelle note est différente de l'ancienne.
-	if (noteEdit && noteEdit->getId()!=item->text()) {
+    /*if (noteEdit && noteEdit->getId()!=item->text()) {
 		noteEdit->verifSave();
-	}
-	//si on deja sur la note, on ne fait rien
-	else if (noteEdit && noteEdit->getId() == item->text()) {
-		return;
-	}
+    }*/
 
 	NotesManager& m = NotesManager::getManager();
 	Note& n = m.getNote(item->text());
 
 	NoteEditeur* fenetre = m.createEditor(&n);
 
-	ui.horizontalLayout->replaceWidget(old,fenetre);
-	delete old;
+    //si la note est deja ouverte, on met le focus sur celle-ci
+    for (int i = 0; i< ui.tabWidget->count(); i++){
+        if (ui.tabWidget->tabText(i) == item->text() || ui.tabWidget->tabText(i) == "*"+item->text()){
+            ui.tabWidget->setCurrentIndex(i);
+            return;
+        }
+    }
+    connect(fenetre,&NoteEditeur::unsavedChanges, this,&PluriNotes::unsavedChanges);
+    connect(fenetre,&NoteEditeur::savedChanges, this,&PluriNotes::saveChanges);
+
+
+    //sinon on l'ajoute
+    qDebug()<<fenetre->getId();
+    ui.tabWidget->addTab(fenetre,fenetre->getId());
+    ui.tabWidget->setCurrentWidget(fenetre);
+
+    //delete old;
 	//**********Code pour Mdi window
 
 	//QMdiSubWindow* sousFenetre = new QMdiSubWindow;
 	//sousFenetre->setWidget(fenetre);
 	//
 	//QList<QMdiSubWindow*> fenetres = ui.mdiArea->subWindowList();
+}
+
+void PluriNotes::unsavedChanges(NoteEditeur* f){
+
+    ui.tabWidget->setTabText(ui.tabWidget->indexOf(f),"*"+f->getId());
+
+}
+
+void PluriNotes::saveChanges(NoteEditeur* f){
+
+    ui.tabWidget->setTabText(ui.tabWidget->indexOf(f),f->getId());
+    NotesManager& m = NotesManager::getManager();
+    m.saveNote(f->getId());
 }
 
 void PluriNotes::nouvelleNote()

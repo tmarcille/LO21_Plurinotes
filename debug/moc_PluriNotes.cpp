@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_PluriNotes_t {
-    QByteArrayData data[7];
-    char stringdata0[71];
+    QByteArrayData data[11];
+    char stringdata0[113];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,11 +37,16 @@ QT_MOC_LITERAL(2, 24, 0), // ""
 QT_MOC_LITERAL(3, 25, 10), // "ouvrirNote"
 QT_MOC_LITERAL(4, 36, 16), // "QListWidgetItem*"
 QT_MOC_LITERAL(5, 53, 4), // "item"
-QT_MOC_LITERAL(6, 58, 12) // "nouvelleNote"
+QT_MOC_LITERAL(6, 58, 12), // "nouvelleNote"
+QT_MOC_LITERAL(7, 71, 14), // "unsavedChanges"
+QT_MOC_LITERAL(8, 86, 12), // "NoteEditeur*"
+QT_MOC_LITERAL(9, 99, 1), // "f"
+QT_MOC_LITERAL(10, 101, 11) // "saveChanges"
 
     },
     "PluriNotes\0openSettings\0\0ouvrirNote\0"
-    "QListWidgetItem*\0item\0nouvelleNote"
+    "QListWidgetItem*\0item\0nouvelleNote\0"
+    "unsavedChanges\0NoteEditeur*\0f\0saveChanges"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,7 +56,7 @@ static const uint qt_meta_data_PluriNotes[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -59,14 +64,18 @@ static const uint qt_meta_data_PluriNotes[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x0a /* Public */,
-       3,    1,   30,    2, 0x0a /* Public */,
-       6,    0,   33,    2, 0x0a /* Public */,
+       1,    0,   39,    2, 0x0a /* Public */,
+       3,    1,   40,    2, 0x0a /* Public */,
+       6,    0,   43,    2, 0x0a /* Public */,
+       7,    1,   44,    2, 0x0a /* Public */,
+      10,    1,   47,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 4,    5,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 8,    9,
+    QMetaType::Void, 0x80000000 | 8,    9,
 
        0        // eod
 };
@@ -80,7 +89,27 @@ void PluriNotes::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->openSettings(); break;
         case 1: _t->ouvrirNote((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 2: _t->nouvelleNote(); break;
+        case 3: _t->unsavedChanges((*reinterpret_cast< NoteEditeur*(*)>(_a[1]))); break;
+        case 4: _t->saveChanges((*reinterpret_cast< NoteEditeur*(*)>(_a[1]))); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 3:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< NoteEditeur* >(); break;
+            }
+            break;
+        case 4:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< NoteEditeur* >(); break;
+            }
+            break;
         }
     }
 }
@@ -110,13 +139,13 @@ int PluriNotes::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
-            *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        if (_id < 5)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 5;
     }
     return _id;
 }

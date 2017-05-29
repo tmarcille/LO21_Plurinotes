@@ -20,6 +20,7 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
@@ -36,7 +37,9 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QHBoxLayout *horizontalLayout;
     QListWidget *listWidget;
-    QWidget *widget2;
+    QTabWidget *tabWidget;
+    QWidget *tab;
+    QWidget *tab_2;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuNouveau;
@@ -81,13 +84,21 @@ public:
 
         horizontalLayout->addWidget(listWidget);
 
-        widget2 = new QWidget(centralWidget);
-        widget2->setObjectName(QStringLiteral("widget2"));
-
-        horizontalLayout->addWidget(widget2);
-
 
         horizontalLayout_2->addLayout(horizontalLayout);
+
+        tabWidget = new QTabWidget(centralWidget);
+        tabWidget->setObjectName(QStringLiteral("tabWidget"));
+        tabWidget->setTabShape(QTabWidget::Rounded);
+        tabWidget->setTabsClosable(true);
+        tab = new QWidget();
+        tab->setObjectName(QStringLiteral("tab"));
+        tabWidget->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QStringLiteral("tab_2"));
+        tabWidget->addTab(tab_2, QString());
+
+        horizontalLayout_2->addWidget(tabWidget);
 
         PluriNotesClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(PluriNotesClass);
@@ -128,6 +139,8 @@ public:
         actionOuvrir->setText(QApplication::translate("PluriNotesClass", "Ouvrir...", Q_NULLPTR));
         actionDossier_de_stockage->setText(QApplication::translate("PluriNotesClass", "Dossier de stockage", Q_NULLPTR));
         actionOptions->setText(QApplication::translate("PluriNotesClass", "Settings...", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("PluriNotesClass", "Tab 1", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("PluriNotesClass", "Tab 2", Q_NULLPTR));
         menuFichier->setTitle(QApplication::translate("PluriNotesClass", "Fichiers", Q_NULLPTR));
         menuNouveau->setTitle(QApplication::translate("PluriNotesClass", "Nouveau", Q_NULLPTR));
         menuEdition->setTitle(QApplication::translate("PluriNotesClass", "Edition", Q_NULLPTR));

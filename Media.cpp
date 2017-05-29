@@ -3,7 +3,7 @@
 #include <QTextCodec>
 #include <QtXml>
 #include <QMessageBox>
-
+#include <string>
 
 
 void Media::saveAttributesInFile(QXmlStreamWriter & stream) const

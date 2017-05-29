@@ -1,5 +1,7 @@
 #include "NoteEditeur.h"
 
+QVector<NoteEditeur*> NoteEditeur::editeurs= {};
+
 NoteEditeur::NoteEditeur(Note* a, QWidget *parent) : QWidget(parent), note(a)
 {
 	idl = new QLabel("Identificateur");
@@ -37,11 +39,13 @@ NoteEditeur::NoteEditeur(Note* a, QWidget *parent) : QWidget(parent), note(a)
 	QObject::connect(titre, SIGNAL(textChanged(QString)), this, SLOT(activerSave()));
 	QObject::connect(save, SIGNAL(clicked()), this, SLOT(sauvegarde()));
 
+    editeurs.push_back(this);
 }
 
 
 NoteEditeur::~NoteEditeur()
 {
+    editeurs.remove(editeurs.indexOf(this));
 }
 
 void NoteEditeur::sauvegarde()
@@ -49,9 +53,10 @@ void NoteEditeur::sauvegarde()
 	note->setTitle(titre->text());
 	sauvegardeAttributs();
 
-	//note->saveInFile(); imposssible car foldername dans NoteManager solutions : stocker le foldername autre part, ou le chemin entier de la note dans chaque note ?
+    //note->saveInFile(); imposssible car foldername dans NoteManager. Solutions : stocker le foldername autre part, ou le chemin entier de la note dans chaque note ?
 	
 	save->setDisabled(true);
+    emit savedChanges(this);
 }
 
 void NoteEditeur::verifSave()  {
@@ -67,4 +72,5 @@ void NoteEditeur::verifSave()  {
 }
 void NoteEditeur::activerSave() {
 	save->setEnabled(true);
+    emit unsavedChanges(this);
 }

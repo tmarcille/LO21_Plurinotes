@@ -37,11 +37,12 @@ private:
 	NotesManager& operator=(const NotesManager& m);
 
 public:
-	Note& getNote(const QString& id); // return the article with identificator id (create a new one if it not exists)
+    Note& getNote(const QString& id) const; // return the article with identificator id (create a new one if it not exists)
 	QString getFoldername() const { return foldername; }
 	void setFoldername(const QString& f) { foldername = f; }
 	void load(); // load notes from file filename
 	void saveAllNotes() const; // save notes in file filename
+    void saveNote(const QString& id) const;
 	static NotesManager& getManager();
 	static void freeManager(); // free the memory used by the NotesManager; it can be rebuild later
 	
@@ -74,6 +75,24 @@ public:
 
 	NoteEditeur* createEditor(Note* n) {
 		
+
+
+       /************************** vector des editeurs ouverts dans le projet, commenté ou cas où il serait utile
+        * plus tard.
+        * Si suppression, supprimer aussi le vector static dans noteEditeur.
+
+        QVector<NoteEditeur*>::iterator it;
+
+        for (it = NoteEditeur::editeurs.begin(); it!=NoteEditeur::editeurs.end(); it++ ){
+
+            if((*it)->getId()==n->getId()){
+
+                qDebug()<<"returned existing editor";
+                return *it;
+
+            }
+        }
+*/
         qDebug()<<"ajout editeur";
         NoteEditeur* edit = NULL;
 		QString type = n->getType();

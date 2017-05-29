@@ -36,6 +36,9 @@ private:
 
 	virtual void sauvegardeAttributs() = 0;
 
+    NoteEditeur(NoteEditeur& );
+    NoteEditeur& operator=(NoteEditeur const&);
+
 protected :
     QHBoxLayout *centralLayout;
     Note* getNote()  { return note; }
@@ -43,8 +46,12 @@ protected :
 public:
     NoteEditeur(Note* a, QWidget *parent = 0);
 	virtual ~NoteEditeur();
-	const QString getId() const { return "a"; }
+    const QString getId() const { return note->getId(); }
+    static QVector<NoteEditeur*> editeurs;
 
+signals:
+    void unsavedChanges(NoteEditeur*);
+    void savedChanges(NoteEditeur*);
 
 public slots :
 	void activerSave();

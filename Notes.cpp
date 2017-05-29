@@ -33,6 +33,7 @@ void Note::saveInFile(QString& folder) const
 	stream.writeEndDocument();
 	newfile.close();
 
+    qDebug()<<"saved note"<<id<<"in file";
 
 }
 

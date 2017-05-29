@@ -33,7 +33,7 @@ void NotesManager::addNote(Note* a) {
 }
 
 
-Note& NotesManager::getNote(const QString& id){
+Note& NotesManager::getNote(const QString& id) const{
 
     // si l'article existe déjà, on en renvoie une référence
     
@@ -63,6 +63,12 @@ void NotesManager::saveAllNotes() const {
 	}
 }
 
+void NotesManager::saveNote(const QString& id) const {
+
+    Note& note = getNote(id);
+    note.saveInFile(foldername);
+
+}
 
 
 void NotesManager::load() {
@@ -100,6 +106,7 @@ void NotesManager::load() {
 				identificateur = file.section(".", 0, 0);
 				qDebug() << "id=" << identificateur << "\n";
 
+                //dans le vecteur parameters sera contenu tout les parametres lus dans la note sous la forme: attribut1, valeur1, attribut2, valeur2...
 				QVector<QString> parameters;
 
 				QXmlStreamAttributes attributes = xml.attributes();

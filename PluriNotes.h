@@ -40,5 +40,6 @@ public slots:
     void openSettings();
 	void ouvrirNote(QListWidgetItem* item);
 	void nouvelleNote();
-
+    void unsavedChanges(NoteEditeur* f);
+    void saveChanges(NoteEditeur* f);
 };
