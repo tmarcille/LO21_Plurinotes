@@ -14,6 +14,9 @@
 #include <QObject>
 #include <QMessageBox>
 
+
+
+
 class NoteEditeur : public QWidget
 {
 	Q_OBJECT
@@ -36,21 +39,32 @@ private:
 
 	virtual void sauvegardeAttributs() = 0;
 
+    NoteEditeur(NoteEditeur& );
+    NoteEditeur& operator=(NoteEditeur const&);
+
 protected :
     QHBoxLayout *centralLayout;
-    Note* getNote()  { return note; }
+    Note* getNote() const { return note; }
 
 public:
     NoteEditeur(Note* a, QWidget *parent = 0);
 	virtual ~NoteEditeur();
-	const QString getId() const { return "a"; }
+    const QString getId() const { return id->text(); }
+    void saveNoteInFile() const { getNote()->saveInFile();}
+    static QVector<NoteEditeur*> editeurs;
 
+signals:
+    void currentlyEditing(NoteEditeur* f);
+    void finishedEditing(NoteEditeur* f);
 
 public slots :
 	void activerSave();
 	void sauvegarde();
 	void verifSave();
 };
+
+
+//fenetre de verification de sauvegarde a la fermeture
 
 class NoteEditeurFermeture : public QDialog
 {

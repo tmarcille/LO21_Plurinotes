@@ -39,7 +39,9 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user*
 
-
+*.ini
+*.Debug
+*.Release
 <<<<<<< HEAD
 # End of https://www.gitignore.io/api/qt
 =======
