@@ -30,7 +30,6 @@ private:
 	mutable QString foldername;
 	static NotesManager* instance; // pointeur sur l'unique instance
 
-
 	NotesManager();
 	~NotesManager();
 	NotesManager(const NotesManager& m);
@@ -58,7 +57,7 @@ public:
 			QString text = "";
 			if (param.contains("text"))
 				text = param.at(param.indexOf("text") + 1);
-			note = new Article(id,title,text);			
+            note = new Article(id,title,foldername,text);
 		}
         if (type.toLower() == "media") {
             QString desc = "";
@@ -67,7 +66,7 @@ public:
                 desc = param.at(param.indexOf("description") + 1);
             if (param.contains("file"))
                 file = param.at(param.indexOf("file") + 1);
-            note = new Media(id,title,desc,file);
+            note = new Media(id,title,foldername,desc,file);
         }
 		addNote(note);
 		return note;

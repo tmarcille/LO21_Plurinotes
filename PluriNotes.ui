@@ -42,23 +42,10 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="NoteViewer" name="noteViewer" native="true"/>
+      </item>
      </layout>
-    </item>
-    <item>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="tabShape">
-       <enum>QTabWidget::Rounded</enum>
-      </property>
-      <property name="currentIndex">
-       <number>-1</number>
-      </property>
-      <property name="tabsClosable">
-       <bool>true</bool>
-      </property>
-      <property name="movable">
-       <bool>true</bool>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>
@@ -136,6 +123,14 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>NoteViewer</class>
+   <extends>QWidget</extends>
+   <header>NoteViewer.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

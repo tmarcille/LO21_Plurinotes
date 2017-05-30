@@ -16,7 +16,7 @@ Note * Article::clone() const
 	return new Article(*this);
 }
 
-Article::Article(const QString& i, const QString& ti, const QString& te) : Note(i,ti), text(te)
+Article::Article(const QString& i, const QString& folder,const QString& ti, const QString& te) : Note(i,ti,folder), text(te)
 {}
 
 
@@ -27,5 +27,6 @@ QString Article::getType() const
 
 void Article::setText(const QString& t) {
 	text = t;
+    notify();
 }
 

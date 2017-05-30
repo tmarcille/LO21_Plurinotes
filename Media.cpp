@@ -14,12 +14,8 @@ void Media::saveAttributesInFile(QXmlStreamWriter & stream) const
     qDebug()<<"saved file";
 }
 
-Note * Media::clone() const
-{
-    return new Media(*this);
-}
 
-Media::Media(const QString& i, const QString& ti, const QString& desc, const QString& f) : Note(i,ti), description(desc), file(f)
+Media::Media(const QString& i,const QString& folder, const QString& ti, const QString& desc, const QString& f) : Note(i,ti,folder), description(desc), file(f)
 {}
 
 
@@ -30,7 +26,9 @@ QString Media::getType() const
 
 void Media::setDescription(const QString& desc) {
     description=desc;
+    notify();
 }
 void Media::setFile(const QString& f) {
     file=f;
+    notify();
 }

@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_NoteEditeur_t {
     QByteArrayData data[9];
-    char stringdata0[89];
+    char stringdata0[94];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,19 +32,19 @@ struct qt_meta_stringdata_NoteEditeur_t {
 static const qt_meta_stringdata_NoteEditeur_t qt_meta_stringdata_NoteEditeur = {
     {
 QT_MOC_LITERAL(0, 0, 11), // "NoteEditeur"
-QT_MOC_LITERAL(1, 12, 14), // "unsavedChanges"
-QT_MOC_LITERAL(2, 27, 0), // ""
-QT_MOC_LITERAL(3, 28, 12), // "NoteEditeur*"
-QT_MOC_LITERAL(4, 41, 1), // "f"
-QT_MOC_LITERAL(5, 43, 12), // "savedChanges"
-QT_MOC_LITERAL(6, 56, 11), // "activerSave"
-QT_MOC_LITERAL(7, 68, 10), // "sauvegarde"
-QT_MOC_LITERAL(8, 79, 9) // "verifSave"
+QT_MOC_LITERAL(1, 12, 16), // "currentlyEditing"
+QT_MOC_LITERAL(2, 29, 0), // ""
+QT_MOC_LITERAL(3, 30, 12), // "NoteEditeur*"
+QT_MOC_LITERAL(4, 43, 1), // "f"
+QT_MOC_LITERAL(5, 45, 15), // "finishedEditing"
+QT_MOC_LITERAL(6, 61, 11), // "activerSave"
+QT_MOC_LITERAL(7, 73, 10), // "sauvegarde"
+QT_MOC_LITERAL(8, 84, 9) // "verifSave"
 
     },
-    "NoteEditeur\0unsavedChanges\0\0NoteEditeur*\0"
-    "f\0savedChanges\0activerSave\0sauvegarde\0"
-    "verifSave"
+    "NoteEditeur\0currentlyEditing\0\0"
+    "NoteEditeur*\0f\0finishedEditing\0"
+    "activerSave\0sauvegarde\0verifSave"
 };
 #undef QT_MOC_LITERAL
 
@@ -88,8 +88,8 @@ void NoteEditeur::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         NoteEditeur *_t = static_cast<NoteEditeur *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->unsavedChanges((*reinterpret_cast< NoteEditeur*(*)>(_a[1]))); break;
-        case 1: _t->savedChanges((*reinterpret_cast< NoteEditeur*(*)>(_a[1]))); break;
+        case 0: _t->currentlyEditing((*reinterpret_cast< NoteEditeur*(*)>(_a[1]))); break;
+        case 1: _t->finishedEditing((*reinterpret_cast< NoteEditeur*(*)>(_a[1]))); break;
         case 2: _t->activerSave(); break;
         case 3: _t->sauvegarde(); break;
         case 4: _t->verifSave(); break;
@@ -118,14 +118,14 @@ void NoteEditeur::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         void **func = reinterpret_cast<void **>(_a[1]);
         {
             typedef void (NoteEditeur::*_t)(NoteEditeur * );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&NoteEditeur::unsavedChanges)) {
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&NoteEditeur::currentlyEditing)) {
                 *result = 0;
                 return;
             }
         }
         {
             typedef void (NoteEditeur::*_t)(NoteEditeur * );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&NoteEditeur::savedChanges)) {
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&NoteEditeur::finishedEditing)) {
                 *result = 1;
                 return;
             }
@@ -170,14 +170,14 @@ int NoteEditeur::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void NoteEditeur::unsavedChanges(NoteEditeur * _t1)
+void NoteEditeur::currentlyEditing(NoteEditeur * _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
-void NoteEditeur::savedChanges(NoteEditeur * _t1)
+void NoteEditeur::finishedEditing(NoteEditeur * _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);

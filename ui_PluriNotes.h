@@ -20,9 +20,9 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+#include "NoteViewer.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -37,7 +37,7 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QHBoxLayout *horizontalLayout;
     QListWidget *listWidget;
-    QTabWidget *tabWidget;
+    NoteViewer *noteViewer;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuNouveau;
@@ -82,16 +82,13 @@ public:
 
         horizontalLayout->addWidget(listWidget);
 
+        noteViewer = new NoteViewer(centralWidget);
+        noteViewer->setObjectName(QStringLiteral("noteViewer"));
+
+        horizontalLayout->addWidget(noteViewer);
+
 
         horizontalLayout_2->addLayout(horizontalLayout);
-
-        tabWidget = new QTabWidget(centralWidget);
-        tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setTabShape(QTabWidget::Rounded);
-        tabWidget->setTabsClosable(true);
-        tabWidget->setMovable(true);
-
-        horizontalLayout_2->addWidget(tabWidget);
 
         PluriNotesClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(PluriNotesClass);
@@ -121,9 +118,6 @@ public:
         menuNouveau->addAction(actionNote);
 
         retranslateUi(PluriNotesClass);
-
-        tabWidget->setCurrentIndex(-1);
-
 
         QMetaObject::connectSlotsByName(PluriNotesClass);
     } // setupUi

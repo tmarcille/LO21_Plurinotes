@@ -1,19 +1,19 @@
 #include "Notes.h"
 
-Note::Note(const QString & i, const QString & ti) : id(i), title(ti)
+Note::Note(const QString & i, const QString & folder,const QString& ti) : id(i), title(ti),filePath(folder +"/"+id + ".xml")
 {
+
 }
 
 void Note::setTitle(const QString & t)
 {
 	title = t;
+    notify();
 }
 
-void Note::saveInFile(QString& folder) const
+void Note::saveInFile() const
 {
-	QString file(folder +"/"+id + ".xml");
-
-	QFile newfile(file);
+    QFile newfile(filePath);
 	if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text)) {
 		//a faire, mettre NoteException dans une classe séparée
 		//throw NotesException(QString("erreur sauvegarde notes : ouverture fichier xml"));

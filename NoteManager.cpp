@@ -59,14 +59,14 @@ NotesManager::~NotesManager() {
 void NotesManager::saveAllNotes() const {
 
 	for (ConstIterator it = getIterator(); !it.isDone(); it.next()) {
-		it.current().saveInFile(foldername);
+        it.current().saveInFile();
 	}
 }
 
 void NotesManager::saveNote(const QString& id) const {
 
     Note& note = getNote(id);
-    note.saveInFile(foldername);
+    note.saveInFile();
 
 }
 

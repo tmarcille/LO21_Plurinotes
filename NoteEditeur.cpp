@@ -50,10 +50,11 @@ NoteEditeur::~NoteEditeur()
 
 void NoteEditeur::sauvegarde()
 {
+    save->setDisabled(true);
 	note->setTitle(titre->text());
-	sauvegardeAttributs();	
-	save->setDisabled(true);
-    emit savedChanges(this);
+	sauvegardeAttributs();		
+    saveNoteInFile();
+    emit finishedEditing(this);
 }
 
 void NoteEditeur::verifSave()  {
@@ -69,5 +70,5 @@ void NoteEditeur::verifSave()  {
 }
 void NoteEditeur::activerSave() {
 	save->setEnabled(true);
-    emit unsavedChanges(this);
+    emit currentlyEditing(this);
 }
