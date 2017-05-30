@@ -11,8 +11,7 @@ private:
     void saveAttributesInFile(QXmlStreamWriter& stream) const;
 
 public:
-    Note* clone() const;
-    Media(const QString& i, const QString& ti, const QString& des, const QString& f);
+    Media(const QString& i,const QString& folder, const QString& ti="", const QString& des="", const QString& f="");
     QString getDescription() const { return description; }
     QString getFile() const { return file; }
     QString getType() const;

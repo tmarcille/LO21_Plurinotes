@@ -30,18 +30,18 @@ private:
 	mutable QString foldername;
 	static NotesManager* instance; // pointeur sur l'unique instance
 
-
 	NotesManager();
 	~NotesManager();
 	NotesManager(const NotesManager& m);
 	NotesManager& operator=(const NotesManager& m);
 
 public:
-	Note& getNote(const QString& id); // return the article with identificator id (create a new one if it not exists)
+    Note& getNote(const QString& id) const; // return the article with identificator id (create a new one if it not exists)
 	QString getFoldername() const { return foldername; }
 	void setFoldername(const QString& f) { foldername = f; }
 	void load(); // load notes from file filename
 	void saveAllNotes() const; // save notes in file filename
+    void saveNote(const QString& id) const;
 	static NotesManager& getManager();
 	static void freeManager(); // free the memory used by the NotesManager; it can be rebuild later
 	
@@ -57,7 +57,7 @@ public:
 			QString text = "";
 			if (param.contains("text"))
 				text = param.at(param.indexOf("text") + 1);
-			note = new Article(id,title,text);			
+            note = new Article(id,title,foldername,text);
 		}
         if (type.toLower() == "media") {
             QString desc = "";
@@ -66,7 +66,7 @@ public:
                 desc = param.at(param.indexOf("description") + 1);
             if (param.contains("file"))
                 file = param.at(param.indexOf("file") + 1);
-            note = new Media(id,title,desc,file);
+            note = new Media(id,title,foldername,desc,file);
         }
 		addNote(note);
 		return note;
@@ -74,6 +74,24 @@ public:
 
 	NoteEditeur* createEditor(Note* n) {
 		
+
+
+       /************************** vector des editeurs ouverts dans le projet, commenté ou cas où il serait utile
+        * plus tard.
+        * Si suppression, supprimer aussi le vector static dans noteEditeur.
+
+        QVector<NoteEditeur*>::iterator it;
+
+        for (it = NoteEditeur::editeurs.begin(); it!=NoteEditeur::editeurs.end(); it++ ){
+
+            if((*it)->getId()==n->getId()){
+
+                qDebug()<<"returned existing editor";
+                return *it;
+
+            }
+        }
+*/
         qDebug()<<"ajout editeur";
         NoteEditeur* edit = NULL;
 		QString type = n->getType();

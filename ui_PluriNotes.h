@@ -22,6 +22,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+#include "NoteViewer.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -36,7 +37,7 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QHBoxLayout *horizontalLayout;
     QListWidget *listWidget;
-    QWidget *widget2;
+    NoteViewer *noteViewer;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuNouveau;
@@ -81,10 +82,10 @@ public:
 
         horizontalLayout->addWidget(listWidget);
 
-        widget2 = new QWidget(centralWidget);
-        widget2->setObjectName(QStringLiteral("widget2"));
+        noteViewer = new NoteViewer(centralWidget);
+        noteViewer->setObjectName(QStringLiteral("noteViewer"));
 
-        horizontalLayout->addWidget(widget2);
+        horizontalLayout->addWidget(noteViewer);
 
 
         horizontalLayout_2->addLayout(horizontalLayout);

@@ -12,6 +12,7 @@
 #include "PluriNotes.h"
 
 int main(int argc, char *argv[]) {
+
 	QApplication app(argc, argv);
 	PluriNotes w;
 	w.show();

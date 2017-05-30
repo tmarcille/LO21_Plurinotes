@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_NoteEditeur_t {
-    QByteArrayData data[5];
-    char stringdata0[46];
+    QByteArrayData data[9];
+    char stringdata0[94];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,14 +32,19 @@ struct qt_meta_stringdata_NoteEditeur_t {
 static const qt_meta_stringdata_NoteEditeur_t qt_meta_stringdata_NoteEditeur = {
     {
 QT_MOC_LITERAL(0, 0, 11), // "NoteEditeur"
-QT_MOC_LITERAL(1, 12, 11), // "activerSave"
-QT_MOC_LITERAL(2, 24, 0), // ""
-QT_MOC_LITERAL(3, 25, 10), // "sauvegarde"
-QT_MOC_LITERAL(4, 36, 9) // "verifSave"
+QT_MOC_LITERAL(1, 12, 16), // "currentlyEditing"
+QT_MOC_LITERAL(2, 29, 0), // ""
+QT_MOC_LITERAL(3, 30, 12), // "NoteEditeur*"
+QT_MOC_LITERAL(4, 43, 1), // "f"
+QT_MOC_LITERAL(5, 45, 15), // "finishedEditing"
+QT_MOC_LITERAL(6, 61, 11), // "activerSave"
+QT_MOC_LITERAL(7, 73, 10), // "sauvegarde"
+QT_MOC_LITERAL(8, 84, 9) // "verifSave"
 
     },
-    "NoteEditeur\0activerSave\0\0sauvegarde\0"
-    "verifSave"
+    "NoteEditeur\0currentlyEditing\0\0"
+    "NoteEditeur*\0f\0finishedEditing\0"
+    "activerSave\0sauvegarde\0verifSave"
 };
 #undef QT_MOC_LITERAL
 
@@ -49,17 +54,25 @@ static const uint qt_meta_data_NoteEditeur[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       2,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   39,    2, 0x06 /* Public */,
+       5,    1,   42,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x0a /* Public */,
-       3,    0,   30,    2, 0x0a /* Public */,
-       4,    0,   31,    2, 0x0a /* Public */,
+       6,    0,   45,    2, 0x0a /* Public */,
+       7,    0,   46,    2, 0x0a /* Public */,
+       8,    0,   47,    2, 0x0a /* Public */,
+
+ // signals: parameters
+    QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void, 0x80000000 | 3,    4,
 
  // slots: parameters
     QMetaType::Void,
@@ -75,13 +88,49 @@ void NoteEditeur::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         NoteEditeur *_t = static_cast<NoteEditeur *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->activerSave(); break;
-        case 1: _t->sauvegarde(); break;
-        case 2: _t->verifSave(); break;
+        case 0: _t->currentlyEditing((*reinterpret_cast< NoteEditeur*(*)>(_a[1]))); break;
+        case 1: _t->finishedEditing((*reinterpret_cast< NoteEditeur*(*)>(_a[1]))); break;
+        case 2: _t->activerSave(); break;
+        case 3: _t->sauvegarde(); break;
+        case 4: _t->verifSave(); break;
         default: ;
         }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 0:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< NoteEditeur* >(); break;
+            }
+            break;
+        case 1:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< NoteEditeur* >(); break;
+            }
+            break;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        void **func = reinterpret_cast<void **>(_a[1]);
+        {
+            typedef void (NoteEditeur::*_t)(NoteEditeur * );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&NoteEditeur::currentlyEditing)) {
+                *result = 0;
+                return;
+            }
+        }
+        {
+            typedef void (NoteEditeur::*_t)(NoteEditeur * );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&NoteEditeur::finishedEditing)) {
+                *result = 1;
+                return;
+            }
+        }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject NoteEditeur::staticMetaObject = {
@@ -109,15 +158,29 @@ int NoteEditeur::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
-            *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        if (_id < 5)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 5;
     }
     return _id;
+}
+
+// SIGNAL 0
+void NoteEditeur::currentlyEditing(NoteEditeur * _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 1
+void NoteEditeur::finishedEditing(NoteEditeur * _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

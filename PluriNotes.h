@@ -16,8 +16,10 @@
 #include <QDirIterator>
 #include "NoteManager.h"
 #include "SettingsDialog.h"
+#include "NoteViewer.h"
 
-class PluriNotes : public QMainWindow
+
+class PluriNotes : public QMainWindow,  public Observer<Note>
 {
 	Q_OBJECT
 
@@ -26,12 +28,18 @@ public:
     virtual ~PluriNotes();
     void ouvrirProjet();
     void loadSettings();
+    void update(Note* n){
+        if(ui.noteViewer->isOpen(n->getId())){
+            qDebug()<<"observator";
+            ui.noteViewer->refreshNote(n->getId());
+        }
+    }
 
 private:
 
 	Ui::PluriNotesClass ui;
 	void closeEvent(QCloseEvent * event);
-
+    NoteViewer* test;
 
     QString m_sSettingsFile;
 

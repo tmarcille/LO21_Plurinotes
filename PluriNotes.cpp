@@ -1,16 +1,18 @@
 #include "PluriNotes.h"
-#include "NoteEditeur.h"
 #include "nouvellenote.h"
 #include <qDebug>
 #include <QList>
+#include <QTabWidget>
+
 
 PluriNotes::PluriNotes(QWidget *parent)
 	: QMainWindow(parent)
 {
+    qDebug()<<"launched";
+
 	ui.setupUi(this);
 
     m_sSettingsFile = QDir::currentPath() + "/config.ini";
-
 
     QFileInfo check_file(m_sSettingsFile);
 
@@ -25,6 +27,7 @@ PluriNotes::PluriNotes(QWidget *parent)
     ouvrirProjet();
 	QObject::connect(ui.actionNote, SIGNAL(triggered()), this, SLOT(nouvelleNote()));
     QObject::connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(openSettings()));
+
 }
 
 
@@ -43,10 +46,11 @@ void PluriNotes::loadSettings()
 
 void PluriNotes::closeEvent(QCloseEvent *event)
 {
-    NoteEditeur* noteEdit = dynamic_cast<NoteEditeur*>(ui.horizontalLayout->itemAt(1)->widget());
-    if (noteEdit) {
-        noteEdit->verifSave();
-	}
+    NotesManager& m = NotesManager::getManager();
+    for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
+            if (ui.noteViewer->isOpen(it.current().getId()))
+                ui.noteViewer->closeNote(it.current().getId());
+    }
 }
 
 void PluriNotes::openSettings()
@@ -56,17 +60,16 @@ void PluriNotes::openSettings()
 
         //si on a sauvegardé des changements dans les paramètres, on recharge le projet
 
+        NotesManager& m = NotesManager::getManager();
 
-
-        QWidget* old = ui.horizontalLayout->itemAt(1)->widget();
-        NoteEditeur* noteEdit = dynamic_cast<NoteEditeur*>(old);
-        if (noteEdit){
-            noteEdit->verifSave();
-            ui.horizontalLayout->replaceWidget(old,new QWidget());
-            delete old;
+        //si on ajoute des parametres qui ne changent pas les notes, besoin de faire des tests pour faire la distinction et ne pas tout recharger
+        for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
+                if (ui.noteViewer->isOpen(it.current().getId()))
+                    ui.noteViewer->closeNote(it.current().getId());
         }
-        NotesManager::freeManager();
         ui.listWidget->clear();
+
+        NotesManager::freeManager();
         loadSettings();
         ouvrirProjet();
     }
@@ -90,38 +93,18 @@ void PluriNotes::ouvrirProjet() {
 
 void PluriNotes::ouvrirNote(QListWidgetItem* item) {
 
-	QWidget* old = ui.horizontalLayout->itemAt(1)->widget();
-	NoteEditeur* noteEdit = dynamic_cast<NoteEditeur*>(old);
-
-	//On lance la fenetre de verification de fermeture si on ferme un article, si le bouton de sauvegarde est activé, et si la nouvelle note est différente de l'ancienne.
-	if (noteEdit && noteEdit->getId()!=item->text()) {
-		noteEdit->verifSave();
-	}
-	//si on deja sur la note, on ne fait rien
-	else if (noteEdit && noteEdit->getId() == item->text()) {
-		return;
-	}
-
 	NotesManager& m = NotesManager::getManager();
 	Note& n = m.getNote(item->text());
+    n.attach(*this);
+    qDebug()<<"ouverture note"<<item->text();
+    ui.noteViewer->showNote(&n);
 
-	NoteEditeur* fenetre = m.createEditor(&n);
-
-	ui.horizontalLayout->replaceWidget(old,fenetre);
-	delete old;
-	//**********Code pour Mdi window
-
-	//QMdiSubWindow* sousFenetre = new QMdiSubWindow;
-	//sousFenetre->setWidget(fenetre);
-	//
-	//QList<QMdiSubWindow*> fenetres = ui.mdiArea->subWindowList();
 }
 
 void PluriNotes::nouvelleNote()
 {
 	NouvelleNote* x = new NouvelleNote();
 	if (x->exec() == QDialog::Accepted) {
-
 		// Ajouter : tri par ordre alphabetique de la liste, verif si la note n'existe pas deja
 		QListWidgetItem* nouvelle_note = new QListWidgetItem(x->getNom(), ui.listWidget);
 		NotesManager& m = NotesManager::getManager();
@@ -129,7 +112,6 @@ void PluriNotes::nouvelleNote()
 		m.create(x->getSelectedType(),x->getNom());
         m.saveAllNotes();
 		ouvrirNote(nouvelle_note);
-
 	}
 	delete x;
 }
