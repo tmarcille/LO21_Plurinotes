@@ -26,9 +26,18 @@ PluriNotes::PluriNotes(QWidget *parent)
     ouvrirProjet();
 	QObject::connect(ui.actionNote, SIGNAL(triggered()), this, SLOT(nouvelleNote()));
     QObject::connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(openSettings()));
-
+    QObject::connect(ui.tabWidget, &QTabWidget::tabCloseRequested, this, &PluriNotes::closeTab);
 }
 
+void PluriNotes::closeTab(int i){
+
+    ui.tabWidget->setCurrentIndex(i);
+    QWidget* old = ui.tabWidget->widget(i);
+    NoteEditeur* noteEdit = dynamic_cast<NoteEditeur*>(old);
+    if(noteEdit)
+        noteEdit->verifSave();
+    delete old;
+}
 
 void PluriNotes::loadSettings()
 {
@@ -45,10 +54,14 @@ void PluriNotes::loadSettings()
 
 void PluriNotes::closeEvent(QCloseEvent *event)
 {
-    NoteEditeur* noteEdit = dynamic_cast<NoteEditeur*>(ui.horizontalLayout->itemAt(1)->widget());
+
+    for(int i=ui.tabWidget->count() ; i>0 ; i--)
+        closeTab(i);
+
+    /*NoteEditeur* noteEdit = dynamic_cast<NoteEditeur*>(ui.horizontalLayout->itemAt(1)->widget());
     if (noteEdit) {
         noteEdit->verifSave();
-	}
+    }*/
 }
 
 void PluriNotes::openSettings()
@@ -138,6 +151,7 @@ void PluriNotes::unsavedChanges(NoteEditeur* f){
 }
 
 void PluriNotes::saveChanges(NoteEditeur* f){
+
 
     ui.tabWidget->setTabText(ui.tabWidget->indexOf(f),f->getId());
     NotesManager& m = NotesManager::getManager();

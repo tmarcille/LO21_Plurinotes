@@ -46,18 +46,21 @@ protected :
 public:
     NoteEditeur(Note* a, QWidget *parent = 0);
 	virtual ~NoteEditeur();
-    const QString getId() const { return note->getId(); }
+    const QString getId() const { return id->text(); }
     static QVector<NoteEditeur*> editeurs;
 
 signals:
-    void unsavedChanges(NoteEditeur*);
-    void savedChanges(NoteEditeur*);
+    void unsavedChanges(NoteEditeur* f);
+    void savedChanges(NoteEditeur* f);
 
 public slots :
 	void activerSave();
 	void sauvegarde();
 	void verifSave();
 };
+
+
+//fenetre de verification de sauvegarde a la fermeture
 
 class NoteEditeurFermeture : public QDialog
 {

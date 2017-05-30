@@ -26,6 +26,7 @@ public:
     virtual ~PluriNotes();
     void ouvrirProjet();
     void loadSettings();
+    void closeTab(int);
 
 private:
 

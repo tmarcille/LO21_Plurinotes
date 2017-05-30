@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_NoteEditeur_t {
-    QByteArrayData data[8];
-    char stringdata0[87];
+    QByteArrayData data[9];
+    char stringdata0[89];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,14 +35,15 @@ QT_MOC_LITERAL(0, 0, 11), // "NoteEditeur"
 QT_MOC_LITERAL(1, 12, 14), // "unsavedChanges"
 QT_MOC_LITERAL(2, 27, 0), // ""
 QT_MOC_LITERAL(3, 28, 12), // "NoteEditeur*"
-QT_MOC_LITERAL(4, 41, 12), // "savedChanges"
-QT_MOC_LITERAL(5, 54, 11), // "activerSave"
-QT_MOC_LITERAL(6, 66, 10), // "sauvegarde"
-QT_MOC_LITERAL(7, 77, 9) // "verifSave"
+QT_MOC_LITERAL(4, 41, 1), // "f"
+QT_MOC_LITERAL(5, 43, 12), // "savedChanges"
+QT_MOC_LITERAL(6, 56, 11), // "activerSave"
+QT_MOC_LITERAL(7, 68, 10), // "sauvegarde"
+QT_MOC_LITERAL(8, 79, 9) // "verifSave"
 
     },
     "NoteEditeur\0unsavedChanges\0\0NoteEditeur*\0"
-    "savedChanges\0activerSave\0sauvegarde\0"
+    "f\0savedChanges\0activerSave\0sauvegarde\0"
     "verifSave"
 };
 #undef QT_MOC_LITERAL
@@ -62,16 +63,16 @@ static const uint qt_meta_data_NoteEditeur[] = {
 
  // signals: name, argc, parameters, tag, flags
        1,    1,   39,    2, 0x06 /* Public */,
-       4,    1,   42,    2, 0x06 /* Public */,
+       5,    1,   42,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    0,   45,    2, 0x0a /* Public */,
-       6,    0,   46,    2, 0x0a /* Public */,
-       7,    0,   47,    2, 0x0a /* Public */,
+       6,    0,   45,    2, 0x0a /* Public */,
+       7,    0,   46,    2, 0x0a /* Public */,
+       8,    0,   47,    2, 0x0a /* Public */,
 
  // signals: parameters
-    QMetaType::Void, 0x80000000 | 3,    2,
-    QMetaType::Void, 0x80000000 | 3,    2,
+    QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void, 0x80000000 | 3,    4,
 
  // slots: parameters
     QMetaType::Void,

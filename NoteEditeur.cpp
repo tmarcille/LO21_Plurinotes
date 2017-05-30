@@ -51,10 +51,7 @@ NoteEditeur::~NoteEditeur()
 void NoteEditeur::sauvegarde()
 {
 	note->setTitle(titre->text());
-	sauvegardeAttributs();
-
-    //note->saveInFile(); imposssible car foldername dans NoteManager. Solutions : stocker le foldername autre part, ou le chemin entier de la note dans chaque note ?
-	
+	sauvegardeAttributs();	
 	save->setDisabled(true);
     emit savedChanges(this);
 }
