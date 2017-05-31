@@ -15,21 +15,24 @@ void NotesManager::freeManager() {
 
 void NotesManager::addNote(Note* a) {
 	
-	
-
-	for (unsigned int i = 0; i<nbNotes; i++) {
-		if (notes[i]->getId() == a->getId()) throw NotesException("error, creation of an already existent note");
-	}
-	if (nbNotes == nbMaxNotes) {
-		Note** newNote = new Note*[nbMaxNotes + 5];
-		for (unsigned int i = 0; i<nbNotes; i++) newNote[i] = notes[i];
-		Note** oldNotes = notes;
-		notes = newNote;
-		nbMaxNotes += 5;
-		if (oldNotes) delete[] oldNotes;
-	}
-	notes[nbNotes++] = a; //composition ?
-
+    try{
+        getNote(a->getId());
+    }
+    catch (NotesException& e){
+        if(e.getInfo()=="error, note not existing"){
+            if (nbNotes == nbMaxNotes) {
+                Note** newNote = new Note*[nbMaxNotes + 5];
+                for (unsigned int i = 0; i<nbNotes; i++) newNote[i] = notes[i];
+                Note** oldNotes = notes;
+                notes = newNote;
+                nbMaxNotes += 5;
+                if (oldNotes) delete[] oldNotes;
+            }
+            notes[nbNotes++] = a; //composition ?
+        }
+        return;
+    }
+    qDebug()<<"Note was already in the manager";
 }
 
 
@@ -40,11 +43,8 @@ Note& NotesManager::getNote(const QString& id) const{
 	for(unsigned int i=0; i<nbNotes; i++){
 		if (notes[i]->getId()==id) return *notes[i];
 	}
-    // sinon il est créé
-    //Article* a=new Article(id,"","");
-    //addArticle(a);
-	Note* note = NULL;
-	return *note;
+    //sinon on renvoie une erreur;
+    throw NotesException("error, note not existing");
 }
 
 NotesManager::NotesManager() :notes(nullptr), nbNotes(0), nbMaxNotes(0), foldername("") {}

@@ -13,8 +13,8 @@ class Observer
       virtual void update(T *subject)= 0;
    };
 
-template <class T>
 
+template <class T>
 class Subject
    {
    public:

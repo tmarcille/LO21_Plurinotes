@@ -23,6 +23,7 @@ NoteEditeur* NoteViewer::createEditor(Note* n) {
     QVector<NoteEditeur*>::iterator it;
     for (it = NoteEditeur::editeurs.begin(); it!=NoteEditeur::editeurs.end(); it++ ){
         if((*it)->getId()==n->getId()){
+            qDebug()<<typeid(*it).name();
             qDebug()<<"returned existing editor";
             return *it;
         }

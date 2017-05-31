@@ -23,7 +23,7 @@ public:
 	virtual ~Note() = 0;
     QString getId() const { return id; }
     QString getTitle() const { return title; }
-	void setTitle(const QString& t);
+    virtual void setTitle(const QString& t);
 	virtual QString getType() const = 0;
     void saveInFile() const;
 

@@ -19,7 +19,10 @@ HEADERS += Article.h \
     player.h \
     SettingsDialog.h \
     NoteViewer.h \
-    observator.h
+    observator.h \
+    Relation.h \
+    RelationManager.h \
+    RelationWindow.h
 SOURCES += Article.cpp \
     ArticleEditeur.cpp \
     main.cpp \
@@ -32,8 +35,12 @@ SOURCES += Article.cpp \
     MediaEditeur.cpp \
     player.cpp \
     SettingsDialog.cpp \
-    NoteViewer.cpp
+    NoteViewer.cpp \
+    Relation.cpp \
+    RelationManager.cpp \
+    RelationWindow.cpp
 FORMS += PluriNotes.ui \
     nouvellenote.ui \
-    SettingsDialog.ui
+    SettingsDialog.ui \
+    RelationEditor.ui
 

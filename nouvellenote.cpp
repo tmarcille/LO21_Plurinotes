@@ -17,7 +17,7 @@ NouvelleNote::~NouvelleNote()
 
 QString NouvelleNote::getSelectedType() const
 {
-	return ui->buttonGroup->checkedButton()->text();
+    return ui->radioButtons->checkedButton()->text();
 
 }
 

@@ -33,6 +33,7 @@ public:
     QAction *actionOuvrir;
     QAction *actionDossier_de_stockage;
     QAction *actionOptions;
+    QAction *actionRelations;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
     QHBoxLayout *horizontalLayout;
@@ -59,6 +60,8 @@ public:
         actionDossier_de_stockage->setObjectName(QStringLiteral("actionDossier_de_stockage"));
         actionOptions = new QAction(PluriNotesClass);
         actionOptions->setObjectName(QStringLiteral("actionOptions"));
+        actionRelations = new QAction(PluriNotesClass);
+        actionRelations->setObjectName(QStringLiteral("actionRelations"));
         centralWidget = new QWidget(PluriNotesClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout_2 = new QHBoxLayout(centralWidget);
@@ -115,6 +118,7 @@ public:
         menuFichier->addAction(menuNouveau->menuAction());
         menuFichier->addSeparator();
         menuFichier->addAction(actionOptions);
+        menuFichier->addAction(actionRelations);
         menuNouveau->addAction(actionNote);
 
         retranslateUi(PluriNotesClass);
@@ -129,6 +133,7 @@ public:
         actionOuvrir->setText(QApplication::translate("PluriNotesClass", "Ouvrir...", Q_NULLPTR));
         actionDossier_de_stockage->setText(QApplication::translate("PluriNotesClass", "Dossier de stockage", Q_NULLPTR));
         actionOptions->setText(QApplication::translate("PluriNotesClass", "Settings...", Q_NULLPTR));
+        actionRelations->setText(QApplication::translate("PluriNotesClass", "Relations..", Q_NULLPTR));
         menuFichier->setTitle(QApplication::translate("PluriNotesClass", "Fichiers", Q_NULLPTR));
         menuNouveau->setTitle(QApplication::translate("PluriNotesClass", "Nouveau", Q_NULLPTR));
         menuEdition->setTitle(QApplication::translate("PluriNotesClass", "Edition", Q_NULLPTR));

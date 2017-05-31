@@ -26,7 +26,6 @@ private:
 	Note** notes;
 	unsigned int nbNotes;
 	unsigned int nbMaxNotes;
-	void addNote(Note* n);
 	mutable QString foldername;
 	static NotesManager* instance; // pointeur sur l'unique instance
 
@@ -44,71 +43,41 @@ public:
     void saveNote(const QString& id) const;
 	static NotesManager& getManager();
 	static void freeManager(); // free the memory used by the NotesManager; it can be rebuild later
-	
+    void addNote(Note* n);
 	Note* create(const QString& type,const QString& id,const QVector<QString>& param = QVector<QString>()) //crée un note et l'ajoute a la liste (pas de note pas dans la liste -> pose un pb plus tard ?)
 	{
-		/*Logic based on Genre*/
-		Note* note = NULL;
-		QString title = "";
-		if (param.contains("title"))
-			title = param.at(param.indexOf("title") + 1);
 
-		if (type.toLower() == "article") {
-			QString text = "";
-			if (param.contains("text"))
-				text = param.at(param.indexOf("text") + 1);
-            note = new Article(id,title,foldername,text);
-		}
-        if (type.toLower() == "media") {
-            QString desc = "";
-            QString file = "";
-            if (param.contains("description"))
-                desc = param.at(param.indexOf("description") + 1);
-            if (param.contains("file"))
-                file = param.at(param.indexOf("file") + 1);
-            note = new Media(id,title,foldername,desc,file);
+        try{
+            getNote(id);
         }
-		addNote(note);
-		return note;
-	}
+        catch (NotesException& a){
+            if (a.getInfo()=="error, note not existing"){
+                Note* note = NULL;
+                QString title = "";
+                if (param.contains("title"))
+                    title = param.at(param.indexOf("title") + 1);
 
-	NoteEditeur* createEditor(Note* n) {
-		
-
-
-       /************************** vector des editeurs ouverts dans le projet, commenté ou cas où il serait utile
-        * plus tard.
-        * Si suppression, supprimer aussi le vector static dans noteEditeur.
-
-        QVector<NoteEditeur*>::iterator it;
-
-        for (it = NoteEditeur::editeurs.begin(); it!=NoteEditeur::editeurs.end(); it++ ){
-
-            if((*it)->getId()==n->getId()){
-
-                qDebug()<<"returned existing editor";
-                return *it;
-
+                if (type.toLower() == "article") {
+                    QString text = "";
+                    if (param.contains("text"))
+                        text = param.at(param.indexOf("text") + 1);
+                    note = new Article(id,title,foldername,text);
+                }
+                if (type.toLower() == "media") {
+                    QString desc = "";
+                    QString file = "";
+                    if (param.contains("description"))
+                        desc = param.at(param.indexOf("description") + 1);
+                    if (param.contains("file"))
+                        file = param.at(param.indexOf("file") + 1);
+                    note = new Media(id,title,foldername,desc,file);
+                }
+                addNote(note);
+                return note;
             }
-        }
-*/
-        qDebug()<<"ajout editeur";
-        NoteEditeur* edit = NULL;
-		QString type = n->getType();
-		if (type == "article") {
-            edit = new ArticleEditeur(dynamic_cast<Article*>(n));
-            qDebug()<<"article";
-
-		}
-        if (type == "media") {
-            edit = new MediaEditeur(dynamic_cast<Media*>(n));
-            qDebug()<<"media";
-
-        }
-		return edit;
+       }
+       throw NotesException("Note already exists");
 	}
-
-
 
 	class Iterator {
 		friend class NotesManager;
