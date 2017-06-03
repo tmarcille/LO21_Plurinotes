@@ -19,7 +19,9 @@ HEADERS += Article.h \
     player.h \
     SettingsDialog.h \
     NoteViewer.h \
-    observator.h
+    observator.h \
+    tache.h \
+    tacheediteur.h
 SOURCES += Article.cpp \
     ArticleEditeur.cpp \
     main.cpp \
@@ -32,7 +34,9 @@ SOURCES += Article.cpp \
     MediaEditeur.cpp \
     player.cpp \
     SettingsDialog.cpp \
-    NoteViewer.cpp
+    NoteViewer.cpp \
+    tache.cpp \
+    tacheediteur.cpp
 FORMS += PluriNotes.ui \
     nouvellenote.ui \
     SettingsDialog.ui
