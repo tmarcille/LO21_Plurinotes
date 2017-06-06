@@ -19,6 +19,7 @@ PluriNotes::PluriNotes(QWidget *parent)
     if (!check_file.exists()){
         QSettings* settings = new QSettings(m_sSettingsFile, QSettings::IniFormat);
         settings->setValue("folder", QDir::currentPath());
+        settings->setValue("relationFile", QDir::currentPath() + "/Relations.xml");
         settings->sync();
         qDebug()<<"file created"<<endl;
     }
@@ -27,6 +28,7 @@ PluriNotes::PluriNotes(QWidget *parent)
     ouvrirProjet();
 	QObject::connect(ui.actionNote, SIGNAL(triggered()), this, SLOT(nouvelleNote()));
     QObject::connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(openSettings()));
+    QObject::connect(ui.actionRelations, SIGNAL(triggered()), this, SLOT(openRelations()));
 
 }
 
@@ -36,11 +38,16 @@ void PluriNotes::loadSettings()
 
     QSettings settings(m_sSettingsFile, QSettings::IniFormat);
     QString sText = settings.value("folder", "").toString();
+    QString rText = settings.value("relationFile", "").toString();
 
     NotesManager& m = NotesManager::getManager();
     m.setFoldername(sText);
 
+    RelationManager& r = RelationManager::getManager();
+    r.setFilename(rText);
+
     qDebug()<<"settings loaded"<<settings.value("folder", "").toString()<<endl;
+    qDebug()<<"settings loaded"<<settings.value("relationFile", "").toString()<<endl;
 
 }
 
@@ -63,6 +70,7 @@ void PluriNotes::openSettings()
         NotesManager& m = NotesManager::getManager();
 
         //si on ajoute des parametres qui ne changent pas les notes, besoin de faire des tests pour faire la distinction et ne pas tout recharger
+
         for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
                 if (ui.noteViewer->isOpen(it.current().getId()))
                     ui.noteViewer->closeNote(it.current().getId());
@@ -73,6 +81,12 @@ void PluriNotes::openSettings()
         loadSettings();
         ouvrirProjet();
     }
+}
+
+void PluriNotes::openRelations()
+{
+    RelationEditor* x = new RelationEditor();
+    x->show();
 }
 
 void PluriNotes::ouvrirProjet() {

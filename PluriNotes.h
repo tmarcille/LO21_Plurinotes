@@ -17,7 +17,7 @@
 #include "NoteManager.h"
 #include "SettingsDialog.h"
 #include "NoteViewer.h"
-
+#include "RelationWindow.h"
 
 class PluriNotes : public QMainWindow,  public Observer<Note>
 {
@@ -46,6 +46,7 @@ private:
 public slots:
 
     void openSettings();
+    void openRelations();
 	void ouvrirNote(QListWidgetItem* item);
 	void nouvelleNote();
 

@@ -24,14 +24,14 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="0">
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="newRelation">
       <property name="text">
        <string>Nouvelle Relation</string>
       </property>
      </widget>
     </item>
     <item row="0" column="0">
-     <widget class="QListWidget" name="listWidget"/>
+     <widget class="QListWidget" name="listRelation"/>
     </item>
    </layout>
   </widget>

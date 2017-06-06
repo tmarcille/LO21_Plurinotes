@@ -7,6 +7,7 @@ NouvelleNote::NouvelleNote(QWidget *parent) :
     QDialog(parent), ui(new Ui::NouvelleNote)
 {
     ui->setupUi(this);
+    QObject::connect(ui->radioButtons, SIGNAL(buttonPressed(int)), this, SLOT(test(int)));
 
 }
 
@@ -26,4 +27,7 @@ QString NouvelleNote::getNom() const
 	return ui->lineEdit->text();
 }
 
+void NouvelleNote::test(int a) {
 
+    qDebug()<<a;
+}

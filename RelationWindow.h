@@ -2,6 +2,9 @@
 #define RELATIONEDITOR_H
 
 #include <QWidget>
+#include "RelationManager.h"
+#include<QDialog>
+#include<QDialogButtonBox>
 
 namespace Ui {
 class RelationEditor;
@@ -17,6 +20,9 @@ public:
 
 private:
     Ui::RelationEditor *ui;
+
+public slots:
+    void newRelation();
 };
 
 #endif // RELATIONEDITOR_H

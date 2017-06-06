@@ -38,7 +38,7 @@ public:
             return couples[i].first;
         else return nullptr;
     }
-    void addCouple(QString& p, QString& f, QString& l);
+    void addCouple(Note* p, Note* f, QString l="");
 };
 
 #endif // RELATION_H

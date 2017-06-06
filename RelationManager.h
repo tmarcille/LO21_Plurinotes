@@ -21,8 +21,21 @@ public:
     void setFilename (const QString& f) { filename = f; }
     QString getFilename() const {return filename;}
     Relation* getRelation(QString& name);
+    //void addRelation(Relation&);
     void save() const;
     void load();
+
+    using iterator = QVector<Relation*>::iterator;
+    using const_iterator = QVector<Relation*>::const_iterator;
+
+    iterator begin() { return relations.begin(); }
+    iterator end() { return relations.end(); }
+    const_iterator begin() const { return relations.begin(); }
+    const_iterator end() const { return relations.end(); }
+    const_iterator cbegin() const { return relations.cbegin(); }
+    const_iterator cend() const { return relations.cend(); }
+
+
 };
 
 #endif // RELATIONMANAGER_H

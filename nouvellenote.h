@@ -4,6 +4,8 @@
 #define NOUVELLENOTE_H
 
 #include <QDialog>
+#include <QDebug>
+
 namespace Ui {
 class NouvelleNote;
 }
@@ -21,6 +23,7 @@ private:
     Ui::NouvelleNote *ui;
 	
 	public slots:
+    void test(int);
 
 };
 

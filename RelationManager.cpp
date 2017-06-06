@@ -72,8 +72,8 @@ void RelationManager::load() {
 
     QFile fin(filename);
     // If we can't open it, let's show an error message.
-    //if (!fin.open(QIODevice::ReadOnly | QIODevice::Text))
-    //    throw NotesException("Erreur ouverture fichier notes");
+    if (!fin.open(QIODevice::ReadOnly | QIODevice::Text))
+        throw NotesException("Erreur ouverture fichier notes");
 
     // QXmlStreamReader takes any QIODevice.
     QXmlStreamReader xml(&fin);
