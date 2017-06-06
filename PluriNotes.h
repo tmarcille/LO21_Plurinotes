@@ -49,4 +49,6 @@ public slots:
 	void ouvrirNote(QListWidgetItem* item);
 	void nouvelleNote();
 
+private slots:
+    void on_listWidget_activated(const QModelIndex &index);
 };

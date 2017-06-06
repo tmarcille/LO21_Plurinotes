@@ -72,8 +72,9 @@ public:
         if (type.toLower() == "tache") {
             QString priorite = "0";
             QString status = "en attente";
-            QDate echeance = QDate(2000,1,1);
+            QDate echeance = QDate(2017,6,25);
             QString action = "";
+            bool echue = false;
             qDebug("recuperation tache");
             if (param.contains("action"))
                 action = param.at(param.indexOf("action") + 1);
@@ -83,8 +84,10 @@ public:
                 status = param.at(param.indexOf("status") + 1);
             if (param.contains("echeance"))
                 echeance = QDate::fromString(param.at(param.indexOf("echeance") + 1), "d.M.yyyy");
+            if (param.contains("echue"))
+                if (param.at(param.indexOf("echue") + 1)=="T") echue=true;
             qDebug("intialisation tache");
-            note = new Tache(id,foldername,title,action,echeance,priorite,status);
+            note = new Tache(id,foldername,title,action,echeance,priorite,status,echue);
 
         }
 		addNote(note);

@@ -55,10 +55,32 @@ void Relation::add(Couple* c) {
 
 static Relation
 
-class RelationEditeur{
-private :
+class RelationManager {
+private:
+    Relation** relations;
+    unsigned int nbRelation;
+    unsigned int nbMaxRelation;
+    void addRelation(Note* n);
 
+    RelationManager();
+    ~RelationManager();
+    RelationManager(const Relationanager& m);
+    RelationManager& operator=(const RelationManager& m);
 
-};
+public:
+    Note& showRelation() const; // return the article with identificator id (create a new one if it not exists)
+    bool isrefered(const Note* n);
+
+    static RelationManager& getManager();
+    static void freeRManager(); // free the memory used by the NotesManager; it can be rebuild later
+
+    Note* create(const Relation * o,const Relation * r, bool ) //crée un note et l'ajoute a la liste (pas de note pas dans la liste -> pose un pb plus tard ?)
+    {
+        Relation* relation = NULL;
+        relation = new Tache(id,foldername,title,action,echeance,priorite,status);
+        addNote(note);
+        return note;
+    }
+
 
 #endif // RELATION_H

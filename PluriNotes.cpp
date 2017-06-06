@@ -27,7 +27,7 @@ PluriNotes::PluriNotes(QWidget *parent)
     ouvrirProjet();
 	QObject::connect(ui.actionNote, SIGNAL(triggered()), this, SLOT(nouvelleNote()));
     QObject::connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(openSettings()));
-
+    // ajouter relation
 }
 
 
@@ -84,7 +84,7 @@ void PluriNotes::ouvrirProjet() {
 	m.load();
 	for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
 			new QListWidgetItem(it.current().getId(), ui.listWidget);
-	}
+    }
 
 	QObject::connect(ui.listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(ouvrirNote(QListWidgetItem*)));
 	//On active le bouton nouvelle note
@@ -120,3 +120,4 @@ PluriNotes::~PluriNotes()
 {
     NotesManager::freeManager();
 }
+

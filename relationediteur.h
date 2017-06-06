@@ -1,6 +1,0 @@
-#ifndef RELATIONEDITEUR_H
-#define RELATIONEDITEUR_H
-
-
-
-#endif // RELATIONEDITEUR_H

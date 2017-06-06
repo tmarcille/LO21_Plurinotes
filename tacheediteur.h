@@ -9,6 +9,7 @@
 #include <QSpinBox>
 #include <QRadioButton>
 #include <QButtonGroup>
+#include <QCheckBox>
 
 class TacheEditeur : public NoteEditeur
 {
@@ -29,6 +30,8 @@ private:
     QRadioButton *en_cours;
     QRadioButton *terminee;
     QButtonGroup *status;
+    QLabel * echuel;
+    QCheckBox * echue;
     void sauvegardeAttributs();  
 
 public:

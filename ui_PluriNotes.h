@@ -15,7 +15,6 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QListView>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
@@ -38,7 +37,6 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QHBoxLayout *horizontalLayout;
     QListWidget *listWidget;
-    QListView *listView;
     NoteViewer *noteViewer;
     QMenuBar *menuBar;
     QMenu *menuFichier;
@@ -83,11 +81,6 @@ public:
         listWidget->setFrameShape(QFrame::StyledPanel);
 
         horizontalLayout->addWidget(listWidget);
-
-        listView = new QListView(centralWidget);
-        listView->setObjectName(QStringLiteral("listView"));
-
-        horizontalLayout->addWidget(listView);
 
         noteViewer = new NoteViewer(centralWidget);
         noteViewer->setObjectName(QStringLiteral("noteViewer"));

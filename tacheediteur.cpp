@@ -36,6 +36,10 @@ TacheEditeur::TacheEditeur(Tache* t, QWidget *parent) : NoteEditeur(t,parent)
 
     status = new QButtonGroup();
 
+    echue = new QCheckBox("");
+
+    echuel = new QLabel("Prise en compte");
+
     status->addButton(en_attente, 0);
     status->addButton(en_cours, 1);
     status->addButton(terminee, 2);
@@ -51,6 +55,10 @@ TacheEditeur::TacheEditeur(Tache* t, QWidget *parent) : NoteEditeur(t,parent)
     h1->addWidget(echeancel);
 
     h1->addWidget(echeance);
+
+    h1->addWidget(echuel);
+
+    h1->addWidget(echue);
 
     localLayout->addLayout(h1);
 
@@ -74,13 +82,15 @@ TacheEditeur::TacheEditeur(Tache* t, QWidget *parent) : NoteEditeur(t,parent)
 
     if (t->getStatus() == "en attente") en_attente->setChecked(true);
     if (t->getStatus() == "en cours") en_cours->setChecked(true);
-    qDebug()<<"get:|"<<t->getStatus()<<"|";
     if (t->getStatus() == "terminee") terminee->setChecked(true);
+
+    if (t->getEchue()=="T") echue->setChecked(true);
 
     QObject::connect(action, SIGNAL(textChanged()), this, SLOT(activerSave()));
     QObject::connect(priorite, SIGNAL(valueChanged()), this, SLOT(activerSave()));
     QObject::connect(echeance, SIGNAL(dateChanged()), this, SLOT(activerSave()));
     QObject::connect(status, SIGNAL(buttonClicked()), this, SLOT(activerSave()));
+    QObject::connect(echue, SIGNAL(buttonClicked()), this, SLOT(activerSave()));
 }
 
 
@@ -96,6 +106,7 @@ void TacheEditeur::sauvegardeAttributs()
     dynamic_cast<Tache*>(getNote())->setAction(action->toPlainText());
     dynamic_cast<Tache*>(getNote())->setEcheance(echeance->date());
     dynamic_cast<Tache*>(getNote())->setPriorite(QString::number(priorite->value()));
+
     QString s;
     switch (status->checkedId()) {
     case 1 :
@@ -109,6 +120,11 @@ void TacheEditeur::sauvegardeAttributs()
         break;
     }
     dynamic_cast<Tache*>(getNote())->setStatus(s);
+
+    QString e;
+    if (echue->isChecked()) e="T";
+    else e="F";
+    dynamic_cast<Tache*>(getNote())->setEchue(e);
 }
 
 

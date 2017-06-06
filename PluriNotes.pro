@@ -22,9 +22,7 @@ HEADERS += Article.h \
     observator.h \
     tache.h \
     tacheediteur.h \
-    relation.h \
-    relationediteur.h \
-    relationmanager.h
+    relation.h
 SOURCES += Article.cpp \
     ArticleEditeur.cpp \
     main.cpp \
