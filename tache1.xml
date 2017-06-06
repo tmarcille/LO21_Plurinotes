@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notes>
+    <tache>
+        <id>tache1</id>
+        <title>Titre de tache</title>
+        <action>Ceci est la 1ere tache  </action>
+        <status>terminee</status>
+        <priorite>2</priorite>
+        <echeance>12.1.2000</echeance>
+    </tache>
+</notes>

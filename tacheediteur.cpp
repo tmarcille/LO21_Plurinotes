@@ -3,13 +3,24 @@
 TacheEditeur::TacheEditeur(Tache* t, QWidget *parent) : NoteEditeur(t,parent)
 {
     qDebug()<<"creation de l'editeur";
+
+    localLayout = new QVBoxLayout();
+
+    h1 = new QHBoxLayout();
+
+    h2 = new QHBoxLayout();
+
     actionl = new QLabel("Action");
 
     action = new QTextEdit;
 
     prioritel = new QLabel("Priorite");
 
-    priorite = new QLineEdit;
+    priorite = new QSpinBox;
+
+    priorite->setMaximum(16);
+
+    priorite->setMinimum(0);
 
     echeancel = new QLabel("Echeance");
 
@@ -17,38 +28,59 @@ TacheEditeur::TacheEditeur(Tache* t, QWidget *parent) : NoteEditeur(t,parent)
 
     statusl = new QLabel("Status");
 
-    status = new QLineEdit;
+    en_attente = new QRadioButton("en attente");
 
+    en_cours = new QRadioButton("en cours");
 
+    terminee = new QRadioButton("terminee");
 
-    centralLayout->addWidget(actionl);
+    status = new QButtonGroup();
 
-    centralLayout->addWidget(action);
+    status->addButton(en_attente, 0);
+    status->addButton(en_cours, 1);
+    status->addButton(terminee, 2);
 
-    centralLayout->addWidget(prioritel);
+    localLayout->addWidget(actionl);
 
-    centralLayout->addWidget(priorite);
+    localLayout->addWidget(action);
 
-    centralLayout->addWidget(echeancel);
+    h1->addWidget(prioritel);
 
-    centralLayout->addWidget(echeance);
+    h1->addWidget(priorite);
 
-    centralLayout->addWidget(statusl);
+    h1->addWidget(echeancel);
 
-    centralLayout->addWidget(status);
+    h1->addWidget(echeance);
+
+    localLayout->addLayout(h1);
+
+    localLayout->addWidget(statusl);
+
+    h2->addWidget(en_attente);
+
+    h2->addWidget(en_cours);
+
+    h2->addWidget(terminee);
+
+    localLayout->addLayout(h2);
+
+    centralLayout->addLayout(localLayout);
 
     qDebug("finlayout");
 
     action->setText(t->getAction());
-    priorite->setText(t->getPriorite());
+    priorite->setValue(t->getPriorite().toInt());
     echeance->setDate(t->getEcheance());
-    status->setText(t->getStatus());
+
+    if (t->getStatus() == "en attente") en_attente->setChecked(true);
+    if (t->getStatus() == "en cours") en_cours->setChecked(true);
+    qDebug()<<"get:|"<<t->getStatus()<<"|";
+    if (t->getStatus() == "terminee") terminee->setChecked(true);
 
     QObject::connect(action, SIGNAL(textChanged()), this, SLOT(activerSave()));
-    QObject::connect(priorite, SIGNAL(textChanged()), this, SLOT(activerSave()));
+    QObject::connect(priorite, SIGNAL(valueChanged()), this, SLOT(activerSave()));
     QObject::connect(echeance, SIGNAL(dateChanged()), this, SLOT(activerSave()));
-    QObject::connect(status, SIGNAL(textChanged()), this, SLOT(activerSave()));
-
+    QObject::connect(status, SIGNAL(buttonClicked()), this, SLOT(activerSave()));
 }
 
 
@@ -63,8 +95,20 @@ void TacheEditeur::sauvegardeAttributs()
         qDebug()<<"Tache";
     dynamic_cast<Tache*>(getNote())->setAction(action->toPlainText());
     dynamic_cast<Tache*>(getNote())->setEcheance(echeance->date());
-    dynamic_cast<Tache*>(getNote())->setPriorite(priorite->text());
-    dynamic_cast<Tache*>(getNote())->setStatus(status->text());
+    dynamic_cast<Tache*>(getNote())->setPriorite(QString::number(priorite->value()));
+    QString s;
+    switch (status->checkedId()) {
+    case 1 :
+        s="en cours";
+        break;
+    case 2 :
+        s="terminee";
+        break;
+    default:
+        s="en attente";
+        break;
+    }
+    dynamic_cast<Tache*>(getNote())->setStatus(s);
 }
 
 

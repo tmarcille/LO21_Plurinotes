@@ -71,7 +71,7 @@ public:
         }
         if (type.toLower() == "tache") {
             QString priorite = "0";
-            QString status = "";
+            QString status = "en attente";
             QDate echeance = QDate(2000,1,1);
             QString action = "";
             qDebug("recuperation tache");
