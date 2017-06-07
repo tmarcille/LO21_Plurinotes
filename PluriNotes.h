@@ -50,5 +50,4 @@ public slots:
 	void nouvelleNote();
 
 private slots:
-    void on_listWidget_activated(const QModelIndex &index);
 };

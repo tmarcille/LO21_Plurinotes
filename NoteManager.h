@@ -70,7 +70,7 @@ public:
             note = new Media(id,title,foldername,desc,file);
         }
         if (type.toLower() == "tache") {
-            QString priorite = "0";
+            QString priorite = "Faible";
             QString status = "en attente";
             QDate echeance = QDate(2017,6,25);
             QString action = "";

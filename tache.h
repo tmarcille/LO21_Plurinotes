@@ -10,7 +10,7 @@
 class Tache : public Note {
 private:
     QString action;
-    int priorite;
+    QString priorite;
     QString status;
     QDate echeance;
     bool echue;
@@ -20,7 +20,7 @@ public:
     Note* clone() const;
     Tache(const QString& i, const QString& folder,const QString& ti, const QString& a, const QDate &d, const QString &p, const QString &s, const bool &e);
     QString getAction() const {return action;}
-    QString getPriorite() const {return QString::number(priorite);}
+    QString getPriorite() const {return priorite;}
     QString getStatus() const {return status;}
     QDate getEcheance() const {return echeance;}
     QString getEchue() const;

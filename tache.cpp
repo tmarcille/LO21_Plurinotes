@@ -19,7 +19,7 @@ Note * Tache::clone() const
     return new Tache(*this);
 }
 
-Tache::Tache(const QString& i, const QString& folder, const QString& ti, const QString& a="", const QDate &d=QDate(0,0,0), const QString &p="0", const QString &s="en attente", const bool &e = false) : Note(i,folder,ti), action(a), echeance(d), priorite(p.toInt()), status(s), echue(e)
+Tache::Tache(const QString& i, const QString& folder, const QString& ti, const QString& a="", const QDate &d=QDate(0,0,0), const QString &p="Faible", const QString &s="en attente", const bool &e = false) : Note(i,folder,ti), action(a), echeance(d), priorite(p), status(s), echue(e)
 {qDebug()<<"creation de la tache"<<"action:"<<action<<"echeance:"<<echeance.toString("d.M.yyyy")<<"priorite:"<<priorite<<"status"<<status<<this->getType();}
 
 
@@ -49,7 +49,7 @@ void Tache::setEcheance(const QDate& d) {
 }
 
 void Tache::setPriorite(const QString& p) {
-    priorite = p.toInt();
+    priorite = p;
 }
 
 void Tache::setEchue(const QString& e) {

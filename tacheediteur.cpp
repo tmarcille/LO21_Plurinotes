@@ -16,11 +16,12 @@ TacheEditeur::TacheEditeur(Tache* t, QWidget *parent) : NoteEditeur(t,parent)
 
     prioritel = new QLabel("Priorite");
 
-    priorite = new QSpinBox;
+    priorite = new QComboBox;
 
-    priorite->setMaximum(16);
+    priorite->addItem("Faible");
+    priorite->addItem("Moyenne");
+    priorite->addItem("Fort");
 
-    priorite->setMinimum(0);
 
     echeancel = new QLabel("Echeance");
 
@@ -77,7 +78,9 @@ TacheEditeur::TacheEditeur(Tache* t, QWidget *parent) : NoteEditeur(t,parent)
     qDebug("finlayout");
 
     action->setText(t->getAction());
-    priorite->setValue(t->getPriorite().toInt());
+    if (t->getPriorite() == "Faible") priorite->setCurrentIndex(0);
+    if (t->getPriorite() == "Moyenne") priorite->setCurrentIndex(1);
+    if (t->getPriorite() == "Forte") priorite->setCurrentIndex(2);
     echeance->setDate(t->getEcheance());
 
     if (t->getStatus() == "en attente") en_attente->setChecked(true);
@@ -87,10 +90,10 @@ TacheEditeur::TacheEditeur(Tache* t, QWidget *parent) : NoteEditeur(t,parent)
     if (t->getEchue()=="T") echue->setChecked(true);
 
     QObject::connect(action, SIGNAL(textChanged()), this, SLOT(activerSave()));
-    QObject::connect(priorite, SIGNAL(valueChanged()), this, SLOT(activerSave()));
-    QObject::connect(echeance, SIGNAL(dateChanged()), this, SLOT(activerSave()));
-    QObject::connect(status, SIGNAL(buttonClicked()), this, SLOT(activerSave()));
-    QObject::connect(echue, SIGNAL(buttonClicked()), this, SLOT(activerSave()));
+    QObject::connect(priorite, SIGNAL(activated(int)), this, SLOT(activerSave()));
+    QObject::connect(echeance, SIGNAL(dateChanged(QDate)), this, SLOT(activerSave()));
+    QObject::connect(status, SIGNAL(buttonClicked(int)), this, SLOT(activerSave()));
+    QObject::connect(echue, SIGNAL(clicked(bool)), this, SLOT(activerSave()));
 }
 
 
@@ -105,7 +108,20 @@ void TacheEditeur::sauvegardeAttributs()
         qDebug()<<"Tache";
     dynamic_cast<Tache*>(getNote())->setAction(action->toPlainText());
     dynamic_cast<Tache*>(getNote())->setEcheance(echeance->date());
-    dynamic_cast<Tache*>(getNote())->setPriorite(QString::number(priorite->value()));
+
+    QString p;
+    switch (priorite->currentIndex()) {
+    case 1 :
+        p="Moyenne";
+        break;
+    case 2:
+        p="Forte";
+        break;
+    default:
+        p="Faible";
+        break;
+    }
+    dynamic_cast<Tache*>(getNote())->setPriorite(p);
 
     QString s;
     switch (status->checkedId()) {
@@ -125,6 +141,7 @@ void TacheEditeur::sauvegardeAttributs()
     if (echue->isChecked()) e="T";
     else e="F";
     dynamic_cast<Tache*>(getNote())->setEchue(e);
+    qDebug()<<"priorite"<<dynamic_cast<Tache*>(getNote())->getPriorite();
 }
 
 

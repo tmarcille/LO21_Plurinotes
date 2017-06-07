@@ -10,6 +10,7 @@
 #include <QRadioButton>
 #include <QButtonGroup>
 #include <QCheckBox>
+#include <QComboBox>
 
 class TacheEditeur : public NoteEditeur
 {
@@ -24,7 +25,7 @@ private:
     QLabel* echeancel;
     QDateEdit *echeance;
     QLabel* prioritel;
-    QSpinBox *priorite;
+    QComboBox *priorite;
     QLabel* statusl;
     QRadioButton *en_attente;
     QRadioButton *en_cours;
@@ -37,11 +38,6 @@ private:
 public:
     TacheEditeur(Tache* a, QWidget *parent = 0);
     ~TacheEditeur();
-
-signals :
-    void valueChanged(int v);
-    void dateChanged(QDate d);
-    void buttonClicked(QString s);
 
 public slots :
 
