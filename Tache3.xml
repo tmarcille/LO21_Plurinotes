@@ -6,7 +6,8 @@
         <action></action>
         <status>en attente</status>
         <priorite>Moyenne</priorite>
-        <echeance>25.6.2017</echeance>
-        <echue>F</echue>
+        <echeance>25.6.2018</echeance>
+        <echue>T</echue>
+        <piorisee>F</piorisee>
     </tache>
 </notes>

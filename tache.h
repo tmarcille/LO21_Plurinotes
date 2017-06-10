@@ -14,16 +14,19 @@ private:
     QString status;
     QDate echeance;
     bool echue;
+    bool priorise;
     void saveAttributesInFile(QXmlStreamWriter& stream) const;
 
 public:
     Note* clone() const;
-    Tache(const QString& i, const QString& folder,const QString& ti, const QString& a, const QDate &d, const QString &p, const QString &s, const bool &e);
+    Tache(const QString& i, const QString& folder,const QString& ti, const QString& a, const QDate &d, const QString &p, const QString &s, const bool &e, const bool &ps);
     QString getAction() const {return action;}
     QString getPriorite() const {return priorite;}
     QString getStatus() const {return status;}
     QDate getEcheance() const {return echeance;}
     QString getEchue() const;
+    QString getPriorise() const;
+    QString getIntPriorite() const;
     QString getType() const;
 
     void setAction(const QString& t);
@@ -31,6 +34,7 @@ public:
     void setStatus(const QString& s);
     void setEcheance(const QDate & echeance);
     void setEchue(const QString & e);
+    void setPriorise(const QString &ps);
 };
 
 #endif // TACHE_H

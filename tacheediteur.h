@@ -20,10 +20,13 @@ private:
     QVBoxLayout * localLayout;
     QHBoxLayout * h1;
     QHBoxLayout * h2;
+    QHBoxLayout * h3;
     QLabel* actionl;
     QTextEdit *action;
+    QCheckBox * echue;
     QLabel* echeancel;
     QDateEdit *echeance;
+    QCheckBox * priorise;
     QLabel* prioritel;
     QComboBox *priorite;
     QLabel* statusl;
@@ -31,8 +34,7 @@ private:
     QRadioButton *en_cours;
     QRadioButton *terminee;
     QButtonGroup *status;
-    QLabel * echuel;
-    QCheckBox * echue;
+
     void sauvegardeAttributs();  
 
 public:

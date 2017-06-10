@@ -75,6 +75,7 @@ public:
             QDate echeance = QDate(2017,6,25);
             QString action = "";
             bool echue = false;
+            bool priorise = false;
             qDebug("recuperation tache");
             if (param.contains("action"))
                 action = param.at(param.indexOf("action") + 1);
@@ -86,8 +87,10 @@ public:
                 echeance = QDate::fromString(param.at(param.indexOf("echeance") + 1), "d.M.yyyy");
             if (param.contains("echue"))
                 if (param.at(param.indexOf("echue") + 1)=="T") echue=true;
+            if (param.contains("priorise"))
+                if (param.at(param.indexOf("priorise") + 1)=="T") priorise=true;
             qDebug("intialisation tache");
-            note = new Tache(id,foldername,title,action,echeance,priorite,status,echue);
+            note = new Tache(id,foldername,title,action,echeance,priorite,status,echue,priorise);
 
         }
 		addNote(note);

@@ -7,6 +7,7 @@ TacheEditeur::TacheEditeur(Tache* t, QWidget *parent) : NoteEditeur(t,parent)
     localLayout = new QVBoxLayout();
 
     h1 = new QHBoxLayout();
+    h3 = new QHBoxLayout();
 
     h2 = new QHBoxLayout();
 
@@ -39,7 +40,7 @@ TacheEditeur::TacheEditeur(Tache* t, QWidget *parent) : NoteEditeur(t,parent)
 
     echue = new QCheckBox("");
 
-    echuel = new QLabel("Prise en compte");
+    priorise = new QCheckBox("");
 
     status->addButton(en_attente, 0);
     status->addButton(en_cours, 1);
@@ -49,19 +50,21 @@ TacheEditeur::TacheEditeur(Tache* t, QWidget *parent) : NoteEditeur(t,parent)
 
     localLayout->addWidget(action);
 
+    h1->addWidget(priorise);
+
     h1->addWidget(prioritel);
 
     h1->addWidget(priorite);
 
-    h1->addWidget(echeancel);
+    h3->addWidget(echue);
 
-    h1->addWidget(echeance);
+    h3->addWidget(echeancel);
 
-    h1->addWidget(echuel);
-
-    h1->addWidget(echue);
+    h3->addWidget(echeance);
 
     localLayout->addLayout(h1);
+
+    localLayout->addLayout(h3);
 
     localLayout->addWidget(statusl);
 
@@ -88,12 +91,15 @@ TacheEditeur::TacheEditeur(Tache* t, QWidget *parent) : NoteEditeur(t,parent)
     if (t->getStatus() == "terminee") terminee->setChecked(true);
 
     if (t->getEchue()=="T") echue->setChecked(true);
+    if (t->getPriorise()=="T") priorise->setChecked(true);
 
     QObject::connect(action, SIGNAL(textChanged()), this, SLOT(activerSave()));
     QObject::connect(priorite, SIGNAL(activated(int)), this, SLOT(activerSave()));
     QObject::connect(echeance, SIGNAL(dateChanged(QDate)), this, SLOT(activerSave()));
     QObject::connect(status, SIGNAL(buttonClicked(int)), this, SLOT(activerSave()));
     QObject::connect(echue, SIGNAL(clicked(bool)), this, SLOT(activerSave()));
+    QObject::connect(priorise, SIGNAL(clicked(bool)), this, SLOT(activerSave()));
+
 }
 
 
@@ -141,7 +147,12 @@ void TacheEditeur::sauvegardeAttributs()
     if (echue->isChecked()) e="T";
     else e="F";
     dynamic_cast<Tache*>(getNote())->setEchue(e);
-    qDebug()<<"priorite"<<dynamic_cast<Tache*>(getNote())->getPriorite();
+
+    QString ps;
+    if (priorise->isChecked()) ps="T";
+    else ps="F";
+    dynamic_cast<Tache*>(getNote())->setPriorise(ps);
+
 }
 
 
