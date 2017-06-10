@@ -10,6 +10,7 @@ void Relation::addCouple(Note* f, Note* s, QString l){
     struct Couple* c = new struct Couple;
     c->father=f;
     c->son=s;
-    couples.append(std::pair<Couple*,QString>(c,l));
-
+    c->label = l;
+    couples.append(c);
+    qDebug()<<"added couple to relation: "<<this->title;
 }

@@ -29,6 +29,7 @@ PluriNotes::PluriNotes(QWidget *parent)
 	QObject::connect(ui.actionNote, SIGNAL(triggered()), this, SLOT(nouvelleNote()));
     QObject::connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(openSettings()));
     QObject::connect(ui.actionRelations, SIGNAL(triggered()), this, SLOT(openRelations()));
+    QObject::connect(ui.listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(ouvrirNote(QListWidgetItem*)));
 
 }
 
@@ -100,7 +101,6 @@ void PluriNotes::ouvrirProjet() {
 			new QListWidgetItem(it.current().getId(), ui.listWidget);
 	}
 
-	QObject::connect(ui.listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(ouvrirNote(QListWidgetItem*)));
 	//On active le bouton nouvelle note
 	ui.actionNote->setEnabled(true);
 }
@@ -124,7 +124,7 @@ void PluriNotes::nouvelleNote()
 
 		NotesManager& m = NotesManager::getManager();
         try{
-            m.create(x->getSelectedType(),x->getNom());
+            m.create(x->getSelectedType(),m.getFoldername() + "/" + x->getNom()+".xml");
         }
         catch (NotesException& a){
             if(a.getInfo()=="Note already exists"){

@@ -44,24 +44,26 @@ public:
 	static NotesManager& getManager();
 	static void freeManager(); // free the memory used by the NotesManager; it can be rebuild later
     void addNote(Note* n);
-	Note* create(const QString& type,const QString& id,const QVector<QString>& param = QVector<QString>()) //crée un note et l'ajoute a la liste (pas de note pas dans la liste -> pose un pb plus tard ?)
+    Note* create(const QString& type,const QString& filePath,const QVector<QString>& param = QVector<QString>()) //crée un note et l'ajoute a la liste (pas de note pas dans la liste -> pose un pb plus tard ?)
 	{
 
         try{
-            getNote(id);
+            getNote(filePath.section("/", -1, -1).section(".", 0, 0));
         }
         catch (NotesException& a){
             if (a.getInfo()=="error, note not existing"){
+                qDebug()<<"creating Note";
                 Note* note = NULL;
                 QString title = "";
                 if (param.contains("title"))
                     title = param.at(param.indexOf("title") + 1);
 
                 if (type.toLower() == "article") {
+                    qDebug()<<"creating article";
                     QString text = "";
                     if (param.contains("text"))
                         text = param.at(param.indexOf("text") + 1);
-                    note = new Article(id,title,foldername,text);
+                    note = new Article(filePath,title,text);
                 }
                 if (type.toLower() == "media") {
                     QString desc = "";
@@ -70,7 +72,7 @@ public:
                         desc = param.at(param.indexOf("description") + 1);
                     if (param.contains("file"))
                         file = param.at(param.indexOf("file") + 1);
-                    note = new Media(id,title,foldername,desc,file);
+                    note = new Media(filePath,title,desc,file);
                 }
                 addNote(note);
                 return note;

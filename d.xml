@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<notes>
-    <media>
-        <id>d</id>
-        <title></title>
-        <description></description>
-        <file></file>
-    </media>
-</notes>
+<note type="article">
+    <title></title>
+    <text></text>
+</note>

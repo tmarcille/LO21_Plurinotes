@@ -21,29 +21,55 @@ RelationManager::RelationManager(): filename(""),relations({})
 
 }
 
-Relation* RelationManager::getRelation(QString &name){
+void RelationManager::addRelation(Relation* r){
+    try{
+        getRelation(r->getTitle());
+    }
+    catch (NotesException& e){
+        if(e.getInfo()=="error, relation not existing"){
+            relations.push_back(r);
+            qDebug()<<"relation "<<r->getTitle()<<" added";
+        }
+    }
+}
+
+
+Relation* RelationManager::addRelation(const QString t,const QString d, bool o){
+
+    try{
+        getRelation(t);
+    }
+    catch (NotesException& e){
+        if(e.getInfo()=="error, relation not existing"){
+            Relation* r = new Relation(t,d,o);
+            addRelation(r);
+            return r;
+        }
+    }
+    return nullptr;
+}
+
+
+
+Relation* RelationManager::getRelation(const QString &name){
 
 
     //test si la relation existe deja
     QVector<Relation*>::iterator it;
     for (it = relations.begin(); it!= relations.end() ; it++ ){
         if( (*it)->getTitle() == name ){
-            qDebug()<<typeid(*it).name();
             return (*it);}
     }
-
-    //sinon on en ajoute une nouvelle
-    Relation* r = new Relation(name);
-    relations.push_back(r);
-    return nullptr;
+    //sinon on renvoie une erreur;
+    throw NotesException("error, relation not existing");
 
 }
 
 void RelationManager::save() const{
 
     QFile newfile(filename);
-    //if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
-      //  throw NotesException(QString("erreur sauvegarde notes : ouverture fichier xml"));
+    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
+        throw NotesException(QString("erreur sauvegarde notes : ouverture fichier xml"));
     QXmlStreamWriter stream(&newfile);
     stream.setAutoFormatting(true);
     stream.writeStartDocument();
@@ -58,8 +84,10 @@ void RelationManager::save() const{
             stream.writeStartElement("couple");
             stream.writeTextElement("father",(*it)->getCouple(i)->father->getId());
             stream.writeTextElement("son",(*it)->getCouple(i)->son->getId());
+            stream.writeTextElement("label",(*it)->getCouple(i)->label);
             stream.writeEndElement();
         }
+        stream.writeEndElement();
     }
     stream.writeEndElement();
     stream.writeEndDocument();
@@ -69,7 +97,7 @@ void RelationManager::save() const{
 void RelationManager::load() {
 
     NotesManager& m = NotesManager::getManager();
-
+    qDebug()<<"loading relation";
     QFile fin(filename);
     // If we can't open it, let's show an error message.
     if (!fin.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -90,16 +118,16 @@ void RelationManager::load() {
             if(xml.name() == "relations") continue;
             // If it's named tache, we'll dig the information from there.
             if(xml.name() == "relation") {
-                qDebug()<<"new article\n";
+                qDebug()<<"new relation";
                 QString title;
                 QString description;
-
+                QString label;
                 QString father;
                 QString son;
-
-                //QString text;
+                Relation* r = nullptr;
                 QXmlStreamAttributes attributes = xml.attributes();
                 xml.readNext();
+
                 //We're going to loop over the things because the order might change.
                 //We'll continue the loop until we hit an EndElement named article.
                 while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "relation")) {
@@ -107,42 +135,74 @@ void RelationManager::load() {
                         // We've found title.
                         if(xml.name() == "title") {
                             xml.readNext(); title=xml.text().toString();
-                            qDebug()<<"title="<<title<<"\n";
+                            qDebug()<<"title="<<title<<"\n";                            
+                            r = addRelation(title); //si relation existe deja, r=nullptr;
+                            if (!r){
+                                r=getRelation(title); //dans ce cas, on vide la relation et on charge le
+                                                      //fichier xml sur celle-ci.
+                                r->setDescription("");
+                                for (int i=r->getSize(); i>0; i--){
+                                    qDebug()<<"removing couple"<<i-1;
+                                    r->removeCouple(i-1);
+                                }
+                            }
                         }
 
                         // We've found description.
                         if(xml.name() == "description") {
-                            xml.readNext(); description=xml.text().toString();
+                            xml.readNext();
+                            description=xml.text().toString();
                             qDebug()<<"description="<<description<<"\n";
+                            if(r)
+                                r->setDescription(description);
                         }
 
+                        if(xml.name() == "couple") {
+                            Note* f = nullptr;
+                            Note* s = nullptr;
+                            qDebug()<<"found couple";
+                            xml.readNext();
+                            while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "couple")) {
+                                if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                                    if(xml.name() == "father") {
+                                        xml.readNext();
+                                        father=xml.text().toString();
+                                        qDebug()<<"father="<<father<<"\n";
+                                        try {f=&m.getNote(father);}
+                                        catch(NotesException& e){
+                                            if (e.getInfo()== "error, note not existing")
+                                                qDebug()<<"Note don't exist anymore"; }
 
-                        if(xml.name() == "father") {
-                            xml.readNext();
-                            father=xml.text().toString();
-                            qDebug()<<"text="<<father<<"\n";
-                           /* try { father = m.getNote(f);}
-                            catch(NotesException& e){
-                                if (e.getInfo()== "error, note not existing")
-                                    qDebug()<<"Note don't exist anymore"; }
-                                    */
+                                    }
+                                    if(xml.name() == "son") {
+                                        xml.readNext();
+                                        son=xml.text().toString();
+                                        qDebug()<<"son="<<son<<"\n";
+                                        try { s=&m.getNote(son);}
+                                        catch(NotesException& e){
+                                            if(e.getInfo()=="error, note not existing")
+                                                qDebug()<<"Note don't exist anymore"; }
+                                    }
+                                    if(xml.name() == "label") {
+                                        xml.readNext();
+                                        label=xml.text().toString();
+                                        qDebug()<<"label="<<label<<"\n";
+                                    }
+                                }
+                                xml.readNext();
+                            }
+                            if(f && s) {getRelation(title)->addCouple(f,s,label);}
+
                         }
-                        if(xml.name() == "son") {
-                            xml.readNext();
-                            son=xml.text().toString();
-                            qDebug()<<"text="<<son<<"\n";
-                           /* try { father = m.getNote(f);}
-                            catch(NotesException& e){
-                                if(e.getInfo()=="error, note not existing")
-                                    qDebug()<<"Note don't exist anymore"; }
-                                    */
-                        }
+                        //getRelation(title)->addCouple(&(m.getNote(father)),&(m.getNote(son)));
+
                     }
                     // ...and next...
                     xml.readNext();
                 }
                 //qDebug()<<"ajout note "<<identificateur<<"\n";
                 //addArticle(identificateur,titre,text);
+                //addRelation(title,description);
             }
         }
     }

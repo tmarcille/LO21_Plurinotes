@@ -4,17 +4,17 @@
 NotesManager* NotesManager::instance = nullptr;
 
 NotesManager& NotesManager::getManager() {
-	if (!instance) instance = new NotesManager;
-	return *instance;
+    if (!instance) instance = new NotesManager;
+    return *instance;
 }
 
 void NotesManager::freeManager() {
-	delete instance;
-	instance = nullptr;
+    delete instance;
+    instance = nullptr;
 }
 
 void NotesManager::addNote(Note* a) {
-	
+
     try{
         getNote(a->getId());
     }
@@ -38,11 +38,11 @@ void NotesManager::addNote(Note* a) {
 
 Note& NotesManager::getNote(const QString& id) const{
 
-    // si l'article existe déjà, on en renvoie une référence
-    
-	for(unsigned int i=0; i<nbNotes; i++){
-		if (notes[i]->getId()==id) return *notes[i];
-	}
+    // si l'article existe d?j?, on en renvoie une r?f?rence
+
+    for(unsigned int i=0; i<nbNotes; i++){
+        if (notes[i]->getId()==id) return *notes[i];
+    }
     //sinon on renvoie une erreur;
     throw NotesException("error, note not existing");
 }
@@ -50,92 +50,88 @@ Note& NotesManager::getNote(const QString& id) const{
 NotesManager::NotesManager() :notes(nullptr), nbNotes(0), nbMaxNotes(0), foldername("") {}
 
 NotesManager::~NotesManager() {
-	if (foldername!="")
-		saveAllNotes();
-	for (unsigned int i = 0; i<nbNotes; i++) delete notes[i];
-	delete[] notes;
+    if (foldername!="")
+        saveAllNotes();
+    for (unsigned int i = 0; i<nbNotes; i++) delete notes[i];
+    delete[] notes;
 }
 
 void NotesManager::saveAllNotes() const {
 
-	for (ConstIterator it = getIterator(); !it.isDone(); it.next()) {
+    for (ConstIterator it = getIterator(); !it.isDone(); it.next()) {
         it.current().saveInFile();
-	}
+    }
 }
 
 void NotesManager::saveNote(const QString& id) const {
 
-    Note& note = getNote(id);
-    note.saveInFile();
+    try{
+        Note& note = getNote(id);
+        note.saveInFile();
+
+    }
+    catch(NotesException& e){
+        qDebug()<<e.getInfo();
+
+    }
 
 }
 
 
 void NotesManager::load() {
 
-    // A refaire pour eviter le crash quand 2 notes dans le même fichier
-
     QDirIterator it(foldername, QStringList() << "*.xml", QDir::Files);
-	while (it.hasNext()) {
-		QString fichier = it.next();
-		QFile fin(fichier);
-		// If we can't open it, let's show an error message.
-		if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
-			throw NotesException("Erreur ouverture fichier notes");
-		}
+    while (it.hasNext()) {
+        QString fichier = it.next();
+        QFile fin(fichier);
+        // If we can't open it, let's show an error message.
+        if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            throw NotesException("Erreur ouverture fichier notes");
+        }
+        QXmlStreamReader xml(&fin);
+        while (!xml.atEnd() && !xml.hasError())
+        {
+            QXmlStreamReader::TokenType token = xml.readNext();
 
-		// QXmlStreamReader takes any QIODevice.
-		QXmlStreamReader xml(&fin);
-		qDebug() << "debut fichier\n";
-		// We'll parse the XML until we reach end of it.
-        bool end = false;
-        while (!xml.atEnd() && !xml.hasError() && !end) {
-			// Read next element.
-			QXmlStreamReader::TokenType token = xml.readNext();
-			// If token is just StartDocument, we'll go to next.
-			if (token == QXmlStreamReader::StartDocument) continue;
-			// If token is StartElement, we'll see if we can read it.
-            if (token == QXmlStreamReader::StartElement) {
-                if (xml.name() == "notes") continue;
-				// If it's named tache, we'll dig the information from there.
-                //end = true;
-                QString type = xml.name().toString();
-				QString identificateur;
-				QString path = fin.fileName();
-				QString file = path.section("/", -1, -1);
-				identificateur = file.section(".", 0, 0);
-				qDebug() << "id=" << identificateur << "\n";
+            if (token == QXmlStreamReader::StartDocument) continue;
 
-                //dans le vecteur parameters sera contenu tout les parametres lus dans la note sous la forme: attribut1, valeur1, attribut2, valeur2...
-				QVector<QString> parameters;
+            if (token == QXmlStreamReader::StartElement)
+            {
+                if (xml.name() == "note")
+                {
+                    if (xml.attributes().hasAttribute("type")){
+                        QString type = xml.attributes().value("type").toString();
+                        QVector<QString> parameters;
+                        qDebug() << "id = " << fin.fileName();
+                        qDebug() << "type = " << type;
+                        xml.readNext();
+                        while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() =="note")) {
+                            if (xml.tokenType() == QXmlStreamReader::StartElement) {
+                                qDebug() << "info = " << xml.name();
+                                parameters.push_back(xml.name().toString().toLower());
+                                xml.readNext();
+                                qDebug() << "text = " << xml.text().toString();
+                                parameters.push_back(xml.text().toString());
+                            }
+                            xml.readNext();
+                        }
+                        qDebug() << "ajout note " << fin.fileName() << "\n";
+                        create(type, fin.fileName(), parameters);
+                    }                    
+                }
+                else
+                {
+                    qDebug() << "Token:" << xml.name().toLatin1() << QString::number(xml.lineNumber()).toLatin1();
+                    break;
+                }
+                continue;
+            }
+        }
+        if (xml.hasError())
+        {
+             //Log error
+            qDebug() << "XML-Pseudocode parsing error:- "<< xml.errorString();
+        }
 
-				QXmlStreamAttributes attributes = xml.attributes();
-				xml.readNext();
-
-				//We're going to loop over the things because the order might change.
-				//We'll continue the loop until we hit an EndElement named article.
-
-				while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == type)) {
-					if (xml.tokenType() == QXmlStreamReader::StartElement) {
-						parameters.push_back(xml.name().toString().toLower());
-						xml.readNext();
-						parameters.push_back(xml.text().toString());
-
-					}
-					// ...and next...
-					xml.readNext();
-				}
-				qDebug() << "ajout note " << identificateur << "\n";
-                create(type, identificateur, parameters);
-			}
-		}
-		// Error handling.
-		if (xml.hasError()) {
-			throw NotesException("Erreur lecteur fichier notes, parser xml");
-		}
-		// Removes any device() or data from the reader * and resets its internal state to the initial state.
-		xml.clear();
-		qDebug() << "fin load\n";
-
-	}
+    }
 }

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<notes>
-    <article>
-        <id>a</id>
-        <title></title>
-        <text></text>
-    </article>
-</notes>
+<note type="article">
+    <title>1</title>
+    <text></text>
+</note>
