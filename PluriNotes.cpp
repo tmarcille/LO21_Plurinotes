@@ -3,7 +3,7 @@
 #include <qDebug>
 #include <QList>
 #include <QTabWidget>
-
+#include "RelationTreePanel.h"
 
 PluriNotes::PluriNotes(QWidget *parent)
 	: QMainWindow(parent)
@@ -26,11 +26,16 @@ PluriNotes::PluriNotes(QWidget *parent)
 
     loadSettings();
     ouvrirProjet();
+
 	QObject::connect(ui.actionNote, SIGNAL(triggered()), this, SLOT(nouvelleNote()));
     QObject::connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(openSettings()));
     QObject::connect(ui.actionRelations, SIGNAL(triggered()), this, SLOT(openRelations()));
     QObject::connect(ui.listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(ouvrirNote(QListWidgetItem*)));
 
+    QVBoxLayout * anyLayout = new QVBoxLayout();
+    RelationTree* test = new RelationTree;
+    anyLayout->addWidget(test);
+    ui.relationTree->setContentLayout(*anyLayout);
 }
 
 

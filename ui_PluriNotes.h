@@ -23,6 +23,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 #include "NoteViewer.h"
+#include "RelationTreePanel.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -36,9 +37,9 @@ public:
     QAction *actionRelations;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
-    QHBoxLayout *horizontalLayout;
     QListWidget *listWidget;
     NoteViewer *noteViewer;
+    RelationTreePanel *relationTree;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuNouveau;
@@ -68,10 +69,6 @@ public:
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
         listWidget = new QListWidget(centralWidget);
         listWidget->setObjectName(QStringLiteral("listWidget"));
         listWidget->setEnabled(true);
@@ -83,15 +80,17 @@ public:
         listWidget->setMaximumSize(QSize(200, 16777215));
         listWidget->setFrameShape(QFrame::StyledPanel);
 
-        horizontalLayout->addWidget(listWidget);
+        horizontalLayout_2->addWidget(listWidget);
 
         noteViewer = new NoteViewer(centralWidget);
         noteViewer->setObjectName(QStringLiteral("noteViewer"));
 
-        horizontalLayout->addWidget(noteViewer);
+        horizontalLayout_2->addWidget(noteViewer);
 
+        relationTree = new RelationTreePanel(centralWidget);
+        relationTree->setObjectName(QStringLiteral("relationTree"));
 
-        horizontalLayout_2->addLayout(horizontalLayout);
+        horizontalLayout_2->addWidget(relationTree);
 
         PluriNotesClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(PluriNotesClass);

@@ -16,36 +16,32 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetDefaultConstraint</enum>
+     <widget class="QListWidget" name="listWidget">
+      <property name="enabled">
+       <bool>true</bool>
       </property>
-      <item>
-       <widget class="QListWidget" name="listWidget">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="NoteViewer" name="noteViewer" native="true"/>
-      </item>
-     </layout>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="NoteViewer" name="noteViewer" native="true"/>
+    </item>
+    <item>
+     <widget class="RelationTreePanel" name="relationTree" native="true"/>
     </item>
    </layout>
   </widget>
@@ -134,6 +130,12 @@
    <class>NoteViewer</class>
    <extends>QWidget</extends>
    <header>NoteViewer.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>RelationTreePanel</class>
+   <extends>QWidget</extends>
+   <header>RelationTreePanel.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
