@@ -20,7 +20,7 @@ Note * Tache::clone() const
     return new Tache(*this);
 }
 
-Tache::Tache(const QString& f, const QString& ti, const QString& a="", const QDate &d=QDate(0,0,0), const QString &p="Faible", const QString &s="en attente", const bool &e = false, const bool &ps = false) : Note(f,ti), action(a), echeance(d), priorite(p), status(s), echue(e),priorise(ps)
+Tache::Tache(const QString& f,const QString& ti, const QString& a, const QDate &d, const QString &p, const QString &s, const bool &e, const bool &ps) : Note(f,ti), action(a), echeance(d), priorite(p), status(s), echue(e),priorise(ps)
 {qDebug()<<"creation de la tache"<<"action:"<<action<<this->getEchue()<<"echeance:"<<echeance.toString("d.M.yyyy")<<this->getPriorise()<<"priorite:"<<priorite<<"status"<<status<<this->getType();}
 
 

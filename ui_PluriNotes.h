@@ -16,6 +16,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
@@ -42,6 +43,7 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QListWidget *listWidget;
     QVBoxLayout *verticalLayout;
+    QLabel *label;
     QListWidget *taskList;
     QListWidget *archiveList;
     NoteViewer *noteViewer;
@@ -93,6 +95,11 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+
+        verticalLayout->addWidget(label);
+
         taskList = new QListWidget(centralWidget);
         taskList->setObjectName(QStringLiteral("taskList"));
         sizePolicy.setHeightForWidth(taskList->sizePolicy().hasHeightForWidth());
@@ -140,6 +147,12 @@ public:
 
         relationTree = new RelationTree(centralWidget);
         relationTree->setObjectName(QStringLiteral("relationTree"));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(relationTree->sizePolicy().hasHeightForWidth());
+        relationTree->setSizePolicy(sizePolicy2);
+        relationTree->setMaximumSize(QSize(0, 16777215));
 
         relationTreePanelLayout->addWidget(relationTree, 1, 0, 1, 1);
 
@@ -187,6 +200,7 @@ public:
         actionDossier_de_stockage->setText(QApplication::translate("PluriNotesClass", "Dossier de stockage", Q_NULLPTR));
         actionOptions->setText(QApplication::translate("PluriNotesClass", "Settings...", Q_NULLPTR));
         actionRelations->setText(QApplication::translate("PluriNotesClass", "Relations..", Q_NULLPTR));
+        label->setText(QApplication::translate("PluriNotesClass", "To-Do List :", Q_NULLPTR));
         toggleBtn->setText(QApplication::translate("PluriNotesClass", "Arborescence", Q_NULLPTR));
         menuFichier->setTitle(QApplication::translate("PluriNotesClass", "Fichiers", Q_NULLPTR));
         menuNouveau->setTitle(QApplication::translate("PluriNotesClass", "Nouveau", Q_NULLPTR));

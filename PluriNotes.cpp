@@ -12,7 +12,6 @@ PluriNotes::PluriNotes(QWidget *parent)
 	ui.setupUi(this);
     ui.relationTree->setMaximumWidth(0);
     ui.relationTree->setMinimumWidth(0);
-    ui.setupUi(this);
     m_sSettingsFile = QDir::currentPath() + "/config.ini";
 
     QFileInfo check_file(m_sSettingsFile);
