@@ -84,7 +84,6 @@ void PluriNotes::ouvrirProjet() {
     for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
             new QListWidgetItem(it.current().getId(), ui.listWidget);
     }
-    QObject::connect(ui.listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(ouvrirNote(QListWidgetItem*)));
     //On active le bouton nouvelle note
     ui.actionNote->setEnabled(true);
     createTaskList();
@@ -130,10 +129,19 @@ void PluriNotes::nouvelleNote()
     NouvelleNote* x = new NouvelleNote();
     if (x->exec() == QDialog::Accepted) {
         // Ajouter : tri par ordre alphabetique de la liste, verif si la note n'existe pas deja
-        QListWidgetItem* nouvelle_note = new QListWidgetItem(x->getNom(), ui.listWidget);
-        NotesManager& m = NotesManager::getManager();
 
-        m.create(x->getSelectedType(),x->getNom());
+
+        NotesManager& m = NotesManager::getManager();
+        try{
+            m.create(x->getSelectedType(),m.getFoldername() + "/" + x->getNom()+".xml");
+        }
+        catch (NotesException& a){
+            if(a.getInfo()=="Note already exists"){
+                QMessageBox::information(this, "Error", a.getInfo()) ;
+                return;
+            }
+        }
+        QListWidgetItem* nouvelle_note = new QListWidgetItem(x->getNom(), ui.listWidget);
         m.saveAllNotes();
         ouvrirNote(nouvelle_note);
     }

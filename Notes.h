@@ -12,19 +12,18 @@
 class Note : public Subject<Note> {
 
 private:
-    QString id;
     QString title;
     QString filePath;
 	virtual void saveAttributesInFile(QXmlStreamWriter& stream) const = 0;
 
 public:
 
-    Note(const QString& i,const QString& folder, const QString& ti="");
-	virtual ~Note() = 0;
-    QString getId() const { return id; }
+    Note(const QString& f, const QString& ti="");
+    virtual ~Note() = 0;
+    QString getId() const { return filePath.section("/", -1, -1).section(".", 0, 0);}
     QString getTitle() const { return title; }
-	void setTitle(const QString& t);
-	virtual QString getType() const = 0;
+    virtual void setTitle(const QString& t);
+    virtual QString getType() const = 0;
     void saveInFile() const;
 
 };

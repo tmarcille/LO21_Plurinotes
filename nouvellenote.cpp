@@ -6,7 +6,7 @@
 NouvelleNote::NouvelleNote(QWidget *parent) :
     QDialog(parent), ui(new Ui::NouvelleNote)
 {
-    ui->setupUi(this);
+    ui->setupUi(this);;
 
 }
 
@@ -17,13 +17,12 @@ NouvelleNote::~NouvelleNote()
 
 QString NouvelleNote::getSelectedType() const
 {
-	return ui->buttonGroup->checkedButton()->text();
+    return ui->radioButtons->checkedButton()->text();
 
 }
 
-QString NouvelleNote::getNom() const 
+QString NouvelleNote::getNom() const
 {
-	return ui->lineEdit->text();
+    return ui->lineEdit->text();
 }
-
 

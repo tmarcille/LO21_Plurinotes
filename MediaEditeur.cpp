@@ -53,16 +53,10 @@ MediaEditeur::~MediaEditeur()
 }
 void MediaEditeur::sauvegardeAttributs()
 {
-    if (dynamic_cast<Media*>(getNote()))
-        qDebug()<<"Media";
-
-    dynamic_cast<Media*>(getNote())->setDescription(description->toPlainText());
-    qDebug()<<"saved desc";
-    qDebug()<<fichier->text();
-
-    dynamic_cast<Media*>(getNote())->setFile(fichier->text());
-    qDebug()<<"saved file";
-
+    if (dynamic_cast<Media*>(getNote())){
+        dynamic_cast<Media*>(getNote())->setDescription(description->toPlainText());
+        dynamic_cast<Media*>(getNote())->setFile(fichier->text());
+    }
 }
 
 void MediaEditeur::openFile(QString f){

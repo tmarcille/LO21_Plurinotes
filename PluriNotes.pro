@@ -21,8 +21,7 @@ HEADERS += Article.h \
     NoteViewer.h \
     observator.h \
     tache.h \
-    tacheediteur.h \
-    relation.h
+    tacheediteur.h
 SOURCES += Article.cpp \
     ArticleEditeur.cpp \
     main.cpp \

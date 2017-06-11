@@ -9,9 +9,7 @@
 void Media::saveAttributesInFile(QXmlStreamWriter & stream) const
 {
     stream.writeTextElement("description", description);
-    qDebug()<<"saved desc";
     stream.writeTextElement("file", file);
-    qDebug()<<"saved file";
 }
 
 

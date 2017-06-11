@@ -13,6 +13,7 @@
 #include "ArticleEditeur.h"
 #include "MediaEditeur.h"
 #include "tacheediteur.h"
+
 class NotesException {
 public:
 	NotesException(const QString& message) :info(message) {}
@@ -45,97 +46,66 @@ public:
     void saveNote(const QString& id) const;
 	static NotesManager& getManager();
 	static void freeManager(); // free the memory used by the NotesManager; it can be rebuild later
-	
+    void addNote(Note* n);
+
 	Note* create(const QString& type,const QString& id,const QVector<QString>& param = QVector<QString>()) //crée un note et l'ajoute a la liste (pas de note pas dans la liste -> pose un pb plus tard ?)
 	{
 		/*Logic based on Genre*/
-		Note* note = NULL;
-		QString title = "";
-		if (param.contains("title"))
-			title = param.at(param.indexOf("title") + 1);
-
-		if (type.toLower() == "article") {
-			QString text = "";
-			if (param.contains("text"))
-				text = param.at(param.indexOf("text") + 1);
-            note = new Article(id,title,foldername,text);
-		}
-        if (type.toLower() == "media") {
-            QString desc = "";
-            QString file = "";
-            if (param.contains("description"))
-                desc = param.at(param.indexOf("description") + 1);
-            if (param.contains("file"))
-                file = param.at(param.indexOf("file") + 1);
-            note = new Media(id,title,foldername,desc,file);
+        try{
+            getNote(filePath.section("/", -1, -1).section(".", 0, 0));
         }
-        if (type.toLower() == "tache") {
-            QString priorite = "Faible";
-            QString status = "en attente";
-            QDate echeance = QDate(2017,6,25);
-            QString action = "";
-            bool echue = false;
-            bool priorise = false;
-            qDebug("recuperation tache");
-            if (param.contains("action"))
-                action = param.at(param.indexOf("action") + 1);
-            if (param.contains("priorite"))
-                priorite = param.at(param.indexOf("priorite") + 1);
-            if (param.contains("status"))
-                status = param.at(param.indexOf("status") + 1);
-            if (param.contains("echeance"))
-                echeance = QDate::fromString(param.at(param.indexOf("echeance") + 1), "d.M.yyyy");
-            if (param.contains("echue"))
-                if (param.at(param.indexOf("echue") + 1)=="T") echue=true;
-            if (param.contains("priorise"))
-                if (param.at(param.indexOf("priorise") + 1)=="T") priorise=true;
-            qDebug("intialisation tache");
-            note = new Tache(id,foldername,title,action,echeance,priorite,status,echue,priorise);
+        catch (NotesException& a){
+            if (a.getInfo()=="error, note not existing"){
+                qDebug()<<"creating Note";
+                Note* note = NULL;
+                QString title = "";
+                if (param.contains("title"))
+                    title = param.at(param.indexOf("title") + 1);
 
-        }
-		addNote(note);
-		return note;
-	}
-
-	NoteEditeur* createEditor(Note* n) {
-		
-
-
-       /************************** vector des editeurs ouverts dans le projet, commenté ou cas où il serait utile
-        * plus tard.
-        * Si suppression, supprimer aussi le vector static dans noteEditeur.
-
-        QVector<NoteEditeur*>::iterator it;
-
-        for (it = NoteEditeur::editeurs.begin(); it!=NoteEditeur::editeurs.end(); it++ ){
-
-            if((*it)->getId()==n->getId()){
-
-                qDebug()<<"returned existing editor";
-                return *it;
-
+                if (type.toLower() == "article") {
+                    qDebug()<<"creating article";
+                    QString text = "";
+                    if (param.contains("text"))
+                        text = param.at(param.indexOf("text") + 1);
+                    note = new Article(filePath,title,text);
+                }
+                if (type.toLower() == "media") {
+                    QString desc = "";
+                    QString file = "";
+                    if (param.contains("description"))
+                        desc = param.at(param.indexOf("description") + 1);
+                    if (param.contains("file"))
+                        file = param.at(param.indexOf("file") + 1);
+                    note = new Media(filePath,title,desc,file);
+                }
+                if (type.toLower() == "tache") {
+                    QString priorite = "Faible";
+                    QString status = "en attente";
+                    QDate echeance = QDate(2017,6,25);
+                    QString action = "";
+                    bool echue = false;
+                    bool priorise = false;
+                    qDebug("recuperation tache");
+                    if (param.contains("action"))
+                        action = param.at(param.indexOf("action") + 1);
+                    if (param.contains("priorite"))
+                        priorite = param.at(param.indexOf("priorite") + 1);
+                    if (param.contains("status"))
+                        status = param.at(param.indexOf("status") + 1);
+                    if (param.contains("echeance"))
+                        echeance = QDate::fromString(param.at(param.indexOf("echeance") + 1), "d.M.yyyy");
+                    if (param.contains("echue"))
+                        if (param.at(param.indexOf("echue") + 1)=="T") echue=true;
+                    if (param.contains("priorise"))
+                        if (param.at(param.indexOf("priorise") + 1)=="T") priorise=true;
+                    qDebug("intialisation tache");
+                    note = new Tache(id,foldername,title,action,echeance,priorite,status,echue,priorise);
+                }
+                addNote(note);
+                return note;
             }
-        }
-*/
-        qDebug()<<"ajout editeur";
-        NoteEditeur* edit = NULL;
-		QString type = n->getType();
-        qDebug()<<"type : "<<type;
-		if (type == "article") {
-            edit = new ArticleEditeur(dynamic_cast<Article*>(n));
-            qDebug()<<"article";
-
-		}
-        if (type == "media") {
-            edit = new MediaEditeur(dynamic_cast<Media*>(n));
-            qDebug()<<"media";
-
-        }
-        if (type == "tache") {
-            edit = new TacheEditeur(dynamic_cast<Tache*>(n));
-            qDebug()<<"tache";
-        }
-		return edit;
+       }
+       throw NotesException("Note already exists");
 	}
 
 
