@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<relations>
+    <relation>
+        <title>a</title>
+        <description>test.</description>
+        <couple>
+            <father>d</father>
+            <son>c</son>
+            <label></label>
+        </couple>
+    </relation>
+    <relation>
+        <title>b</title>
+        <description>test1</description>
+    </relation>
+    <relation>
+        <title>c</title>
+        <description>34</description>
+    </relation>
+</relations>

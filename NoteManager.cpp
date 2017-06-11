@@ -4,17 +4,21 @@
 NotesManager* NotesManager::instance = nullptr;
 
 NotesManager& NotesManager::getManager() {
-	if (!instance) instance = new NotesManager;
-	return *instance;
+    if (!instance) instance = new NotesManager;
+    return *instance;
 }
 
 void NotesManager::freeManager() {
-	delete instance;
-	instance = nullptr;
+    delete instance;
+    instance = nullptr;
 }
 
 void NotesManager::addNote(Note* a) {
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> refs/remotes/origin/Relations
     try{
         getNote(a->getId());
     }
@@ -50,17 +54,17 @@ Note& NotesManager::getNote(const QString& id) const{
 NotesManager::NotesManager() :notes(nullptr), nbNotes(0), nbMaxNotes(0), foldername("") {}
 
 NotesManager::~NotesManager() {
-	if (foldername!="")
-		saveAllNotes();
-	for (unsigned int i = 0; i<nbNotes; i++) delete notes[i];
-	delete[] notes;
+    if (foldername!="")
+        saveAllNotes();
+    for (unsigned int i = 0; i<nbNotes; i++) delete notes[i];
+    delete[] notes;
 }
 
 void NotesManager::saveAllNotes() const {
 
-	for (ConstIterator it = getIterator(); !it.isDone(); it.next()) {
+    for (ConstIterator it = getIterator(); !it.isDone(); it.next()) {
         it.current().saveInFile();
-	}
+    }
 }
 
 void NotesManager::saveNote(const QString& id) const {
@@ -72,6 +76,11 @@ void NotesManager::saveNote(const QString& id) const {
     }
     catch(NotesException& e){
         qDebug()<<e.getInfo();
+<<<<<<< HEAD
+=======
+
+    }
+>>>>>>> refs/remotes/origin/Relations
 
     }
 }
@@ -116,7 +125,11 @@ void NotesManager::load() {
                         }
                         qDebug() << "ajout note " << fin.fileName() << "\n";
                         create(type, fin.fileName(), parameters);
+<<<<<<< HEAD
                     }
+=======
+                    }                    
+>>>>>>> refs/remotes/origin/Relations
                 }
                 else
                 {

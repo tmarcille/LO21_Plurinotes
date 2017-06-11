@@ -9,7 +9,7 @@
 #include "tacheediteur.h"
 #include <QLayout>
 
-class NoteViewer : public QWidget
+class NoteViewer : public QWidget //widget des noteEditeur permettant un affichage plus complexe avec plusieurs notes a la fois.
 {
     Q_OBJECT
 public:
@@ -31,8 +31,8 @@ signals:
 
 
 public slots:
-    void unsavedChanges(NoteEditeur* f);
-    void saveChanges(NoteEditeur* f);
+    void unsavedChanges(NoteEditeur* f); //slots qui changent le nom du tab afin d'indiquer
+    void saveChanges(NoteEditeur* f);    //si il est en cours d'edition ou non.
 };
 
 #endif // NOTEVIEWER_H

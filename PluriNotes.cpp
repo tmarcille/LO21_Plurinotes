@@ -3,13 +3,23 @@
 #include <qDebug>
 #include <QList>
 #include <QTabWidget>
+<<<<<<< HEAD
+=======
+#include "RelationTree.h"
+>>>>>>> refs/remotes/origin/Relations
 
 PluriNotes::PluriNotes(QWidget *parent)
     : QMainWindow(parent)
 {
     qDebug()<<"launched";
 
+<<<<<<< HEAD
     ui.setupUi(this);
+=======
+	ui.setupUi(this);
+    ui.relationTree->setMaximumWidth(0);
+    ui.relationTree->setMinimumWidth(0);
+>>>>>>> refs/remotes/origin/Relations
 
     m_sSettingsFile = QDir::currentPath() + "/config.ini";
 
@@ -18,14 +28,23 @@ PluriNotes::PluriNotes(QWidget *parent)
     if (!check_file.exists()){
         QSettings* settings = new QSettings(m_sSettingsFile, QSettings::IniFormat);
         settings->setValue("folder", QDir::currentPath());
+        settings->setValue("relationFile", QDir::currentPath() + "/Relations.xml");
         settings->sync();
         qDebug()<<"file created"<<endl;
     }
 
     loadSettings();
     ouvrirProjet();
+<<<<<<< HEAD
     QObject::connect(ui.actionNote, SIGNAL(triggered()), this, SLOT(nouvelleNote()));
+=======
+
+	QObject::connect(ui.actionNote, SIGNAL(triggered()), this, SLOT(nouvelleNote()));
+>>>>>>> refs/remotes/origin/Relations
     QObject::connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(openSettings()));
+    QObject::connect(ui.actionRelations, SIGNAL(triggered()), this, SLOT(openRelations()));
+    QObject::connect(ui.listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(ouvrirNote(QListWidgetItem*)));
+    QObject::connect(ui.toggleBtn, SIGNAL(toggled(bool)), this, SLOT(reactToPannelToggle(bool)));
 
 }
 
@@ -35,11 +54,16 @@ void PluriNotes::loadSettings()
 
     QSettings settings(m_sSettingsFile, QSettings::IniFormat);
     QString sText = settings.value("folder", "").toString();
+    QString rText = settings.value("relationFile", "").toString();
 
     NotesManager& m = NotesManager::getManager();
     m.setFoldername(sText);
 
+    RelationManager& r = RelationManager::getManager();
+    r.setFilename(rText);
+
     qDebug()<<"settings loaded"<<settings.value("folder", "").toString()<<endl;
+    qDebug()<<"settings loaded"<<settings.value("relationFile", "").toString()<<endl;
 
 }
 
@@ -61,6 +85,7 @@ void PluriNotes::openSettings()
 
         NotesManager& m = NotesManager::getManager();
         //si on ajoute des parametres qui ne changent pas les notes, besoin de faire des tests pour faire la distinction et ne pas tout recharger
+
         for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
                 if (ui.noteViewer->isOpen(it.current().getId())){
                     ui.noteViewer->closeNote(it.current().getId());}
@@ -73,6 +98,12 @@ void PluriNotes::openSettings()
         loadSettings();
         ouvrirProjet();
     }
+}
+
+void PluriNotes::openRelations()
+{
+    RelationEditor* x = new RelationEditor();
+    x->show();
 }
 
 void PluriNotes::ouvrirProjet() {
@@ -91,6 +122,7 @@ void PluriNotes::ouvrirProjet() {
 
 void PluriNotes::createTaskList(){
 
+<<<<<<< HEAD
     std::vector<QString> v;
     QString s;
     NotesManager& m = NotesManager::getManager();
@@ -112,6 +144,10 @@ void PluriNotes::createTaskList(){
         s=s.remove(0,11);
         new QListWidgetItem(s, ui.taskList);
     }
+=======
+	//On active le bouton nouvelle note
+	ui.actionNote->setEnabled(true);
+>>>>>>> refs/remotes/origin/Relations
 }
 
 void PluriNotes::ouvrirNote(QListWidgetItem* item) {
@@ -126,12 +162,21 @@ void PluriNotes::ouvrirNote(QListWidgetItem* item) {
 
 void PluriNotes::nouvelleNote()
 {
+<<<<<<< HEAD
     NouvelleNote* x = new NouvelleNote();
     if (x->exec() == QDialog::Accepted) {
         // Ajouter : tri par ordre alphabetique de la liste, verif si la note n'existe pas deja
 
 
         NotesManager& m = NotesManager::getManager();
+=======
+	NouvelleNote* x = new NouvelleNote();
+	if (x->exec() == QDialog::Accepted) {
+		// Ajouter : tri par ordre alphabetique de la liste, verif si la note n'existe pas deja
+
+
+		NotesManager& m = NotesManager::getManager();
+>>>>>>> refs/remotes/origin/Relations
         try{
             m.create(x->getSelectedType(),m.getFoldername() + "/" + x->getNom()+".xml");
         }
@@ -146,6 +191,15 @@ void PluriNotes::nouvelleNote()
         ouvrirNote(nouvelle_note);
     }
     delete x;
+}
+
+void PluriNotes::reactToPannelToggle(bool checked){
+    if (checked){
+        ui.relationTree->setMaximumWidth(300);
+    }
+    else {
+        ui.relationTree->setMaximumWidth(0);
+    }
 }
 
 PluriNotes::~PluriNotes()

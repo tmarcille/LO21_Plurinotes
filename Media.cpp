@@ -13,7 +13,7 @@ void Media::saveAttributesInFile(QXmlStreamWriter & stream) const
 }
 
 
-Media::Media(const QString& i,const QString& folder, const QString& ti, const QString& desc, const QString& f) : Note(i,ti,folder), description(desc), file(f)
+Media::Media(const QString& fp, const QString& ti, const QString& desc, const QString& f) : Note(fp,ti), description(desc), file(f)
 {}
 
 
@@ -26,6 +26,7 @@ void Media::setDescription(const QString& desc) {
     description=desc;
     notify();
 }
+
 void Media::setFile(const QString& f) {
     file=f;
     notify();

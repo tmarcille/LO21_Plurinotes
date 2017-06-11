@@ -20,8 +20,15 @@ HEADERS += Article.h \
     SettingsDialog.h \
     NoteViewer.h \
     observator.h \
+<<<<<<< HEAD
     tache.h \
     tacheediteur.h
+=======
+    Relation.h \
+    RelationManager.h \
+    RelationWindow.h \
+    RelationTree.h
+>>>>>>> refs/remotes/origin/Relations
 SOURCES += Article.cpp \
     ArticleEditeur.cpp \
     main.cpp \
@@ -35,9 +42,17 @@ SOURCES += Article.cpp \
     player.cpp \
     SettingsDialog.cpp \
     NoteViewer.cpp \
+<<<<<<< HEAD
     tache.cpp \
     tacheediteur.cpp
+=======
+    Relation.cpp \
+    RelationManager.cpp \
+    RelationWindow.cpp \
+    RelationTree.cpp
+>>>>>>> refs/remotes/origin/Relations
 FORMS += PluriNotes.ui \
     nouvellenote.ui \
-    SettingsDialog.ui
+    SettingsDialog.ui \
+    RelationEditor.ui
 

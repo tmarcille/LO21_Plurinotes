@@ -6,7 +6,12 @@
 NouvelleNote::NouvelleNote(QWidget *parent) :
     QDialog(parent), ui(new Ui::NouvelleNote)
 {
+<<<<<<< HEAD
     ui->setupUi(this);;
+=======
+    ui->setupUi(this);
+    QObject::connect(ui->radioButtons, SIGNAL(buttonPressed(int)), this, SLOT(test(int)));
+>>>>>>> refs/remotes/origin/Relations
 
 }
 
@@ -26,3 +31,10 @@ QString NouvelleNote::getNom() const
     return ui->lineEdit->text();
 }
 
+<<<<<<< HEAD
+=======
+void NouvelleNote::test(int a) {
+
+    qDebug()<<a;
+}
+>>>>>>> refs/remotes/origin/Relations

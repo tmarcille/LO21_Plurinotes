@@ -33,11 +33,14 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *label;
     QLineEdit *lineEdit;
-    QRadioButton *Media;
     QRadioButton *Article;
+<<<<<<< HEAD
     QRadioButton *radioButton;
+=======
+    QRadioButton *Media;
+>>>>>>> refs/remotes/origin/Relations
     QDialogButtonBox *buttonBox;
-    QButtonGroup *buttonGroup;
+    QButtonGroup *radioButtons;
 
     void setupUi(QDialog *NouvelleNote)
     {
@@ -64,40 +67,44 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        Media = new QRadioButton(NouvelleNote);
-        buttonGroup = new QButtonGroup(NouvelleNote);
-        buttonGroup->setObjectName(QStringLiteral("buttonGroup"));
-        buttonGroup->addButton(Media);
-        Media->setObjectName(QStringLiteral("Media"));
-
-        verticalLayout->addWidget(Media);
-
         Article = new QRadioButton(NouvelleNote);
-        buttonGroup->addButton(Article);
+        radioButtons = new QButtonGroup(NouvelleNote);
+        radioButtons->setObjectName(QStringLiteral("radioButtons"));
+        radioButtons->addButton(Article);
         Article->setObjectName(QStringLiteral("Article"));
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(Article->sizePolicy().hasHeightForWidth());
         Article->setSizePolicy(sizePolicy);
+        Article->setChecked(true);
 
         verticalLayout->addWidget(Article);
 
+<<<<<<< HEAD
         radioButton = new QRadioButton(NouvelleNote);
         buttonGroup->addButton(radioButton);
         radioButton->setObjectName(QStringLiteral("radioButton"));
 
         verticalLayout->addWidget(radioButton);
 
+=======
+        Media = new QRadioButton(NouvelleNote);
+        radioButtons->addButton(Media);
+        Media->setObjectName(QStringLiteral("Media"));
 
-        gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
+        verticalLayout->addWidget(Media);
+>>>>>>> refs/remotes/origin/Relations
+
+
+        gridLayout->addLayout(verticalLayout, 1, 0, 1, 1);
 
         buttonBox = new QDialogButtonBox(NouvelleNote);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
 
-        gridLayout->addWidget(buttonBox, 1, 0, 1, 1);
+        gridLayout->addWidget(buttonBox, 2, 0, 1, 1);
 
 
         retranslateUi(NouvelleNote);
@@ -111,9 +118,12 @@ public:
     {
         NouvelleNote->setWindowTitle(QApplication::translate("NouvelleNote", "Dialog", Q_NULLPTR));
         label->setText(QApplication::translate("NouvelleNote", "Nom", Q_NULLPTR));
-        Media->setText(QApplication::translate("NouvelleNote", "Media", Q_NULLPTR));
         Article->setText(QApplication::translate("NouvelleNote", "Article", Q_NULLPTR));
+<<<<<<< HEAD
         radioButton->setText(QApplication::translate("NouvelleNote", "Tache", Q_NULLPTR));
+=======
+        Media->setText(QApplication::translate("NouvelleNote", "Media", Q_NULLPTR));
+>>>>>>> refs/remotes/origin/Relations
     } // retranslateUi
 
 };

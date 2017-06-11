@@ -16,6 +16,7 @@ void Note::saveInFile() const
 {
     QFile newfile(filePath);
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+<<<<<<< HEAD
         //a faire, mettre NoteException dans une classe séparée
         //throw NotesException(QString("erreur sauvegarde notes : ouverture fichier xml"));
     }
@@ -33,6 +34,26 @@ void Note::saveInFile() const
     newfile.close();
 
     qDebug()<<"saved note"<<filePath<<"in file";
+=======
+		//a faire, mettre NoteException dans une classe séparée
+		//throw NotesException(QString("erreur sauvegarde notes : ouverture fichier xml"));
+	}
+	QXmlStreamWriter stream(&newfile);
+	stream.setAutoFormatting(true);
+	stream.writeStartDocument();
+    stream.writeStartElement("note");
+    stream.writeAttribute("type",getType());
+	stream.writeTextElement("title", title);
+
+	saveAttributesInFile(stream);
+
+	stream.writeEndElement();
+	stream.writeEndDocument();
+	newfile.close();
+
+    qDebug()<<"saved note"<<filePath<<"in file";
+
+>>>>>>> refs/remotes/origin/Relations
 }
 
 Note::~Note() {}

@@ -21,8 +21,14 @@ public:
     QString getSelectedType() const;
 private:
     Ui::NouvelleNote *ui;
+<<<<<<< HEAD
 
     public slots:
+=======
+	
+	public slots:
+    void test(int);
+>>>>>>> refs/remotes/origin/Relations
 
 };
 
