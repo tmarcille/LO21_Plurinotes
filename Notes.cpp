@@ -27,14 +27,14 @@ void Note::saveInFile() const
 	stream.writeTextElement("title", title);
 
 	saveAttributesInFile(stream);
-
+    stream.writeEndElement();
+    stream.writeEndElement();
 	stream.writeEndElement();
 	stream.writeEndElement();
 	stream.writeEndDocument();
 	newfile.close();
 
     qDebug()<<"saved note"<<id<<"in file";
-
 }
 
 Note::~Note() {}

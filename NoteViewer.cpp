@@ -39,6 +39,10 @@ NoteEditeur* NoteViewer::createEditor(Note* n) {
         edit = new MediaEditeur(dynamic_cast<Media*>(n));
         qDebug()<<"media";
     }
+    if (type == "tache") {
+        edit = new TacheEditeur(dynamic_cast<Tache*>(n));
+        qDebug()<<"tache";
+    }
     return edit;
 }
 

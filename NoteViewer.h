@@ -6,6 +6,7 @@
 #include "NoteEditeur.h"
 #include "MediaEditeur.h"
 #include "ArticleEditeur.h"
+#include "tacheediteur.h"
 #include <QLayout>
 
 class NoteViewer : public QWidget

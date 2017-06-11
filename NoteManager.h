@@ -4,6 +4,7 @@
 #include "Notes.h"
 #include "Article.h"
 #include "Media.h"
+#include "tache.h"
 #include <QVector>
 #include <QFile>
 #include <QTextCodec>
@@ -11,7 +12,7 @@
 #include <QMessageBox>
 #include "ArticleEditeur.h"
 #include "MediaEditeur.h"
-
+#include "tacheediteur.h"
 class NotesException {
 public:
 	NotesException(const QString& message) :info(message) {}
@@ -68,6 +69,30 @@ public:
                 file = param.at(param.indexOf("file") + 1);
             note = new Media(id,title,foldername,desc,file);
         }
+        if (type.toLower() == "tache") {
+            QString priorite = "Faible";
+            QString status = "en attente";
+            QDate echeance = QDate(2017,6,25);
+            QString action = "";
+            bool echue = false;
+            bool priorise = false;
+            qDebug("recuperation tache");
+            if (param.contains("action"))
+                action = param.at(param.indexOf("action") + 1);
+            if (param.contains("priorite"))
+                priorite = param.at(param.indexOf("priorite") + 1);
+            if (param.contains("status"))
+                status = param.at(param.indexOf("status") + 1);
+            if (param.contains("echeance"))
+                echeance = QDate::fromString(param.at(param.indexOf("echeance") + 1), "d.M.yyyy");
+            if (param.contains("echue"))
+                if (param.at(param.indexOf("echue") + 1)=="T") echue=true;
+            if (param.contains("priorise"))
+                if (param.at(param.indexOf("priorise") + 1)=="T") priorise=true;
+            qDebug("intialisation tache");
+            note = new Tache(id,foldername,title,action,echeance,priorite,status,echue,priorise);
+
+        }
 		addNote(note);
 		return note;
 	}
@@ -95,6 +120,7 @@ public:
         qDebug()<<"ajout editeur";
         NoteEditeur* edit = NULL;
 		QString type = n->getType();
+        qDebug()<<"type : "<<type;
 		if (type == "article") {
             edit = new ArticleEditeur(dynamic_cast<Article*>(n));
             qDebug()<<"article";
@@ -104,6 +130,10 @@ public:
             edit = new MediaEditeur(dynamic_cast<Media*>(n));
             qDebug()<<"media";
 
+        }
+        if (type == "tache") {
+            edit = new TacheEditeur(dynamic_cast<Tache*>(n));
+            qDebug()<<"tache";
         }
 		return edit;
 	}

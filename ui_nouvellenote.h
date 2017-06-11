@@ -35,6 +35,7 @@ public:
     QLineEdit *lineEdit;
     QRadioButton *Media;
     QRadioButton *Article;
+    QRadioButton *radioButton;
     QDialogButtonBox *buttonBox;
     QButtonGroup *buttonGroup;
 
@@ -82,6 +83,12 @@ public:
 
         verticalLayout->addWidget(Article);
 
+        radioButton = new QRadioButton(NouvelleNote);
+        buttonGroup->addButton(radioButton);
+        radioButton->setObjectName(QStringLiteral("radioButton"));
+
+        verticalLayout->addWidget(radioButton);
+
 
         gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
 
@@ -106,6 +113,7 @@ public:
         label->setText(QApplication::translate("NouvelleNote", "Nom", Q_NULLPTR));
         Media->setText(QApplication::translate("NouvelleNote", "Media", Q_NULLPTR));
         Article->setText(QApplication::translate("NouvelleNote", "Article", Q_NULLPTR));
+        radioButton->setText(QApplication::translate("NouvelleNote", "Tache", Q_NULLPTR));
     } // retranslateUi
 
 };
