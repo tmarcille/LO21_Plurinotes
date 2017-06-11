@@ -49,5 +49,6 @@ public slots:
     void openRelations();
 	void ouvrirNote(QListWidgetItem* item);
 	void nouvelleNote();
+    void reactToPannelToggle(bool);
 
 };

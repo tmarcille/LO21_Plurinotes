@@ -38,10 +38,34 @@
      </widget>
     </item>
     <item>
-     <widget class="NoteViewer" name="noteViewer" native="true"/>
+     <widget class="NoteViewer" name="noteViewer" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
     </item>
     <item>
-     <widget class="RelationTreePanel" name="relationTree" native="true"/>
+     <layout class="QGridLayout" name="relationTreePanelLayout">
+      <item row="0" column="0">
+       <widget class="QToolButton" name="toggleBtn">
+        <property name="text">
+         <string>Arborescence</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextOnly</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="RelationTree" name="relationTree"/>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -133,10 +157,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>RelationTreePanel</class>
-   <extends>QWidget</extends>
-   <header>RelationTreePanel.h</header>
-   <container>1</container>
+   <class>RelationTree</class>
+   <extends>QGraphicsView</extends>
+   <header>RelationTree.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

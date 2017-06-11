@@ -11,24 +11,6 @@
 #include <QGraphicsView>
 
 
-class RelationTreePanel : public QWidget
-{
-private:
-    QGridLayout mainLayout;
-    QToolButton toggleButton;
-    QFrame headerLine;
-    QParallelAnimationGroup toggleAnimation;
-    QWidget contentArea;
-    int animationDuration{100};
-    Q_OBJECT
-public:
-    explicit RelationTreePanel(QWidget *parent = 0);
-    void setContentLayout(QLayout & contentLayout);
-signals:
-
-public slots:
-};
-
 class Edge;
 class RelationTree;
 
@@ -79,14 +61,11 @@ class RelationTree :  public QGraphicsView
 
 public:
     RelationTree(QWidget *parent = 0);
-
+    const QString& getCentralNodeName(){ return centerNode->text();}
 public slots:
 
 protected:
 
 private:
     Node *centerNode;
-
-
-
 };

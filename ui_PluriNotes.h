@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QListWidget>
@@ -21,9 +22,10 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QToolButton>
 #include <QtWidgets/QWidget>
 #include "NoteViewer.h"
-#include "RelationTreePanel.h"
+#include "RelationTree.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -39,7 +41,9 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QListWidget *listWidget;
     NoteViewer *noteViewer;
-    RelationTreePanel *relationTree;
+    QGridLayout *relationTreePanelLayout;
+    QToolButton *toggleBtn;
+    RelationTree *relationTree;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuNouveau;
@@ -84,13 +88,31 @@ public:
 
         noteViewer = new NoteViewer(centralWidget);
         noteViewer->setObjectName(QStringLiteral("noteViewer"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(noteViewer->sizePolicy().hasHeightForWidth());
+        noteViewer->setSizePolicy(sizePolicy1);
 
         horizontalLayout_2->addWidget(noteViewer);
 
-        relationTree = new RelationTreePanel(centralWidget);
+        relationTreePanelLayout = new QGridLayout();
+        relationTreePanelLayout->setSpacing(6);
+        relationTreePanelLayout->setObjectName(QStringLiteral("relationTreePanelLayout"));
+        toggleBtn = new QToolButton(centralWidget);
+        toggleBtn->setObjectName(QStringLiteral("toggleBtn"));
+        toggleBtn->setCheckable(true);
+        toggleBtn->setToolButtonStyle(Qt::ToolButtonTextOnly);
+
+        relationTreePanelLayout->addWidget(toggleBtn, 0, 0, 1, 1);
+
+        relationTree = new RelationTree(centralWidget);
         relationTree->setObjectName(QStringLiteral("relationTree"));
 
-        horizontalLayout_2->addWidget(relationTree);
+        relationTreePanelLayout->addWidget(relationTree, 1, 0, 1, 1);
+
+
+        horizontalLayout_2->addLayout(relationTreePanelLayout);
 
         PluriNotesClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(PluriNotesClass);
@@ -133,6 +155,7 @@ public:
         actionDossier_de_stockage->setText(QApplication::translate("PluriNotesClass", "Dossier de stockage", Q_NULLPTR));
         actionOptions->setText(QApplication::translate("PluriNotesClass", "Settings...", Q_NULLPTR));
         actionRelations->setText(QApplication::translate("PluriNotesClass", "Relations..", Q_NULLPTR));
+        toggleBtn->setText(QApplication::translate("PluriNotesClass", "Arborescence", Q_NULLPTR));
         menuFichier->setTitle(QApplication::translate("PluriNotesClass", "Fichiers", Q_NULLPTR));
         menuNouveau->setTitle(QApplication::translate("PluriNotesClass", "Nouveau", Q_NULLPTR));
         menuEdition->setTitle(QApplication::translate("PluriNotesClass", "Edition", Q_NULLPTR));

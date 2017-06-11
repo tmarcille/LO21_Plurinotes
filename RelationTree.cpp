@@ -1,4 +1,4 @@
-#include "RelationTreePanel.h"
+#include "RelationTree.h"
 #include <QPropertyAnimation>
 #include <math.h>
 #include <QPainter>
@@ -8,51 +8,6 @@
 
 static const double Pi = 3.14159265358979323846264338327950288419717;
 static double TwoPi = 2.0 * Pi;
-
-RelationTreePanel::RelationTreePanel(QWidget *parent) : QWidget(parent), animationDuration(200) {
-
-    toggleButton.setToolButtonStyle(Qt::ToolButtonTextOnly);
-    toggleButton.setText("Arborescence");
-    toggleButton.setCheckable(true);
-    toggleButton.setChecked(false);
-    contentArea.setStyleSheet("QScrollArea { background-color: white; border: 1px solid black; }");
-    contentArea.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    // start out collapsed
-    contentArea.setMaximumWidth(0);
-    contentArea.setMinimumWidth(0);
-
-    // let the entire widget grow and shrink with its content
-    toggleAnimation.addAnimation(new QPropertyAnimation(this, "minimumWidth"));
-    toggleAnimation.addAnimation(new QPropertyAnimation(this, "maximumWidth"));
-    toggleAnimation.addAnimation(new QPropertyAnimation(&contentArea, "maximumWidth"));
-    toggleAnimation.setDirection(QAbstractAnimation::Backward);
-    //toggleAnimation.start();
-    mainLayout.addWidget(&toggleButton,0,0,Qt::AlignTop);
-    mainLayout.addWidget(&contentArea,1,0);
-    setLayout(&mainLayout);
-    QObject::connect(&toggleButton, &QToolButton::clicked, [this](const bool checked) {
-        toggleAnimation.setDirection(checked ? QAbstractAnimation::Forward : QAbstractAnimation::Backward);
-        toggleAnimation.start();
-    });
-}
-
-void RelationTreePanel::setContentLayout(QLayout & contentLayout) {
-    delete contentArea.layout();
-    contentArea.setLayout(&contentLayout);
-
-    const auto collapsedWidth = sizeHint().width() - contentArea.maximumWidth();
-    auto contentWidth = contentLayout.sizeHint().width();
-    for (int i = 0; i < toggleAnimation.animationCount() - 1; ++i) {
-        QPropertyAnimation * spoilerAnimation = static_cast<QPropertyAnimation *>(toggleAnimation.animationAt(i));
-        spoilerAnimation->setDuration(animationDuration);
-        spoilerAnimation->setStartValue(collapsedWidth);
-        spoilerAnimation->setEndValue(collapsedWidth + contentWidth);
-    }
-    QPropertyAnimation * contentAnimation = static_cast<QPropertyAnimation *>(toggleAnimation.animationAt(toggleAnimation.animationCount() - 1));
-    contentAnimation->setDuration(animationDuration);
-    contentAnimation->setStartValue(0);
-    contentAnimation->setEndValue(contentWidth);
-}
 
 
 Edge::Edge(Node *sourceNode, Node *destNode)
@@ -203,3 +158,4 @@ RelationTree::RelationTree(QWidget *parent)
     scene->addItem(new Edge(node2, centerNode));
 
 }
+

@@ -3,7 +3,7 @@
 #include <qDebug>
 #include <QList>
 #include <QTabWidget>
-#include "RelationTreePanel.h"
+#include "RelationTree.h"
 
 PluriNotes::PluriNotes(QWidget *parent)
 	: QMainWindow(parent)
@@ -11,6 +11,8 @@ PluriNotes::PluriNotes(QWidget *parent)
     qDebug()<<"launched";
 
 	ui.setupUi(this);
+    ui.relationTree->setMaximumWidth(0);
+    ui.relationTree->setMinimumWidth(0);
 
     m_sSettingsFile = QDir::currentPath() + "/config.ini";
 
@@ -31,11 +33,8 @@ PluriNotes::PluriNotes(QWidget *parent)
     QObject::connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(openSettings()));
     QObject::connect(ui.actionRelations, SIGNAL(triggered()), this, SLOT(openRelations()));
     QObject::connect(ui.listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(ouvrirNote(QListWidgetItem*)));
+    QObject::connect(ui.toggleBtn, SIGNAL(toggled(bool)), this, SLOT(reactToPannelToggle(bool)));
 
-    QVBoxLayout * anyLayout = new QVBoxLayout();
-    RelationTree* test = new RelationTree;
-    anyLayout->addWidget(test);
-    ui.relationTree->setContentLayout(*anyLayout);
 }
 
 
@@ -142,6 +141,15 @@ void PluriNotes::nouvelleNote()
 		ouvrirNote(nouvelle_note);
 	}
 	delete x;
+}
+
+void PluriNotes::reactToPannelToggle(bool checked){
+    if (checked){
+        ui.relationTree->setMaximumWidth(300);
+    }
+    else {
+        ui.relationTree->setMaximumWidth(0);
+    }
 }
 
 PluriNotes::~PluriNotes()

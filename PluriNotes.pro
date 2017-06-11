@@ -23,7 +23,7 @@ HEADERS += Article.h \
     Relation.h \
     RelationManager.h \
     RelationWindow.h \
-    RelationTreePanel.h
+    RelationTree.h
 SOURCES += Article.cpp \
     ArticleEditeur.cpp \
     main.cpp \
@@ -40,7 +40,7 @@ SOURCES += Article.cpp \
     Relation.cpp \
     RelationManager.cpp \
     RelationWindow.cpp \
-    RelationTreePanel.cpp
+    RelationTree.cpp
 FORMS += PluriNotes.ui \
     nouvellenote.ui \
     SettingsDialog.ui \
