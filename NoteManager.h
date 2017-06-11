@@ -13,7 +13,6 @@
 #include "ArticleEditeur.h"
 #include "MediaEditeur.h"
 #include "tacheediteur.h"
-
 class NotesException {
 public:
 	NotesException(const QString& message) :info(message) {}
@@ -46,16 +45,9 @@ public:
 	static NotesManager& getManager();
 	static void freeManager(); // free the memory used by the NotesManager; it can be rebuild later
     void addNote(Note* n);
-<<<<<<< HEAD
-
-	Note* create(const QString& type,const QString& id,const QVector<QString>& param = QVector<QString>()) //crée un note et l'ajoute a la liste (pas de note pas dans la liste -> pose un pb plus tard ?)
-	{
-		/*Logic based on Genre*/
-=======
     Note* create(const QString& type,const QString& filePath,const QVector<QString>& param = QVector<QString>()) //crée un note et l'ajoute a la liste (pas de note pas dans la liste -> pose un pb plus tard ?)
 	{
 
->>>>>>> refs/remotes/origin/Relations
         try{
             getNote(filePath.section("/", -1, -1).section(".", 0, 0));
         }
@@ -83,7 +75,6 @@ public:
                         file = param.at(param.indexOf("file") + 1);
                     note = new Media(filePath,title,desc,file);
                 }
-<<<<<<< HEAD
                 if (type.toLower() == "tache") {
                     QString priorite = "Faible";
                     QString status = "en attente";
@@ -105,16 +96,14 @@ public:
                     if (param.contains("priorise"))
                         if (param.at(param.indexOf("priorise") + 1)=="T") priorise=true;
                     qDebug("intialisation tache");
-                    note = new Tache(id,foldername,title,action,echeance,priorite,status,echue,priorise);
+                    note = new Tache(filePath,title,action,echeance,priorite,status,echue,priorise);
                 }
-=======
->>>>>>> refs/remotes/origin/Relations
                 addNote(note);
                 return note;
             }
-       }
-       throw NotesException("Note already exists");
-	}
+        throw NotesException("Note already exists");
+        }
+    }
 
 	class Iterator {
 		friend class NotesManager;

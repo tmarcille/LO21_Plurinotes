@@ -19,19 +19,11 @@ private:
 public:
 
     Note(const QString& f, const QString& ti="");
-<<<<<<< HEAD
-    virtual ~Note() = 0;
-    QString getId() const { return filePath.section("/", -1, -1).section(".", 0, 0);}
-    QString getTitle() const { return title; }
-    virtual void setTitle(const QString& t);
-    virtual QString getType() const = 0;
-=======
 	virtual ~Note() = 0;
     QString getId() const { return filePath.section("/", -1, -1).section(".", 0, 0);}
     QString getTitle() const { return title; }
     virtual void setTitle(const QString& t);
 	virtual QString getType() const = 0;
->>>>>>> refs/remotes/origin/Relations
     void saveInFile() const;
 
 };

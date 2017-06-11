@@ -18,12 +18,9 @@
 #include "NoteManager.h"
 #include "SettingsDialog.h"
 #include "NoteViewer.h"
-<<<<<<< HEAD
+#include "RelationWindow.h"
 #include "vector"
 
-=======
-#include "RelationWindow.h"
->>>>>>> refs/remotes/origin/Relations
 
 class PluriNotes : public QMainWindow,  public Observer<Note>
 {
@@ -59,13 +56,9 @@ public slots:
 
     void openSettings();
     void openRelations();
-<<<<<<< HEAD
-    void ouvrirNote(QListWidgetItem* item);
-    void nouvelleNote();
-=======
 	void ouvrirNote(QListWidgetItem* item);
 	void nouvelleNote();
->>>>>>> refs/remotes/origin/Relations
     void reactToPannelToggle(bool);
 
+private slots:
 };

@@ -16,19 +16,14 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
-<<<<<<< HEAD
-#include <QtWidgets/QVBoxLayout>
-=======
 #include <QtWidgets/QToolButton>
->>>>>>> refs/remotes/origin/Relations
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "NoteViewer.h"
 #include "RelationTree.h"
@@ -47,11 +42,8 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QListWidget *listWidget;
     QVBoxLayout *verticalLayout;
-    QLabel *label;
     QListWidget *taskList;
-    QLabel *label_2;
     QListWidget *archiveList;
-    QSpacerItem *horizontalSpacer;
     NoteViewer *noteViewer;
     QGridLayout *relationTreePanelLayout;
     QToolButton *toggleBtn;
@@ -101,27 +93,17 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
-
-        verticalLayout->addWidget(label);
-
         taskList = new QListWidget(centralWidget);
         taskList->setObjectName(QStringLiteral("taskList"));
         sizePolicy.setHeightForWidth(taskList->sizePolicy().hasHeightForWidth());
         taskList->setSizePolicy(sizePolicy);
         taskList->setMaximumSize(QSize(200, 16777215));
         taskList->setStyleSheet(QLatin1String("border-color: rgb(180, 180, 180);\n"
-"background-color: rgb(245, 245, 245);"));
+"    background-color: rgb(245, 245, 245);"));
         taskList->setFrameShape(QFrame::StyledPanel);
         taskList->setSelectionMode(QAbstractItemView::NoSelection);
 
         verticalLayout->addWidget(taskList);
-
-        label_2 = new QLabel(centralWidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
-
-        verticalLayout->addWidget(label_2);
 
         archiveList = new QListWidget(centralWidget);
         archiveList->setObjectName(QStringLiteral("archiveList"));
@@ -129,32 +111,20 @@ public:
         archiveList->setSizePolicy(sizePolicy);
         archiveList->setMaximumSize(QSize(200, 16777215));
         archiveList->setStyleSheet(QLatin1String("border-color: rgb(180, 180, 180);\n"
-"background-color: rgb(245, 245, 245);"));
+"    background-color: rgb(245, 245, 245);"));
 
         verticalLayout->addWidget(archiveList);
 
 
-        horizontalLayout->addLayout(verticalLayout);
-
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer);
+        horizontalLayout_2->addLayout(verticalLayout);
 
         noteViewer = new NoteViewer(centralWidget);
         noteViewer->setObjectName(QStringLiteral("noteViewer"));
-<<<<<<< HEAD
-        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Preferred);
-=======
         QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
->>>>>>> refs/remotes/origin/Relations
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(noteViewer->sizePolicy().hasHeightForWidth());
         noteViewer->setSizePolicy(sizePolicy1);
-<<<<<<< HEAD
-        noteViewer->setMinimumSize(QSize(650, 0));
-=======
->>>>>>> refs/remotes/origin/Relations
 
         horizontalLayout_2->addWidget(noteViewer);
 
@@ -216,13 +186,8 @@ public:
         actionOuvrir->setText(QApplication::translate("PluriNotesClass", "Ouvrir...", Q_NULLPTR));
         actionDossier_de_stockage->setText(QApplication::translate("PluriNotesClass", "Dossier de stockage", Q_NULLPTR));
         actionOptions->setText(QApplication::translate("PluriNotesClass", "Settings...", Q_NULLPTR));
-<<<<<<< HEAD
-        label->setText(QApplication::translate("PluriNotesClass", "TO DO LIST :", Q_NULLPTR));
-        label_2->setText(QApplication::translate("PluriNotesClass", "Notes archiv\303\251es :", Q_NULLPTR));
-=======
         actionRelations->setText(QApplication::translate("PluriNotesClass", "Relations..", Q_NULLPTR));
         toggleBtn->setText(QApplication::translate("PluriNotesClass", "Arborescence", Q_NULLPTR));
->>>>>>> refs/remotes/origin/Relations
         menuFichier->setTitle(QApplication::translate("PluriNotesClass", "Fichiers", Q_NULLPTR));
         menuNouveau->setTitle(QApplication::translate("PluriNotesClass", "Nouveau", Q_NULLPTR));
         menuEdition->setTitle(QApplication::translate("PluriNotesClass", "Edition", Q_NULLPTR));

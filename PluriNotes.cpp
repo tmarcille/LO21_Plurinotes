@@ -3,24 +3,16 @@
 #include <qDebug>
 #include <QList>
 #include <QTabWidget>
-<<<<<<< HEAD
-=======
 #include "RelationTree.h"
->>>>>>> refs/remotes/origin/Relations
 
 PluriNotes::PluriNotes(QWidget *parent)
     : QMainWindow(parent)
 {
     qDebug()<<"launched";
-
-<<<<<<< HEAD
-    ui.setupUi(this);
-=======
 	ui.setupUi(this);
     ui.relationTree->setMaximumWidth(0);
     ui.relationTree->setMinimumWidth(0);
->>>>>>> refs/remotes/origin/Relations
-
+    ui.setupUi(this);
     m_sSettingsFile = QDir::currentPath() + "/config.ini";
 
     QFileInfo check_file(m_sSettingsFile);
@@ -35,12 +27,8 @@ PluriNotes::PluriNotes(QWidget *parent)
 
     loadSettings();
     ouvrirProjet();
-<<<<<<< HEAD
-    QObject::connect(ui.actionNote, SIGNAL(triggered()), this, SLOT(nouvelleNote()));
-=======
 
 	QObject::connect(ui.actionNote, SIGNAL(triggered()), this, SLOT(nouvelleNote()));
->>>>>>> refs/remotes/origin/Relations
     QObject::connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(openSettings()));
     QObject::connect(ui.actionRelations, SIGNAL(triggered()), this, SLOT(openRelations()));
     QObject::connect(ui.listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(ouvrirNote(QListWidgetItem*)));
@@ -115,6 +103,7 @@ void PluriNotes::ouvrirProjet() {
     for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
             new QListWidgetItem(it.current().getId(), ui.listWidget);
     }
+    QObject::connect(ui.listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(ouvrirNote(QListWidgetItem*)));
     //On active le bouton nouvelle note
     ui.actionNote->setEnabled(true);
     createTaskList();
@@ -122,7 +111,6 @@ void PluriNotes::ouvrirProjet() {
 
 void PluriNotes::createTaskList(){
 
-<<<<<<< HEAD
     std::vector<QString> v;
     QString s;
     NotesManager& m = NotesManager::getManager();
@@ -144,10 +132,6 @@ void PluriNotes::createTaskList(){
         s=s.remove(0,11);
         new QListWidgetItem(s, ui.taskList);
     }
-=======
-	//On active le bouton nouvelle note
-	ui.actionNote->setEnabled(true);
->>>>>>> refs/remotes/origin/Relations
 }
 
 void PluriNotes::ouvrirNote(QListWidgetItem* item) {
@@ -162,21 +146,12 @@ void PluriNotes::ouvrirNote(QListWidgetItem* item) {
 
 void PluriNotes::nouvelleNote()
 {
-<<<<<<< HEAD
-    NouvelleNote* x = new NouvelleNote();
-    if (x->exec() == QDialog::Accepted) {
-        // Ajouter : tri par ordre alphabetique de la liste, verif si la note n'existe pas deja
-
-
-        NotesManager& m = NotesManager::getManager();
-=======
 	NouvelleNote* x = new NouvelleNote();
 	if (x->exec() == QDialog::Accepted) {
 		// Ajouter : tri par ordre alphabetique de la liste, verif si la note n'existe pas deja
 
 
 		NotesManager& m = NotesManager::getManager();
->>>>>>> refs/remotes/origin/Relations
         try{
             m.create(x->getSelectedType(),m.getFoldername() + "/" + x->getNom()+".xml");
         }
@@ -187,6 +162,7 @@ void PluriNotes::nouvelleNote()
             }
         }
         QListWidgetItem* nouvelle_note = new QListWidgetItem(x->getNom(), ui.listWidget);
+
         m.saveAllNotes();
         ouvrirNote(nouvelle_note);
     }

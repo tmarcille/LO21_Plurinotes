@@ -14,11 +14,7 @@ void NotesManager::freeManager() {
 }
 
 void NotesManager::addNote(Note* a) {
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> refs/remotes/origin/Relations
     try{
         getNote(a->getId());
     }
@@ -76,13 +72,9 @@ void NotesManager::saveNote(const QString& id) const {
     }
     catch(NotesException& e){
         qDebug()<<e.getInfo();
-<<<<<<< HEAD
-=======
 
     }
->>>>>>> refs/remotes/origin/Relations
 
-    }
 }
 
 
@@ -125,11 +117,7 @@ void NotesManager::load() {
                         }
                         qDebug() << "ajout note " << fin.fileName() << "\n";
                         create(type, fin.fileName(), parameters);
-<<<<<<< HEAD
-                    }
-=======
                     }                    
->>>>>>> refs/remotes/origin/Relations
                 }
                 else
                 {

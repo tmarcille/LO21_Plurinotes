@@ -19,7 +19,7 @@ private:
 
 public:
     Note* clone() const;
-    Tache(const QString& i, const QString& folder,const QString& ti, const QString& a, const QDate &d, const QString &p, const QString &s, const bool &e, const bool &ps);
+    Tache(const QString& f,const QString& ti, const QString& a, const QDate &d, const QString &p, const QString &s, const bool &e, const bool &ps);
     QString getAction() const {return action;}
     QString getPriorite() const {return priorite;}
     QString getStatus() const {return status;}

@@ -63,12 +63,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="radioButton">
+      <widget class="QRadioButton" name="Tache">
        <property name="text">
         <string>Tache</string>
        </property>
        <attribute name="buttonGroup">
-        <string notr="true">buttonGroup</string>
+        <string notr="true">radioButtons</string>
        </attribute>
       </widget>
      </item>

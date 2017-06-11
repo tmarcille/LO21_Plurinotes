@@ -34,11 +34,8 @@ public:
     QLabel *label;
     QLineEdit *lineEdit;
     QRadioButton *Article;
-<<<<<<< HEAD
-    QRadioButton *radioButton;
-=======
     QRadioButton *Media;
->>>>>>> refs/remotes/origin/Relations
+    QRadioButton *Tache;
     QDialogButtonBox *buttonBox;
     QButtonGroup *radioButtons;
 
@@ -81,20 +78,17 @@ public:
 
         verticalLayout->addWidget(Article);
 
-<<<<<<< HEAD
-        radioButton = new QRadioButton(NouvelleNote);
-        buttonGroup->addButton(radioButton);
-        radioButton->setObjectName(QStringLiteral("radioButton"));
-
-        verticalLayout->addWidget(radioButton);
-
-=======
         Media = new QRadioButton(NouvelleNote);
         radioButtons->addButton(Media);
         Media->setObjectName(QStringLiteral("Media"));
 
         verticalLayout->addWidget(Media);
->>>>>>> refs/remotes/origin/Relations
+
+        Tache = new QRadioButton(NouvelleNote);
+        radioButtons->addButton(Tache);
+        Tache->setObjectName(QStringLiteral("Tache"));
+
+        verticalLayout->addWidget(Tache);
 
 
         gridLayout->addLayout(verticalLayout, 1, 0, 1, 1);
@@ -119,11 +113,8 @@ public:
         NouvelleNote->setWindowTitle(QApplication::translate("NouvelleNote", "Dialog", Q_NULLPTR));
         label->setText(QApplication::translate("NouvelleNote", "Nom", Q_NULLPTR));
         Article->setText(QApplication::translate("NouvelleNote", "Article", Q_NULLPTR));
-<<<<<<< HEAD
-        radioButton->setText(QApplication::translate("NouvelleNote", "Tache", Q_NULLPTR));
-=======
         Media->setText(QApplication::translate("NouvelleNote", "Media", Q_NULLPTR));
->>>>>>> refs/remotes/origin/Relations
+        Tache->setText(QApplication::translate("NouvelleNote", "Tache", Q_NULLPTR));
     } // retranslateUi
 
 };
