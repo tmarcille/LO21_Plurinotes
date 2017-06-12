@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <relations>
     <relation>
-        <title>b</title>
+        <title>a</title>
         <description></description>
+        <couple>
+            <father>a</father>
+            <son>a</son>
+            <label>a</label>
+        </couple>
     </relation>
 </relations>

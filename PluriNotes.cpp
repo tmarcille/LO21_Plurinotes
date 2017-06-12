@@ -10,7 +10,6 @@ PluriNotes::PluriNotes(QWidget *parent)
 {
     qDebug()<<"launched";
 	ui.setupUi(this);
-
     ui.relationTree->setMaximumWidth(0);
     ui.relationTree->setMinimumWidth(0);
     ui.noteViewer->attach(*this);
