@@ -22,7 +22,7 @@
 #include "vector"
 
 
-class PluriNotes : public QMainWindow,  public Observer<Note>
+class PluriNotes : public QMainWindow,  public Observer<Note>, public Observer<NoteViewer>
 {
 	Q_OBJECT
 
@@ -41,6 +41,28 @@ public:
         if(t){
             ui.taskList->clear();
             createTaskList();
+        }
+    }
+    void update(NoteViewer* viewer){
+        qDebug()<<viewer->currentWindow();
+        RelationManager& r = RelationManager::getManager();
+        r.load();
+
+        ui.relationTree->clearTree();
+        ui.relationTree->addRoot(viewer->currentWindow());
+
+        QVector<Relation*>::iterator it;
+        QVector<QString> asc;
+        QVector<QString> dsc;
+
+        for ( it = r.begin(); it!=r.end(); it++) {
+            asc = (*it)->getAscendants(viewer->currentWindow());
+            dsc = (*it)->getDescendants(viewer->currentWindow());
+            QVector<QString>::iterator i;
+            for (i = asc.begin(); i!=asc.end(); i++)
+                ui.relationTree->addAsc(*i, (*it)->getTitle());
+            for (i = dsc.begin(); i!=dsc.end(); i++)
+                ui.relationTree->addDesc(*i, (*it)->getTitle());
         }
     }
 

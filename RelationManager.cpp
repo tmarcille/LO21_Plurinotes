@@ -49,6 +49,21 @@ Relation* RelationManager::addRelation(const QString t,const QString d, bool o){
     return nullptr;
 }
 
+void RelationManager::removeRelation(const QString &a){
+
+    QVector<Relation*>::iterator it;
+    int i = 0;
+    for ( it = begin(); it!= end(); it++) {
+        qDebug()<<(*it)->getTitle();
+        if ((*it)->getTitle()== a ){
+            qDebug()<<"removing relation"<<i;
+            relations.remove(i);
+            save();
+            return;
+        }
+        i++;
+    }
+}
 
 
 Relation* RelationManager::getRelation(const QString &name){

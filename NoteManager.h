@@ -47,7 +47,7 @@ public:
     void addNote(Note* n);
     Note* create(const QString& type,const QString& filePath,const QVector<QString>& param = QVector<QString>()) //crée un note et l'ajoute a la liste (pas de note pas dans la liste -> pose un pb plus tard ?)
 	{
-
+        qDebug()<<"trying to create Note";
         try{
             getNote(filePath.section("/", -1, -1).section(".", 0, 0));
         }
@@ -101,8 +101,8 @@ public:
                 addNote(note);
                 return note;
             }
-        throw NotesException("Note already exists");
         }
+        throw NotesException("Note already exists");
     }
 
 	class Iterator {

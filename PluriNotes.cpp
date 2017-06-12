@@ -10,8 +10,10 @@ PluriNotes::PluriNotes(QWidget *parent)
 {
     qDebug()<<"launched";
 	ui.setupUi(this);
+
     ui.relationTree->setMaximumWidth(0);
     ui.relationTree->setMinimumWidth(0);
+    ui.noteViewer->attach(*this);
     m_sSettingsFile = QDir::currentPath() + "/config.ini";
 
     QFileInfo check_file(m_sSettingsFile);
@@ -102,7 +104,6 @@ void PluriNotes::ouvrirProjet() {
     for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
             new QListWidgetItem(it.current().getId(), ui.listWidget);
     }
-    QObject::connect(ui.listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(ouvrirNote(QListWidgetItem*)));
     //On active le bouton nouvelle note
     ui.actionNote->setEnabled(true);
     createTaskList();
@@ -140,7 +141,6 @@ void PluriNotes::ouvrirNote(QListWidgetItem* item) {
     n.attach(*this);
     qDebug()<<"ouverture note"<<item->text();
     ui.noteViewer->showNote(&n);
-
 }
 
 void PluriNotes::nouvelleNote()
@@ -152,6 +152,7 @@ void PluriNotes::nouvelleNote()
 
 		NotesManager& m = NotesManager::getManager();
         try{
+            qDebug()<<"adding note";
             m.create(x->getSelectedType(),m.getFoldername() + "/" + x->getNom()+".xml");
         }
         catch (NotesException& a){

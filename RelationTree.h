@@ -34,11 +34,10 @@ private:
 class Edge : public QGraphicsItem
 {
 public:
-    Edge(Node *sourceNode, Node *destNode);
+    Edge(Node *sourceNode, Node *destNode, QString text);
 
     Node *sourceNode() const;
     Node *destNode() const;
-
     void adjust();
 
     enum { Type = UserType + 2 };
@@ -53,7 +52,10 @@ private:
     QPointF sourcePoint;
     QPointF destPoint;
     qreal arrowSize;
+    QString text;
+
 };
+
 
 class RelationTree :  public QGraphicsView
 {
@@ -61,11 +63,19 @@ class RelationTree :  public QGraphicsView
 
 public:
     RelationTree(QWidget *parent = 0);
-    const QString& getCentralNodeName(){ return centerNode->text();}
+    QString getCentralNodeName(){ return centerNode->text();}
+    void addAsc(QString a, QString relation);
+    void addDesc(QString b, QString relation);
+    void addRoot(QString a);
+    void clearTree();
+
 public slots:
 
 protected:
 
 private:
+    QGraphicsScene *scene;
     Node *centerNode;
+    int DescNb;
+    int AscNb;
 };

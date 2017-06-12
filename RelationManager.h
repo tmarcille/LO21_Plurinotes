@@ -24,6 +24,7 @@ public:
     Relation* getRelation(const QString& name);
     void addRelation(Relation*);
     Relation* addRelation(const QString t,const QString d="", bool o = true);
+    void removeRelation(const QString& a);
     void save() const;
     void load();
 

@@ -34,18 +34,21 @@ public:
 
     //on ne retourne pas couples entierement pour cacher le stockage des couples (ici un vecteur)
     unsigned int getSize() const { return couples.size();}
-    Couple* getCouple(unsigned int i) const {
+    Couple* getCouple(int i) const {
         if (i < couples.size())
             return couples[i];
         else return nullptr;
     }
     void addCouple(Note* p, Note* f, QString l="");
-    void removeCouple(unsigned int i){
+    void removeCouple(int i){
         if (i < couples.size()){
             couples.remove(i);
             qDebug()<<"removed couple";
         }
     }
+    QVector<QString> getAscendants(const QString&) const;
+    QVector<QString> getDescendants(const QString&) const;
+
 };
 
 #endif // RELATION_H

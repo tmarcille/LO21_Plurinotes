@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -48,8 +49,10 @@ public:
     QListWidget *archiveList;
     NoteViewer *noteViewer;
     QGridLayout *relationTreePanelLayout;
-    QToolButton *toggleBtn;
     RelationTree *relationTree;
+    QHBoxLayout *horizontalLayout;
+    QToolButton *toggleBtn;
+    QFrame *line;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuNouveau;
@@ -138,13 +141,6 @@ public:
         relationTreePanelLayout = new QGridLayout();
         relationTreePanelLayout->setSpacing(6);
         relationTreePanelLayout->setObjectName(QStringLiteral("relationTreePanelLayout"));
-        toggleBtn = new QToolButton(centralWidget);
-        toggleBtn->setObjectName(QStringLiteral("toggleBtn"));
-        toggleBtn->setCheckable(true);
-        toggleBtn->setToolButtonStyle(Qt::ToolButtonTextOnly);
-
-        relationTreePanelLayout->addWidget(toggleBtn, 0, 0, 1, 1);
-
         relationTree = new RelationTree(centralWidget);
         relationTree->setObjectName(QStringLiteral("relationTree"));
         QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -154,7 +150,28 @@ public:
         relationTree->setSizePolicy(sizePolicy2);
         relationTree->setMaximumSize(QSize(0, 16777215));
 
-        relationTreePanelLayout->addWidget(relationTree, 1, 0, 1, 1);
+        relationTreePanelLayout->addWidget(relationTree, 2, 0, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        toggleBtn = new QToolButton(centralWidget);
+        toggleBtn->setObjectName(QStringLiteral("toggleBtn"));
+        toggleBtn->setCursor(QCursor(Qt::PointingHandCursor));
+        toggleBtn->setCheckable(true);
+        toggleBtn->setToolButtonStyle(Qt::ToolButtonTextOnly);
+
+        horizontalLayout->addWidget(toggleBtn);
+
+        line = new QFrame(centralWidget);
+        line->setObjectName(QStringLiteral("line"));
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout->addWidget(line);
+
+
+        relationTreePanelLayout->addLayout(horizontalLayout, 1, 0, 1, 1);
 
 
         horizontalLayout_2->addLayout(relationTreePanelLayout);

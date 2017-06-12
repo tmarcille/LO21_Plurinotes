@@ -10,8 +10,8 @@ static const double Pi = 3.14159265358979323846264338327950288419717;
 static double TwoPi = 2.0 * Pi;
 
 
-Edge::Edge(Node *sourceNode, Node *destNode)
-    : arrowSize(10)
+Edge::Edge(Node *sourceNode, Node *destNode, QString text)
+    : arrowSize(10),text(text)
 {
     setAcceptedMouseButtons(0);
     source = sourceNode;
@@ -36,7 +36,7 @@ void Edge::adjust()
     if (!source || !dest)
         return;
 
-    QLineF line(mapFromItem(source, 40, 10), mapFromItem(dest,-10, 10));
+    QLineF line(mapFromItem(source, 0, 10), mapFromItem(dest,0, 0));
     qreal length = line.length();
 
     prepareGeometryChange();
@@ -58,7 +58,7 @@ QRectF Edge::boundingRect() const
     qreal penWidth = 1;
     qreal extra = (penWidth + arrowSize) / 2.0;
 
-    return QRectF(sourcePoint, QSizeF(destPoint.x() - sourcePoint.x(),
+    return QRectF(QPointF(sourcePoint.x()-50,sourcePoint.y()), QSizeF(destPoint.x() - sourcePoint.x() + 50,
                                       destPoint.y() - sourcePoint.y()))
         .normalized()
         .adjusted(-extra, -extra, extra, extra);
@@ -74,7 +74,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
         return;
 
     // Draw the line itself
-    painter->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    painter->setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     painter->drawLine(line);
 
     // Draw the arrows
@@ -87,8 +87,14 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     QPointF destArrowP2 = destPoint + QPointF(sin(angle - Pi + Pi / 3) * arrowSize,
                                               cos(angle - Pi + Pi / 3) * arrowSize);
 
-    painter->setBrush(Qt::black);
+    painter->setBrush(Qt::blue);
     painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
+
+    //Draw the text
+    painter->setFont(QFont("Arial", 8, QFont::Bold));
+    QPen penHText(QColor("#000000"));
+    painter->setPen(penHText);
+    painter->drawText(destPoint.x()-20,sourcePoint.y()+(destPoint.y()-sourcePoint.y())/2,text);
 }
 
 
@@ -126,36 +132,65 @@ QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
 }
 
 RelationTree::RelationTree(QWidget *parent)
-    : QGraphicsView(parent)
+    : QGraphicsView(parent), AscNb(0), DescNb(0)
 {
-    QGraphicsScene *scene = new QGraphicsScene(this);
+    scene = new QGraphicsScene(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
     scene->setSceneRect(-200, -200, 400, 400);
     setScene(scene);
     setViewportUpdateMode(BoundingRectViewportUpdate);
     setRenderHint(QPainter::Antialiasing);
-    scale(qreal(0.8), qreal(0.8));
+    scale(qreal(1.1), qreal(1.1));
     setMinimumSize(200, 200);
-
-    Node *node1 = new Node(this,"Article 1");
-    Node *node2 = new Node(this,"Article 2");
-    Node *node3 = new Node(this,"Article 3");
-    centerNode = new Node(this,"Article 4");
-    scene->addItem(node1);
-    scene->addItem(node2);
-    scene->addItem(node3);
-    scene->addItem(centerNode);
-
-
-    QRectF bR = node1->sceneBoundingRect();
-    node1->setPos( -100 - bR.width()/2, -100 - bR.height()/2 );
-    bR = node2->sceneBoundingRect();
-    node2->setPos( 0 - bR.width()/2, -100 - bR.height()/2 );
-    node3->setPos( 100 - bR.width()/2, -100 - bR.height()/2 );
-    centerNode->setPos( 0 - bR.width()/2, 0 - bR.height()/2 );
-    scene->addItem(new Edge(node1, node2));
-    scene->addItem(new Edge(node2, node3));
-    scene->addItem(new Edge(node2, centerNode));
 
 }
 
+void RelationTree::addRoot(QString a){
+    centerNode = new Node(this,a);
+    scene->addItem(centerNode);
+    centerNode->setPos( 0,0);
+}
+
+
+void RelationTree::addAsc(QString a, QString relation){
+    Node *node = new Node(this,a);
+    scene->addItem(node);
+    if(AscNb==0){
+        node->setPos(0,-50);
+        AscNb++;
+    }
+    else if(AscNb % 2 == 0){
+        node->setPos(-60*(AscNb/2),-50);
+        AscNb++;
+    }
+    else {
+        node->setPos(60*(AscNb/2+1),-50);
+        AscNb++;
+    }
+    scene->addItem(new Edge(centerNode, node, relation));
+}
+
+void RelationTree::addDesc(QString a, QString relation){
+
+        Node *node = new Node(this,a);
+        scene->addItem(node);
+        if(DescNb==0){
+            node->setPos(0,50);
+            DescNb++;
+        }
+        else if(DescNb % 2 == 0){
+            node->setPos(-60*(DescNb/2),50);
+            DescNb++;
+        }
+        else {
+            node->setPos(60*(DescNb/2+1),50);
+            DescNb++;
+        }
+        scene->addItem(new Edge(centerNode, node, relation));
+}
+
+void RelationTree::clearTree(){
+    scene->clear();
+    DescNb=0;
+    AscNb=0;
+}

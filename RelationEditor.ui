@@ -200,7 +200,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="coupleLabel"/>
+         <widget class="QLineEdit" name="coupleLabel">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -236,11 +240,22 @@
        <widget class="QListWidget" name="listRelation"/>
       </item>
       <item>
-       <widget class="QPushButton" name="newRelation">
-        <property name="text">
-         <string>Nouvelle Relation</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QPushButton" name="newRelationBtn">
+          <property name="text">
+           <string>Nouvelle Relation</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeRelationBtn">
+          <property name="text">
+           <string>Supprimer Relation</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
@@ -266,7 +281,6 @@
   <tabstop>note1</tabstop>
   <tabstop>note2</tabstop>
   <tabstop>listRelation</tabstop>
-  <tabstop>newRelation</tabstop>
   <tabstop>title</tabstop>
  </tabstops>
  <resources/>

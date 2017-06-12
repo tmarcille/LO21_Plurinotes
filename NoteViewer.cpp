@@ -8,7 +8,10 @@ NoteViewer::NoteViewer(QWidget *parent) : QWidget(parent)
     tabWidget->setMovable(true);
     layout->addWidget(tabWidget);
     QObject::connect(tabWidget, &QTabWidget::tabCloseRequested, this, &NoteViewer::closeTab);
+    QObject::connect(tabWidget, &QTabWidget::currentChanged, this, &NoteViewer::currentChanged);
 }
+
+
 
 NoteViewer::~NoteViewer(){
 
@@ -115,4 +118,15 @@ void NoteViewer::unsavedChanges(NoteEditeur* f){
 void NoteViewer::saveChanges(NoteEditeur* f){
 
     tabWidget->setTabText(tabWidget->indexOf(f),f->getId());
+}
+
+QString NoteViewer::currentWindow() const{
+    NoteEditeur* n = dynamic_cast<NoteEditeur*>(tabWidget->currentWidget());
+    if (n)
+        return n->getId();
+    return "";
+}
+
+void NoteViewer::currentChanged(){
+    notify();
 }

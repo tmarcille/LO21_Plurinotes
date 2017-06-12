@@ -112,6 +112,8 @@ void *PluriNotes::qt_metacast(const char *_clname)
         return static_cast<void*>(const_cast< PluriNotes*>(this));
     if (!strcmp(_clname, "Observer<Note>"))
         return static_cast< Observer<Note>*>(const_cast< PluriNotes*>(this));
+    if (!strcmp(_clname, "Observer<NoteViewer>"))
+        return static_cast< Observer<NoteViewer>*>(const_cast< PluriNotes*>(this));
     return QMainWindow::qt_metacast(_clname);
 }
 

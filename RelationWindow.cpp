@@ -18,12 +18,7 @@ RelationEditor::RelationEditor(QWidget *parent) :
     catch (NotesException& e){
         qDebug()<<e.getInfo();
     }
-
-    QVector<Relation*>::iterator it;
-    for ( it = m.begin(); it!=m.end(); it++) {
-        qDebug()<<(*it)->getTitle();
-        new QListWidgetItem((*it)->getTitle(), ui->listRelation);
-    }
+    loadRelationList();
 
     NotesManager& nm = NotesManager::getManager();
     for (NotesManager::Iterator it = nm.getIterator(); !it.isDone(); it.next()) {
@@ -31,8 +26,8 @@ RelationEditor::RelationEditor(QWidget *parent) :
         ui->note2->addItem((it.current()).getId());
     }
     QObject::connect(ui->listRelation, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(openRelation(QListWidgetItem*)));
-    QObject::connect(ui->listRelation, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(activateUi()));
-    QObject::connect(ui->newRelation, SIGNAL(clicked()), this, SLOT(newRelation()));
+    QObject::connect(ui->newRelationBtn, SIGNAL(clicked()), this, SLOT(newRelation()));
+    QObject::connect(ui->removeRelationBtn, SIGNAL(clicked()), this, SLOT(removeRelation()));
     QObject::connect(ui->description, SIGNAL(textChanged()), this, SLOT(enableSave()));
     QObject::connect(ui->saveBtn,SIGNAL(clicked()), this, SLOT(save()));
     QObject::connect(ui->addCoupleBtn,SIGNAL(clicked()), this, SLOT(addCouple()));
@@ -45,8 +40,19 @@ RelationEditor::~RelationEditor()
     delete ui;
 }
 
-void RelationEditor::newRelation(){
+void RelationEditor::loadRelationList(){
 
+    RelationManager& m = RelationManager::getManager();
+    ui->listRelation->clear();
+    QVector<Relation*>::iterator it;
+    for ( it = m.begin(); it!=m.end(); it++) {
+        qDebug()<<(*it)->getTitle();
+        new QListWidgetItem((*it)->getTitle(), ui->listRelation);
+    }
+
+}
+
+void RelationEditor::newRelation(){
     RelationManager& m = RelationManager::getManager();
 
     NewRelationWindow* okDialog = new NewRelationWindow();
@@ -54,13 +60,30 @@ void RelationEditor::newRelation(){
     if(okDialog->exec()==QDialog::Accepted){
         qDebug()<<"ok";
         m.addRelation(okDialog->getName());
-        QListWidgetItem* nouvelle_note = new QListWidgetItem(okDialog->getName(), ui->listRelation);
         m.save();
+        loadRelationList();
+    }
+}
+
+void RelationEditor::removeRelation(){
+
+    qDebug()<<ui->listRelation->currentRow();
+    RelationManager& r = RelationManager::getManager();
+    qDebug()<<"removing remation : "<<ui->listRelation->currentItem()->text();
+    r.removeRelation(ui->listRelation->currentItem()->text());
+    loadRelationList();
+    if (ui->listRelation->count() > 0){
+        openRelation(ui->listRelation->item(0));
+        ui->listRelation->setCurrentRow(0);
+    }
+    else{
+        activateUi(false);
     }
 }
 
 void RelationEditor::openRelation(QListWidgetItem *item) {
 
+    activateUi(true);
     RelationManager& m = RelationManager::getManager();
     Relation* r = m.getRelation(item->text());
     ui->couplesList->clear();
@@ -105,12 +128,13 @@ void RelationEditor::removeCouple(){
     openRelation(ui->listRelation->currentItem());
 }
 
-void RelationEditor::activateUi(){
-    ui->description->setEnabled(true);
-    ui->title->setEnabled(true);
-    ui->note1->setEnabled(true);
-    ui->note2->setEnabled(true);
-    ui->addCoupleBtn->setEnabled(true);
-    ui->couplesList->setEnabled(true);
-    ui->removeCoupleBtn->setEnabled(true);
+void RelationEditor::activateUi(bool b){
+    ui->description->setEnabled(b);
+    ui->title->setEnabled(b);
+    ui->note1->setEnabled(b);
+    ui->note2->setEnabled(b);
+    ui->addCoupleBtn->setEnabled(b);
+    ui->couplesList->setEnabled(b);
+    ui->removeCoupleBtn->setEnabled(b);
+    ui->coupleLabel->setEnabled(b);
 }
