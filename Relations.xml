@@ -8,5 +8,10 @@
             <son>a</son>
             <label>a</label>
         </couple>
+        <couple>
+            <father>a</father>
+            <son>m</son>
+            <label>b</label>
+        </couple>
     </relation>
 </relations>
