@@ -11,11 +11,6 @@ void Article::saveAttributesInFile(QXmlStreamWriter & stream) const
 	stream.writeTextElement("text", text);
 }
 
-Note * Article::clone() const
-{
-	return new Article(*this);
-}
-
 Article::Article(const QString& f,const QString& ti, const QString& te) : Note(f,ti), text(te)
 {}
 

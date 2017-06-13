@@ -69,4 +69,5 @@ void MediaEditeur::openFile(QString f){
         fichier->setText(f);
     }
     player->setUrl(QUrl::fromLocalFile(f));
+    player->play();
 }

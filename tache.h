@@ -23,7 +23,6 @@ protected :
     Tache(  const QString& f, const QString& ti, const QString& a="", const QDate &d=QDate(0,0,0), const QString &p="Faible", const QString &s="en attente", const bool &e = false, const bool &ps = false);
 
 public:
-    Note* clone() const;
     QString getAction() const {return action;}
     QString getPriorite() const {return priorite;}
     QString getStatus() const {return status;}

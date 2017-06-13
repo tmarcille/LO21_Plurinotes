@@ -17,6 +17,9 @@ class TacheEditeur : public NoteEditeur
     Q_OBJECT
 
 private:
+
+    friend class NoteViewer;
+
     QVBoxLayout * localLayout;
     QHBoxLayout * h1;
     QHBoxLayout * h2;
@@ -37,8 +40,10 @@ private:
 
     void sauvegardeAttributs();  
 
-public:
+protected :
     TacheEditeur(Tache* a, QWidget *parent = 0);
+
+public:
     ~TacheEditeur();
 
 public slots :

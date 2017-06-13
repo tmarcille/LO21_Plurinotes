@@ -4,7 +4,7 @@
 
 ArticleEditeur::ArticleEditeur(Article* a, QWidget *parent) : NoteEditeur(a,parent)
 {
-	textl = new QLabel("Text");
+    textl = new QLabel("Texte");
 
 	text = new QTextEdit;
 

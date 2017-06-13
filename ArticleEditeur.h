@@ -8,13 +8,28 @@ class ArticleEditeur : public NoteEditeur
 
 private:
 
+    friend class NoteViewer;
+
+    /**
+     * \brief Label du champ texte.
+     */
 	QLabel* textl;
+
+    /**
+     * \brief Champ d'édition du champ texte.
+     */
 	QTextEdit *text;
 	void sauvegardeAttributs();
 
-public:
+protected:
+    /**
+    * \brief    Constructeur de l'editeur.
+    * \param    a  Article* vers l'article qui sera affiché dans l'éditeur.
+    */
     ArticleEditeur(Article* a, QWidget *parent = 0);
-	~ArticleEditeur();
+
+public:
+    virtual ~ArticleEditeur();
 
 
 public slots :

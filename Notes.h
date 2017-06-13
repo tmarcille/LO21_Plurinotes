@@ -14,6 +14,7 @@ class Note : public Subject<Note> {
 private:
 
     friend class NotesManager;
+
     /**
      * \brief Titre de la note.
      */
@@ -25,12 +26,14 @@ private:
     QString filePath;
 
     /**
-     * \brief      Sauvegarde les attributs de la classe fille
+     * \brief      Sauvegarde les attributs de la classe fille dans le fichier
      * \details  La classe Note sauvegarde les attributs communs avec saveInFile() , tandis
      *           que chaque classe fille s'occupe de la sauvegarde de ses attributs supplémentaires
      * \param    stream  Le QXmlStreamWriter dans lequel la fonction est en train d'écrire.
      */
 	virtual void saveAttributesInFile(QXmlStreamWriter& stream) const = 0;
+    Note(const Note& copy);
+    Note& operator=(const Note& copy);
 
 protected:
     /**
@@ -47,7 +50,7 @@ public:
     /**
      * \brief    Retourne l'id de la note.
      * \details  Determine l'id a partir du chemin vers le fichier indiqué dans \ a filepath
-     * \return   Un QString contenant l'ID de la note
+     * \return   QString contenant l'ID de la note
      */
     QString getId() const { return filePath.section("/", -1, -1).section(".", 0, 0);}
 
@@ -59,7 +62,6 @@ public:
 
     /**
      * \brief    Modifie le titre de la note.
-     * \details  Determine l'id a partir du chemin vers le fichier indiqué dans \ a filepath
      * \param    t  QString contenant la nouvelle valeur du titre.
      */
     virtual void setTitle(const QString& t);
@@ -72,7 +74,7 @@ public:
     virtual QString getType() const = 0;
 
     /**
-     * \brief      Sauvegarde les attributs communs à toutes les types de notes.
+     * \brief      Sauvegarde les attributs communs à toutes les types de notes dans un fichier.
      * \details  Sauvegarde les attributs communs à toutes les types de notes dans le fichier indiqué par \a filepath puis
      * appelle saveAttributesInFile() pour la sauvegarder les attributs specifiques a la classe.
      */
