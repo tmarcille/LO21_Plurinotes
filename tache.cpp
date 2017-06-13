@@ -12,7 +12,7 @@ void Tache::saveAttributesInFile(QXmlStreamWriter & stream) const
     stream.writeTextElement("priorite", getPriorite());
     stream.writeTextElement("echeance", echeance.toString("d.M.yyyy"));
     stream.writeTextElement("echue", getEchue());
-    stream.writeTextElement("piorisee", getPriorise());
+    stream.writeTextElement("priorise", getPriorise());
 }
 
 Note * Tache::clone() const
@@ -73,6 +73,7 @@ void Tache::setEcheance(const QDate& d) {
 
 void Tache::setPriorite(const QString& p) {
     priorite = p;
+    notify();
 }
 
 void Tache::setEchue(const QString& e) {
@@ -85,4 +86,5 @@ void Tache::setEchue(const QString& e) {
 void Tache::setPriorise(const QString& ps) {
     if (ps=="T") priorise=true;
     else priorise=false;
+    notify();
 }

@@ -118,7 +118,9 @@ void PluriNotes::createTaskList(){
                 qDebug()<<"tache found";
                 Tache * t = dynamic_cast <Tache*> (&it.current());
                 if (t && t->getEchue()=="T" && t->getStatus()!="terminee"){
-                    s = t->getEcheance().toString("yyyy.MM.dd")+t->getIntPriorite()+t->getId();
+                    s = t->getEcheance().toString("yyyy.MM.dd") + t->getIntPriorite() + t->getId() + QString(" ") + t->getEcheance().toString("dd/MM/yyyy");
+                    if (t->getPriorise()=="T")
+                       s = s + QString(" ") + t->getPriorite();
                     v.push_back(s);
                     qDebug()<<"added task"<<t->getId();
                 }
