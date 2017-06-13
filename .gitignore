@@ -42,9 +42,5 @@ CMakeLists.txt.user*
 *.ini
 *.Debug
 *.Release
-<<<<<<< HEAD
-# End of https://www.gitignore.io/api/qt
-=======
-# End of https://www.gitignore.io/api/qt
 
->>>>>>> origin/master
+# End of https://www.gitignore.io/api/qt

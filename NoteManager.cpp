@@ -28,7 +28,7 @@ void NotesManager::addNote(Note* a) {
                 nbMaxNotes += 5;
                 if (oldNotes) delete[] oldNotes;
             }
-            notes[nbNotes++] = a; //composition ?
+            notes[nbNotes++] = a;
         }
         return;
     }
@@ -68,13 +68,10 @@ void NotesManager::saveNote(const QString& id) const {
     try{
         Note& note = getNote(id);
         note.saveInFile();
-
     }
     catch(NotesException& e){
         qDebug()<<e.getInfo();
-
     }
-
 }
 
 Note* NotesManager::create(const QString& type,const QString& filePath,const QVector<QString>& param)

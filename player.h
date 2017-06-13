@@ -58,27 +58,64 @@ public:
     VideoPlayer(QWidget *parent = 0);
     ~VideoPlayer();
 
+    /**
+     * \brief Modifie l'adresse du fichier a lire.
+     * \param url QString avec l'adresse du fichier.
+     */
     void setUrl(const QUrl &url);
-    QString getFile() const;
 
 public slots:
+    /**
+     * \brief Action du bouton Play.
+     * \details Si le player est en pause, lance la lecture.
+     * Sinon met le player en pause.
+     */
     void play();
 
 private slots:
+
+    /**
+     * \brief Change l'icone selon l'etat du player (play/pause).
+     * \param state Etat du player.
+     */
     void mediaStateChanged(QMediaPlayer::State state);
+
+    /**
+     * \brief Change l'emplacement de la barre de progression selon l'avancee de la video.
+     * \param position Emplacement dans la video.
+     */
     void positionChanged(qint64 position);
+
+    /**
+     * \brief Change l'etendu du slider de position en fonction de la duree de la video
+     * \param duration Duree de la video.
+     */
     void durationChanged(qint64 duration);
+
+    /**
+     * \brief Change l'avancement de la video
+     * \param position Position a laquelle on veut mettre la video.
+     */
     void setPosition(int position);
-    void handleError();
 
 signals:
-    void fileChanged();
 
 private:
+
+    /**
+     * \brief Player multimedia.
+     */
     QMediaPlayer mediaPlayer;
+
+    /**
+     * \brief Bouton play.
+     */
     QAbstractButton *playButton;
+
+    /**
+     * \brief Slider d'avancement de lecture du mediaPlayer.
+     */
     QSlider *positionSlider;
-    QLabel *errorLabel;
 };
 
 #endif // PLAYER_H

@@ -22,7 +22,6 @@ NoteViewer::~NoteViewer(){
 NoteEditeur* NoteViewer::createEditor(Note* n) {
 
     //test de si l'editeur existe deja (un seul editeur possible par note)
-
     QVector<NoteEditeur*>::iterator it;
     for (it = NoteEditeur::editeurs.begin(); it!=NoteEditeur::editeurs.end(); it++ ){
         if((*it)->getId()==n->getId()){
@@ -59,7 +58,6 @@ void NoteViewer::showNote(Note* note){
             tabWidget->setCurrentIndex(i);
             return;
         }
-
     }
     //sinon on la crée
     NoteEditeur* fenetre = createEditor(note);

@@ -26,8 +26,3 @@ QString NouvelleNote::getNom() const
 {
 	return ui->lineEdit->text();
 }
-
-void NouvelleNote::test(int a) {
-
-    qDebug()<<a;
-}

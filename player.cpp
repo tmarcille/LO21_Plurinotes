@@ -52,7 +52,6 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     , mediaPlayer(0, QMediaPlayer::VideoSurface)
     , playButton(0)
     , positionSlider(0)
-    , errorLabel(0)
 {
 
     QVideoWidget *videoWidget = new QVideoWidget;
@@ -70,9 +69,6 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     connect(positionSlider, &QAbstractSlider::sliderMoved,
             this, &VideoPlayer::setPosition);
 
-    errorLabel = new QLabel;
-    errorLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
-
     QBoxLayout *controlLayout = new QHBoxLayout;
     controlLayout->setMargin(0);
     controlLayout->addWidget(playButton);
@@ -81,7 +77,6 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     layout->addWidget(videoWidget);
     layout->addWidget(positionSlider);
     layout->addLayout(controlLayout);
-    layout->addWidget(errorLabel);
 
     setLayout(layout);
 
@@ -90,9 +85,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
             this, &VideoPlayer::mediaStateChanged);
     connect(&mediaPlayer, &QMediaPlayer::positionChanged, this, &VideoPlayer::positionChanged);
     connect(&mediaPlayer, &QMediaPlayer::durationChanged, this, &VideoPlayer::durationChanged);
-    typedef void (QMediaPlayer::*ErrorSignal)(QMediaPlayer::Error);
-    connect(&mediaPlayer, static_cast<ErrorSignal>(&QMediaPlayer::error),
-            this, &VideoPlayer::handleError);
+
 }
 
 VideoPlayer::~VideoPlayer()
@@ -101,7 +94,6 @@ VideoPlayer::~VideoPlayer()
 
 void VideoPlayer::setUrl(const QUrl &url)
 {
-    errorLabel->setText(QString());
     setWindowFilePath(url.isLocalFile() ? url.toLocalFile() : QString());
     mediaPlayer.setMedia(url);
     playButton->setEnabled(true);
@@ -146,14 +138,3 @@ void VideoPlayer::setPosition(int position)
     mediaPlayer.setPosition(position);
 }
 
-void VideoPlayer::handleError()
-{
-    playButton->setEnabled(false);
-    const QString errorString = mediaPlayer.errorString();
-    QString message = "Error: ";
-    if (errorString.isEmpty())
-        message += " #" + QString::number(int(mediaPlayer.error()));
-    else
-        message += errorString;
-    errorLabel->setText(message);
-}

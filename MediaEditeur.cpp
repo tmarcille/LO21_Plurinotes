@@ -1,4 +1,4 @@
-#include "MediaEditeur.h"
+ #include "MediaEditeur.h"
 
 MediaEditeur::MediaEditeur(Media* a, QWidget *parent) : NoteEditeur(a,parent)
 {

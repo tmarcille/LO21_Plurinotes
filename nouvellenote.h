@@ -17,13 +17,22 @@ class NouvelleNote : public QDialog
 public:
     explicit NouvelleNote(QWidget *parent = 0);
     ~NouvelleNote();
-	QString getNom() const;
+
+    /**
+     * \brief Nom que l'utilisateur a rentre pour la note.
+     * \return QString avec le nom.
+     */
+    QString getNom() const;
+
+    /**
+     * \brief Type de Note que l'utilisateur a selectionne.
+     * \return QString avec le type.
+     */
 	QString getSelectedType() const;
 private:
     Ui::NouvelleNote *ui;
 	
-	public slots:
-    void test(int);
+    public slots:
 
 };
 
