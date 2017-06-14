@@ -69,9 +69,7 @@ public:
 private:
 
 	Ui::PluriNotesClass ui;
-	void closeEvent(QCloseEvent * event);
-    NoteViewer* test;
-
+    void closeEvent(QCloseEvent * event);
     QString m_sSettingsFile;
 
 public slots:

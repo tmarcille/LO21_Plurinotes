@@ -72,7 +72,7 @@ void PluriNotes::openSettings()
         //si on a sauvegardé des changements dans les paramètres, on recharge le projet
 
         NotesManager& m = NotesManager::getManager();
-        //si on ajoute des parametres qui ne changent pas les notes, besoin de faire des tests pour faire la distinction et ne pas tout recharger
+        ui.taskList->clear();
 
         for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
                 if (ui.noteViewer->isOpen(it.current().getId())){
@@ -83,6 +83,7 @@ void PluriNotes::openSettings()
 
 
         NotesManager::freeManager();
+        RelationManager::freeManager();
         loadSettings();
         ouvrirProjet();
     }
@@ -129,7 +130,6 @@ void PluriNotes::createTaskList(){
     std::sort(v.begin(),v.end());
     for (unsigned int i = 0 ; i<v.size(); ++i){
         s=v[i];
-        qDebug()<<"for";
         s=s.remove(0,11);
         new QListWidgetItem(s, ui.taskList);
     }

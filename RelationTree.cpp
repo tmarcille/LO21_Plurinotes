@@ -16,20 +16,9 @@ Edge::Edge(Node *sourceNode, Node *destNode, QString text)
     setAcceptedMouseButtons(0);
     source = sourceNode;
     dest = destNode;
-    source->addEdge(this);
-    dest->addEdge(this);
     adjust();
 }
 
-Node *Edge::sourceNode() const
-{
-    return source;
-}
-
-Node *Edge::destNode() const
-{
-    return dest;
-}
 
 void Edge::adjust()
 {
@@ -106,30 +95,6 @@ Node::Node(RelationTree *graphWidget, QString text)
     setZValue(-1);
 }
 
-void Node::addEdge(Edge *edge)
-{
-    edgeList << edge;
-    edge->adjust();
-}
-
-QList<Edge *> Node::edges() const
-{
-    return edgeList;
-}
-
-
-QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
-{
-    switch (change) {
-    case ItemPositionHasChanged:
-        foreach (Edge *edge, edgeList)
-            edge->adjust();
-        break;
-    default:
-        break;
-    };
-    return QGraphicsItem::itemChange(change, value);
-}
 
 RelationTree::RelationTree(QWidget *parent)
     : QGraphicsView(parent), AscNb(0), DescNb(0)

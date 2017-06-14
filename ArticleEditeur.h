@@ -16,7 +16,7 @@ private:
 	QLabel* textl;
 
     /**
-     * \brief Champ d'édition du champ texte.
+     * \brief Champ d'édition du texte.
      */
 	QTextEdit *text;
 	void sauvegardeAttributs();

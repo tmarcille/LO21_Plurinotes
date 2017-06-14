@@ -58,7 +58,6 @@ void RelationEditor::newRelation(){
     NewRelationWindow* okDialog = new NewRelationWindow();
 
     if(okDialog->exec()==QDialog::Accepted){
-        qDebug()<<"ok";
         m.addRelation(okDialog->getName());
         m.save();
         loadRelationList();
@@ -67,11 +66,11 @@ void RelationEditor::newRelation(){
 
 void RelationEditor::removeRelation(){
 
-    qDebug()<<ui->listRelation->currentRow();
     RelationManager& r = RelationManager::getManager();
     qDebug()<<"removing remation : "<<ui->listRelation->currentItem()->text();
     r.removeRelation(ui->listRelation->currentItem()->text());
     loadRelationList();
+
     if (ui->listRelation->count() > 0){
         openRelation(ui->listRelation->item(0));
         ui->listRelation->setCurrentRow(0);

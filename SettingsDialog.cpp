@@ -9,6 +9,7 @@ SettingsDialog::SettingsDialog(QString sF, QWidget *parent) :
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &SettingsDialog::accept);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &SettingsDialog::reject);
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(folderSelect()));
+    connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(relationFileSelect()));
     loadSettings();
 }
 
@@ -44,4 +45,9 @@ void SettingsDialog::folderSelect()
 {
     QString dir = QFileDialog::getExistingDirectory();
     ui->lineEdit->setText(dir);
+}
+
+void SettingsDialog::relationFileSelect(){
+    QString path = QFileDialog::getSaveFileName(this, "Enregistrer sous...", QDir::currentPath(), "XML (*.xml)", 0, QFileDialog::DontConfirmOverwrite);
+    ui->lineEdit_2->setText(path);
 }

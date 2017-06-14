@@ -11,9 +11,14 @@ void Relation::addCouple(Note* f, Note* s, QString l){
     c->father=f;
     c->son=s;
     c->label = l;
-    couples.append(c);
+    addCouple(c);
     qDebug()<<"added couple to relation: "<<this->title;
 }
+
+void Relation::addCouple(Couple* c){
+    couples.append(c);
+}
+
 
 QVector<QString> Relation::getAscendants(const QString& id) const{
 

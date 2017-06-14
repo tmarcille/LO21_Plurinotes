@@ -4,14 +4,18 @@
         <title>a</title>
         <description></description>
         <couple>
-            <father>a</father>
-            <son>a</son>
-            <label>a</label>
+            <father>t</father>
+            <son>m</son>
+            <label></label>
         </couple>
+    </relation>
+    <relation>
+        <title>b</title>
+        <description></description>
         <couple>
             <father>a</father>
-            <son>m</son>
-            <label>b</label>
+            <son>a</son>
+            <label></label>
         </couple>
     </relation>
 </relations>
