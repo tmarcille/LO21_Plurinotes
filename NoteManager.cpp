@@ -55,6 +55,7 @@ void NotesManager::restoreNote(const QString &id){
     auto it = corbeille.begin();
     while (it != corbeille.end()) {
         qDebug()<<"while";
+        qDebug()<<corbeille.size();
         if ( dynamic_cast<Note*>(*it) && id == ((*it)->getId())){
             qDebug()<<"adding note"<< id <<"from bin  ";
             addNote((*it));

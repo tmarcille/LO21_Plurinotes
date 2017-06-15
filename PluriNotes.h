@@ -89,3 +89,34 @@ public slots:
 
 private slots:
 };
+
+class VidageCorbeille : public QDialog
+{
+public:
+
+    VidageCorbeille(QWidget *parent = 0) :QDialog(parent)
+    {
+        Vlayout = new QVBoxLayout(this);
+        Hlayout = new QHBoxLayout(this);
+
+        text = new QLabel("Des élèments sont présents dans la corbeille. Les restaurer ?");
+        closeBtn = new QPushButton("Non");
+        acceptBtn = new QPushButton("Oui");
+        Vlayout->addWidget(text);
+        Hlayout->addWidget(acceptBtn);
+        Hlayout->addWidget(closeBtn);
+
+        Vlayout->addLayout(Hlayout);
+        setModal(true);
+
+        connect(acceptBtn, SIGNAL(clicked()), this, SLOT(accept()));
+        connect(closeBtn, SIGNAL(clicked()), this, SLOT(reject()));
+        show();
+    }
+private:
+    QVBoxLayout* Vlayout;
+    QHBoxLayout* Hlayout;
+    QLabel *text;
+    QPushButton *closeBtn;
+    QPushButton *acceptBtn;
+};

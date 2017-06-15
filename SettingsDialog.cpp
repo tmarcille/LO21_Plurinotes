@@ -23,8 +23,10 @@ void SettingsDialog::saveSettings()
     QSettings settings(settingsFile, QSettings::IniFormat);
     settings.setValue("folder",ui->lineEdit->text());
     settings.setValue("relationFile",ui->lineEdit_2->text());
-    qDebug()<<"file saved"<<endl;
-
+    if (ui->checkBin->isChecked())
+        settings.setValue("checkBin","true");
+    else
+        settings.setValue("checkBin","false");
 }
 
 void SettingsDialog::loadSettings()
@@ -32,6 +34,10 @@ void SettingsDialog::loadSettings()
     QSettings settings(settingsFile, QSettings::IniFormat);
     ui->lineEdit->setText(settings.value("folder", "").toString());
     ui->lineEdit_2->setText(settings.value("relationFile", "").toString());
+    if (settings.value("checkBin", "").toString() == "true")
+        ui->checkBin->setChecked(true);
+    else
+        ui->checkBin->setChecked(false);
 
 }
 

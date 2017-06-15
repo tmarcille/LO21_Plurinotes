@@ -54,6 +54,12 @@
      </item>
      <item>
       <widget class="QRadioButton" name="Media">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Media</string>
        </property>
@@ -64,6 +70,12 @@
      </item>
      <item>
       <widget class="QRadioButton" name="Tache">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Tache</string>
        </property>
