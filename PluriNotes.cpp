@@ -21,6 +21,7 @@ PluriNotes::PluriNotes(QWidget *parent)
         QSettings* settings = new QSettings(m_sSettingsFile, QSettings::IniFormat);
         settings->setValue("folder", QDir::currentPath());
         settings->setValue("relationFile", QDir::currentPath() + "/Relations.xml");
+        settings->setValue("checkBin","false");
         settings->sync();
         qDebug()<<"file created"<<endl;
     }
@@ -63,6 +64,24 @@ void PluriNotes::closeEvent(QCloseEvent *event)
     for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
             if (ui.noteViewer->isOpen(it.current().getId()))
                 ui.noteViewer->closeNote(it.current().getId());
+    }
+
+    QSettings* settings = new QSettings(m_sSettingsFile, QSettings::IniFormat);
+    if ((settings->value("checkBin", "").toString() == "false") && (ui.bin->count() != 0)){
+        QDialog* dialog = new QDialog();
+        dialog->setModal(true);
+        VidageCorbeille* x = new VidageCorbeille();
+        int dialogCode = x->exec();
+        if (dialogCode == QDialog::Accepted) {
+            int count = ui.bin->count();
+            for(int index = 0;
+                index < count;
+                index++)
+            {
+                ui.bin->setCurrentRow(index);
+                restoreBtnClicked();
+            }
+        }
     }
 }
 
