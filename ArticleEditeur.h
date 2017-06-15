@@ -2,6 +2,11 @@
 #include "NoteEditeur.h"
 #include "Article.h"
 
+/**
+ * \brief La classe ArticleEditeur hérite de la classe NoteEditeur
+ * \details Un ArticleEditeur permet de modifier les paramètres d'un article : text
+ */
+
 class ArticleEditeur : public NoteEditeur
 {
 	Q_OBJECT

@@ -9,6 +9,11 @@
 #include <iostream>
 #include <observator.h>
 
+/**
+ * \brief La classe Note est une classe abstraite qui possede 3 classe filles : Article, Média, Tache
+ * \details Une note possede un titre et un emplacement
+ */
+
 class Note : public Subject<Note> {
 
 private:

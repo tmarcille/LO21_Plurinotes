@@ -13,6 +13,14 @@
 #include "ArticleEditeur.h"
 #include "MediaEditeur.h"
 #include "tacheediteur.h"
+
+/**
+ * \brief La classe NotesException permet de gérer les exceptions
+ * \details La classe NotesException comporte un attribut info
+ *
+ */
+
+
 class NotesException {
 public:
 	NotesException(const QString& message) :info(message) {}
@@ -21,6 +29,11 @@ private:
 	QString info;
 };
 
+/**
+ * \brief La classe NoteManager permet de gérer l'ensemble des Notes
+ * \details La classe NoteManager permet créer des notes, les rpertorier et gérer leur suppression
+ *
+ */
 
 class NotesManager {
 private:

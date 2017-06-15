@@ -7,6 +7,12 @@
 //namespace st {
 //extern QString Tostatus[NBSTATUS] = {"en attente","en cours","terminee"};
 //}
+
+/**
+ * \brief La classe Tache hérite de Note
+ * \details Une tache possède une action, une priorité, une échéance et un status
+ */
+
 class Tache : public Note {
 private:
     friend class NotesManager;

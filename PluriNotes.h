@@ -21,6 +21,11 @@
 #include "RelationWindow.h"
 #include "vector"
 
+/**
+ * \brief La classe Plurinote permet de lancer l'application et sa fenetre
+ * \details La classe Plurinote permet d'ouvrir le projet, charger les settings et mettre à jours les editeurs
+ *
+ */
 
 class PluriNotes : public QMainWindow,  public Observer<Note>, public Observer<NoteViewer>
 {

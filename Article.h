@@ -1,6 +1,14 @@
 #pragma once
 #include "Notes.h"
 
+
+/**
+ * \brief La classe Article hérite de Note
+ * \details Un article possède un texte
+ */
+
+
+
 class Article : public Note {
 
 private:
