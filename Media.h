@@ -2,7 +2,10 @@
 #define MEDIA_H
 #include "Notes.h"
 
-
+/**
+ * \brief La classe média hérite de Note
+ * \details Un média peut être une image, un enregistrement sonore ou un enregistrement vidéo
+ */
 class Media : public Note {
 
 private:

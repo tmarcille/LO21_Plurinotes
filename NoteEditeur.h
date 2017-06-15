@@ -14,6 +14,14 @@
 #include <QObject>
 #include <QMessageBox>
 
+
+
+/**
+ * \brief La classe NoteEditeur est une classe abstraite qui possède 3 classe filles : ArticleEditeur, MediaEditeur, TacheEditeur
+ * \details Un NoteEditeur permet de modifier le titre d'une note et d'afficher son id
+ *
+ */
+
 class NoteEditeur : public QWidget
 {
 	Q_OBJECT
@@ -157,6 +165,13 @@ public slots :
 
 
 //fenetre de verification de sauvegarde a la fermeture
+
+
+/**
+ * \brief La classe NoteEditeurFermeture permet de géner une fenetre pour sauvegarder une note
+ * \details Lors de la fermeture d'un éditeur comportant un ou plusieurs champs modifiés sans sauvegarde, une fenetre est générée par NoteEditeur pour demander la sauvegarde des modifications
+ *
+ */
 
 class NoteEditeurFermeture : public QDialog
 {

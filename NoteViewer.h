@@ -9,6 +9,12 @@
 #include "tacheediteur.h"
 #include <QLayout>
 
+/**
+ * \brief La classe NoteViewer permet de gérer les editeurs de notes
+ * \details La classe NoteViewer permet de créer, afficher, rafraichir, supprimer les editeurs
+ *
+ */
+
 class NoteViewer : public QWidget, public Subject<NoteViewer> //widget des noteEditeur permettant un affichage plus complexe avec plusieurs notes a la fois.
 {
     Q_OBJECT

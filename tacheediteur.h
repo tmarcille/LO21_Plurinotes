@@ -12,6 +12,12 @@
 #include <QCheckBox>
 #include <QComboBox>
 
+/**
+ * \brief La classe TacheEditeur hérite de la classe NoteEditeur
+ * \details Un TacheEditeur permet de modifier les paramètres d'une tache : l'action, la priorité, l'échéance, le status
+ *
+ */
+
 class TacheEditeur : public NoteEditeur
 {
     Q_OBJECT

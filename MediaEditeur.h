@@ -4,6 +4,13 @@
 #include "NoteEditeur.h"
 #include "player.h"
 
+/**
+ * \brief La classe MediaEditeur hérite de la classe NoteEditeur
+ * \details Un MediaEditeur permet de modifier les paramètres d'un média : le fichier, la description
+ *
+ */
+
+
 class MediaEditeur : public NoteEditeur
 {
     Q_OBJECT
