@@ -7,7 +7,6 @@ NouvelleNote::NouvelleNote(QWidget *parent) :
     QDialog(parent), ui(new Ui::NouvelleNote)
 {
     ui->setupUi(this);
-    QObject::connect(ui->radioButtons, SIGNAL(buttonPressed(int)), this, SLOT(test(int)));
 
 }
 

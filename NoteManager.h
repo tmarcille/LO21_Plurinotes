@@ -25,6 +25,8 @@ private:
 class NotesManager {
 private:
 
+    QVector<Note*> corbeille;
+
     /**
      * \brief Tableau de pointeurs vers les Note contenues dans le manager.
      */
@@ -113,6 +115,9 @@ public:
      * \param n Pointeur vers la Note a ajouter au manager.
      */
     void addNote(Note* n);
+
+    void removeNote(const QString& id);
+    void restoreNote(const QString& id);
 
     /**
      * \brief    Fonction de création d'une note.

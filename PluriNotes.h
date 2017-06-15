@@ -79,6 +79,8 @@ public slots:
 	void ouvrirNote(QListWidgetItem* item);
 	void nouvelleNote();
     void reactToPannelToggle(bool);
+    void removeBtnClicked();
+    void restoreBtnClicked();
 
 private slots:
 };

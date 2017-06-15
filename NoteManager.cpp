@@ -35,6 +35,39 @@ void NotesManager::addNote(Note* a) {
     qDebug()<<"Note was already in the manager";
 }
 
+void NotesManager::removeNote(const QString &id){
+
+    Iterator it = getIterator();
+    for (it; !it.isDone(); it.next()) {
+        if( it.current().getId()==id){
+            corbeille.append(&(it.current()));
+            nbNotes--;
+            QFile file (it.current().filePath);
+            file.remove();
+            load();
+            if (foldername!="")
+                saveAllNotes();
+        }
+    }
+}
+
+void NotesManager::restoreNote(const QString &id){
+    auto it = corbeille.begin();
+    while (it != corbeille.end()) {
+        qDebug()<<"while";
+        if ( dynamic_cast<Note*>(*it) && id == ((*it)->getId())){
+            qDebug()<<"adding note"<< id <<"from bin  ";
+            addNote((*it));
+            it = corbeille.erase(it);
+            qDebug()<<corbeille.size();
+            saveAllNotes();
+            return;
+        }
+        else
+           ++it;
+    }
+
+}
 
 Note& NotesManager::getNote(const QString& id) const{
 
@@ -47,7 +80,7 @@ Note& NotesManager::getNote(const QString& id) const{
     throw NotesException("error, note not existing");
 }
 
-NotesManager::NotesManager() :notes(nullptr), nbNotes(0), nbMaxNotes(0), foldername("") {}
+NotesManager::NotesManager() :notes(nullptr), nbNotes(0), nbMaxNotes(0), foldername(""), corbeille(QVector<Note*>()) {}
 
 NotesManager::~NotesManager() {
     if (foldername!="")
@@ -135,7 +168,8 @@ Note* NotesManager::create(const QString& type,const QString& filePath,const QVe
 }
 
 void NotesManager::load() {
-
+    for (unsigned int i = 0; i<nbNotes; i++) delete notes[i];
+    nbNotes = 0;
     QDirIterator it(foldername, QStringList() << "*.xml", QDir::Files);
     while (it.hasNext()) {
         QString fichier = it.next();

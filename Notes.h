@@ -33,7 +33,7 @@ private:
      */
 	virtual void saveAttributesInFile(QXmlStreamWriter& stream) const = 0;
     Note(const Note& copy);
-    Note& operator=(const Note& copy);
+    //Note& operator=(const Note& copy);
 
 protected:
     /**
@@ -42,10 +42,11 @@ protected:
     * \param    ti  QString contenant la  valeur de \a title.
     */
     Note(const QString& f, const QString& ti="");
+    virtual ~Note() = 0;
 
 public:
 
-	virtual ~Note() = 0;
+
 
     /**
      * \brief    Retourne l'id de la note.

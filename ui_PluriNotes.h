@@ -22,6 +22,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
@@ -42,11 +43,15 @@ public:
     QAction *actionRelations;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
+    QVBoxLayout *verticalLayout_2;
     QListWidget *listWidget;
+    QPushButton *removeNoteBtn;
     QVBoxLayout *verticalLayout;
     QLabel *label;
     QListWidget *taskList;
-    QListWidget *archiveList;
+    QLabel *label_2;
+    QListWidget *bin;
+    QPushButton *restoreBtn;
     NoteViewer *noteViewer;
     QGridLayout *relationTreePanelLayout;
     RelationTree *relationTree;
@@ -82,6 +87,9 @@ public:
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         listWidget = new QListWidget(centralWidget);
         listWidget->setObjectName(QStringLiteral("listWidget"));
         listWidget->setEnabled(true);
@@ -93,7 +101,15 @@ public:
         listWidget->setMaximumSize(QSize(200, 16777215));
         listWidget->setFrameShape(QFrame::StyledPanel);
 
-        horizontalLayout_2->addWidget(listWidget);
+        verticalLayout_2->addWidget(listWidget);
+
+        removeNoteBtn = new QPushButton(centralWidget);
+        removeNoteBtn->setObjectName(QStringLiteral("removeNoteBtn"));
+
+        verticalLayout_2->addWidget(removeNoteBtn);
+
+
+        horizontalLayout_2->addLayout(verticalLayout_2);
 
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
@@ -115,15 +131,25 @@ public:
 
         verticalLayout->addWidget(taskList);
 
-        archiveList = new QListWidget(centralWidget);
-        archiveList->setObjectName(QStringLiteral("archiveList"));
-        sizePolicy.setHeightForWidth(archiveList->sizePolicy().hasHeightForWidth());
-        archiveList->setSizePolicy(sizePolicy);
-        archiveList->setMaximumSize(QSize(200, 16777215));
-        archiveList->setStyleSheet(QLatin1String("border-color: rgb(180, 180, 180);\n"
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+
+        verticalLayout->addWidget(label_2);
+
+        bin = new QListWidget(centralWidget);
+        bin->setObjectName(QStringLiteral("bin"));
+        sizePolicy.setHeightForWidth(bin->sizePolicy().hasHeightForWidth());
+        bin->setSizePolicy(sizePolicy);
+        bin->setMaximumSize(QSize(200, 16777215));
+        bin->setStyleSheet(QLatin1String("border-color: rgb(180, 180, 180);\n"
 "    background-color: rgb(245, 245, 245);"));
 
-        verticalLayout->addWidget(archiveList);
+        verticalLayout->addWidget(bin);
+
+        restoreBtn = new QPushButton(centralWidget);
+        restoreBtn->setObjectName(QStringLiteral("restoreBtn"));
+
+        verticalLayout->addWidget(restoreBtn);
 
 
         horizontalLayout_2->addLayout(verticalLayout);
@@ -217,7 +243,10 @@ public:
         actionDossier_de_stockage->setText(QApplication::translate("PluriNotesClass", "Dossier de stockage", Q_NULLPTR));
         actionOptions->setText(QApplication::translate("PluriNotesClass", "Settings...", Q_NULLPTR));
         actionRelations->setText(QApplication::translate("PluriNotesClass", "Relations..", Q_NULLPTR));
+        removeNoteBtn->setText(QApplication::translate("PluriNotesClass", "Supprimer Note", Q_NULLPTR));
         label->setText(QApplication::translate("PluriNotesClass", "To-Do List :", Q_NULLPTR));
+        label_2->setText(QApplication::translate("PluriNotesClass", "Corbeille :", Q_NULLPTR));
+        restoreBtn->setText(QApplication::translate("PluriNotesClass", "Retablir Note", Q_NULLPTR));
         toggleBtn->setText(QApplication::translate("PluriNotesClass", "Arborescence", Q_NULLPTR));
         menuFichier->setTitle(QApplication::translate("PluriNotesClass", "Fichiers", Q_NULLPTR));
         menuNouveau->setTitle(QApplication::translate("PluriNotesClass", "Nouveau", Q_NULLPTR));

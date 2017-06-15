@@ -33,6 +33,8 @@ PluriNotes::PluriNotes(QWidget *parent)
     QObject::connect(ui.actionRelations, SIGNAL(triggered()), this, SLOT(openRelations()));
     QObject::connect(ui.listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(ouvrirNote(QListWidgetItem*)));
     QObject::connect(ui.toggleBtn, SIGNAL(toggled(bool)), this, SLOT(reactToPannelToggle(bool)));
+    QObject::connect(ui.removeNoteBtn, SIGNAL(clicked()), this, SLOT(removeBtnClicked()));
+    QObject::connect(ui.restoreBtn, SIGNAL(clicked()), this, SLOT(restoreBtnClicked()));
 
 }
 
@@ -72,16 +74,13 @@ void PluriNotes::openSettings()
         //si on a sauvegardé des changements dans les paramètres, on recharge le projet
 
         NotesManager& m = NotesManager::getManager();
-        ui.taskList->clear();
+
 
         for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
                 if (ui.noteViewer->isOpen(it.current().getId())){
                     ui.noteViewer->closeNote(it.current().getId());}
 
         }
-        ui.listWidget->clear();
-
-
         NotesManager::freeManager();
         RelationManager::freeManager();
         loadSettings();
@@ -97,9 +96,13 @@ void PluriNotes::openRelations()
 
 void PluriNotes::ouvrirProjet() {
 
+    ui.taskList->clear();
+    ui.listWidget->clear();
     NotesManager& m = NotesManager::getManager();
 
     qDebug()<<"folder:"<<m.getFoldername();
+    qDebug()<<"loadin manager:"<<m.getFoldername();
+
     m.load();
     for (NotesManager::Iterator it = m.getIterator(); !it.isDone(); it.next()) {
             new QListWidgetItem(it.current().getId(), ui.listWidget);
@@ -163,7 +166,6 @@ void PluriNotes::nouvelleNote()
             }
         }
         QListWidgetItem* nouvelle_note = new QListWidgetItem(x->getNom(), ui.listWidget);
-
         m.saveAllNotes();
         ouvrirNote(nouvelle_note);
     }
@@ -176,6 +178,39 @@ void PluriNotes::reactToPannelToggle(bool checked){
     }
     else {
         ui.relationTree->setMaximumWidth(0);
+    }
+}
+
+void PluriNotes::removeBtnClicked(){
+    NotesManager& m = NotesManager::getManager();
+
+    if (ui.listWidget->currentItem()){
+        QString text = ui.listWidget->currentItem()->text();
+        if (text!=""){
+            m.removeNote(text);
+        }
+        ui.bin->addItem(text);
+        ouvrirProjet();
+        if (ui.noteViewer->isOpen(text))
+            ui.noteViewer->closeNote(text);
+    }
+}
+
+void PluriNotes::restoreBtnClicked(){
+
+    NotesManager& m = NotesManager::getManager();
+    if (ui.bin->currentItem()){
+        QString text = ui.bin->currentItem()->text();
+        qDebug()<<"restoring note"<<text;
+        if (text!=""){
+            m.restoreNote(text);
+            qDebug()<<"note restored"<<text;
+        }
+        qDebug()<<ui.bin->currentItem()->text();
+        ui.bin->takeItem(ui.bin->currentRow());
+        qDebug()<<"openig project"<<text;
+
+        ouvrirProjet();
     }
 }
 
