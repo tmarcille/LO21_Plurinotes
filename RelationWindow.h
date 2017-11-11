@@ -11,6 +11,11 @@ namespace Ui {
 class RelationEditor;
 }
 
+/**
+ * \brief Fenetre des relations
+ * \details Permet de créer des relations, de les supprimer et d'y ajouter des
+ * couples.
+ */
 class RelationEditor : public QWidget
 {
     Q_OBJECT
@@ -90,7 +95,10 @@ public slots:
 };
 
 
-
+/**
+ * \brief Fenetre de création d'une relation
+ * \details Demande le nom de la relation a l'utilisateur.
+ */
 class NewRelationWindow : public QDialog{
 
     Q_OBJECT

@@ -6,16 +6,16 @@
 #include <QDialog>
 #include <QDebug>
 
-/**
- * \brief La classe NouvelleNote permet de générer une fenetre pour une nouvelle note
- * \details La classe NouvelleNote permet de générer une fenetre pour choisir le type et id d'une note
- *
- */
 
 namespace Ui {
 class NouvelleNote;
 }
 
+/**
+ * \brief La classe NouvelleNote permet de générer une fenetre pour créer une nouvelle note
+ * \details Dans cette fenetre l'utilisateur peut choisir le type et l'id d'une note
+ *
+ */
 class NouvelleNote : public QDialog
 {
     Q_OBJECT

@@ -3,8 +3,8 @@
 #include "Article.h"
 
 /**
- * \brief La classe ArticleEditeur hérite de la classe NoteEditeur
- * \details Un ArticleEditeur permet de modifier les paramètres d'un article : text
+ * \brief Editeur du type de note Article
+ * \details Ajoute un champ d'édition du texte en plus des champs d'éditions par défaut de NoteEditeur.
  */
 
 class ArticleEditeur : public NoteEditeur

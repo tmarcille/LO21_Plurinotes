@@ -16,11 +16,9 @@
 
 /**
  * \brief La classe NotesException permet de gérer les exceptions
- * \details La classe NotesException comporte un attribut info
+ * \details La classe NotesException comporte un attribut info dans lequel est stocké le texte de l'erreur.
  *
  */
-
-
 class NotesException {
 public:
 	NotesException(const QString& message) :info(message) {}
@@ -31,8 +29,8 @@ private:
 
 /**
  * \brief La classe NoteManager permet de gérer l'ensemble des Notes
- * \details La classe NoteManager permet créer des notes, les rpertorier et gérer leur suppression
- *
+ * \details A partir de cette classe, on peut créer des notes, les répertorier et gérer leur suppression.
+ * NoteManager assure que chaque note ait bien un ID unique.
  */
 
 class NotesManager {

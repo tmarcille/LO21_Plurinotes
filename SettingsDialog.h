@@ -10,6 +10,10 @@ namespace Ui {
 class SettingsDialog;
 }
 
+/**
+ * \brief Fenetre des paramètres
+ * \details Affiche les paramètres actuels et permet de les éditer
+ */
 class SettingsDialog : public QDialog
 {
     Q_OBJECT

@@ -18,6 +18,13 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Notes :</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QListWidget" name="listWidget">
         <property name="enabled">
          <bool>true</bool>
@@ -208,13 +215,7 @@
     <addaction name="actionOptions"/>
     <addaction name="actionRelations"/>
    </widget>
-   <widget class="QMenu" name="menuEdition">
-    <property name="title">
-     <string>Edition</string>
-    </property>
-   </widget>
    <addaction name="menuFichier"/>
-   <addaction name="menuEdition"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="toolBar">

@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <relations>
     <relation>
-        <title>a</title>
-        <description></description>
+        <title>Relation 1</title>
+        <description>1ère relation.</description>
         <couple>
-            <father>a</father>
-            <son>a</son>
-            <label></label>
+            <father>Article</father>
+            <son>Media</son>
+            <label>Texte</label>
+        </couple>
+        <couple>
+            <father>Tache</father>
+            <son>Media</son>
+            <label>Texte</label>
         </couple>
     </relation>
     <relation>
-        <title>b</title>
-        <description></description>
+        <title>Relation 2</title>
+        <description>2ème relation.</description>
         <couple>
-            <father>a</father>
-            <son>a</son>
-            <label></label>
+            <father>Article</father>
+            <son>Tache</son>
+            <label>Texte</label>
         </couple>
     </relation>
 </relations>

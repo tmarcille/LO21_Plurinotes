@@ -81,12 +81,16 @@ public:
         Media = new QRadioButton(NouvelleNote);
         radioButtons->addButton(Media);
         Media->setObjectName(QStringLiteral("Media"));
+        sizePolicy.setHeightForWidth(Media->sizePolicy().hasHeightForWidth());
+        Media->setSizePolicy(sizePolicy);
 
         verticalLayout->addWidget(Media);
 
         Tache = new QRadioButton(NouvelleNote);
         radioButtons->addButton(Tache);
         Tache->setObjectName(QStringLiteral("Tache"));
+        sizePolicy.setHeightForWidth(Tache->sizePolicy().hasHeightForWidth());
+        Tache->setSizePolicy(sizePolicy);
 
         verticalLayout->addWidget(Tache);
 

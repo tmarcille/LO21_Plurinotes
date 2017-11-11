@@ -172,7 +172,6 @@ public slots :
  * \details Lors de la fermeture d'un éditeur comportant un ou plusieurs champs modifiés sans sauvegarde, une fenetre est générée par NoteEditeur pour demander la sauvegarde des modifications
  *
  */
-
 class NoteEditeurFermeture : public QDialog
 {
 public:

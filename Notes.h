@@ -13,7 +13,6 @@
  * \brief La classe Note est une classe abstraite qui possede 3 classe filles : Article, Média, Tache
  * \details Une note possede un titre et un emplacement
  */
-
 class Note : public Subject<Note> {
 
 private:
@@ -37,8 +36,7 @@ private:
      * \param    stream  Le QXmlStreamWriter dans lequel la fonction est en train d'écrire.
      */
 	virtual void saveAttributesInFile(QXmlStreamWriter& stream) const = 0;
-    Note(const Note& copy);
-    //Note& operator=(const Note& copy);
+
 
 protected:
     /**
@@ -47,6 +45,8 @@ protected:
     * \param    ti  QString contenant la  valeur de \a title.
     */
     Note(const QString& f, const QString& ti="");
+    Note(const Note& copy);
+    Note& operator=(const Note& copy);
     virtual ~Note() = 0;
 
 public:

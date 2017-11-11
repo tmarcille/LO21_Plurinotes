@@ -26,7 +26,6 @@
  * \details La classe Plurinote permet d'ouvrir le projet, charger les settings et mettre à jours les editeurs
  *
  */
-
 class PluriNotes : public QMainWindow,  public Observer<Note>, public Observer<NoteViewer>
 {
 	Q_OBJECT
@@ -34,8 +33,22 @@ class PluriNotes : public QMainWindow,  public Observer<Note>, public Observer<N
 public:
     explicit PluriNotes(QWidget *parent = Q_NULLPTR);
     virtual ~PluriNotes();
+
+    /**
+     * \brief Initialise l'application
+     * \details Charge les différentes informations contenues dans les fichiers.
+     */
     void ouvrirProjet();
+
+    /**
+     * \brief Crée l'affichage ergonomimque des notes
+     * \details Recupere les taches parmis les notes et l'affiche par ordre de priorité.
+     */
     void createTaskList();
+
+    /**
+     * \brief Applique les paramètres du fichier config au projet.
+     */
     void loadSettings();
     void update(Note* n){
         if(ui.noteViewer->isOpen(n->getId())){
@@ -74,22 +87,65 @@ public:
 private:
 
 	Ui::PluriNotesClass ui;
+
+    /**
+     * \brief Verifications effectuées lorsque l'utilisateur ferme l'application.
+     */
     void closeEvent(QCloseEvent * event);
+
+    /**
+     * \brief Chemin vers le fichier config.
+     */
     QString m_sSettingsFile;
 
 public slots:
 
+    /**
+     * \brief Ouvre la fenetre des parametres à l'aide de la classe SettingsDialog.
+     */
     void openSettings();
+
+    /**
+     * \brief Ouvre la fenetre de gestion des relations à l'aide de la classe RelationEditor.
+     */
     void openRelations();
+
+    /**
+     * \brief Ouvre une note de la liste.
+     * \param item Item de la liste représentant la note à ouvrir.
+     */
 	void ouvrirNote(QListWidgetItem* item);
+
+    /**
+     * \brief Ouvre la fenetre de creation d'une note à l'aide de la classe NouvelleNote.
+     */
 	void nouvelleNote();
+
+    /**
+     * \brief Reaction de l'interface graphique lorsqu'on appuie sur le bouton Arborescence.
+     */
     void reactToPannelToggle(bool);
+
+    /**
+     * \brief Reaction du projet quand on clique sur le bouton Remove Note.
+     * \details Place la note selectionne dans la corbeille.
+     */
     void removeBtnClicked();
+
+    /**
+     * \brief Reaction du projet quand on clique sur le bouton Restore Note.
+     * \details Enleve la note selectionne de la corbeille et la replace dans la liste
+     * des notes.
+     */
     void restoreBtnClicked();
 
 private slots:
 };
 
+
+/**
+ * \brief Fenetre de verification de vidage de la corbeille.
+ */
 class VidageCorbeille : public QDialog
 {
 public:

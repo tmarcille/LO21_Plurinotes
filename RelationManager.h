@@ -4,6 +4,11 @@
 #include "Relation.h"
 #include <QVector>
 
+
+/**
+ * \brief Gestion des relations
+ * \details Classe à travers laquelle on peut ajouter des relations au projet et les supprimer.
+ */
 class RelationManager
 {
 private:

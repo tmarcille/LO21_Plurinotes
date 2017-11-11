@@ -14,6 +14,10 @@
 class Edge;
 class RelationTree;
 
+/**
+ * \brief Noeuds de l'arborescence.
+ * \details Les noeuds sont en fait un texte.
+ */
 class Node : public QGraphicsSimpleTextItem
 {
 public:
@@ -33,7 +37,10 @@ private:
     RelationTree *graph;
 };
 
-
+/**
+ * \brief Arcs de l'arborescence
+ * \details Un arc relie deux noeuds et possède un texte ajouté à côté de l'arc.
+ */
 class Edge : public QGraphicsItem
 {
 public:
@@ -99,7 +106,9 @@ private:
 
 };
 
-
+/**
+ * \brief Scene ou est affiché l'arbre
+ */
 class RelationTree :  public QGraphicsView
 {
     Q_OBJECT

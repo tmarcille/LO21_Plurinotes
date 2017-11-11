@@ -9,6 +9,10 @@
 #include <QtXml>
 #include "Notes.h"
 
+
+/**
+ * \brief Structure permettant de représenter un couple de Note et le label associé.
+ */
 struct Couple{
     /**
      * \brief Note pere du couple.
@@ -24,6 +28,11 @@ struct Couple{
     QString label;
 };
 
+/**
+ * \brief Relation entre deux notes
+ * \details Chaque relation possède plusieurs couples de Note, un nom unique ainsi qu'une description.
+ * L'utilisateur gère les Relation à travers la classe RelationManager.
+ */
 class Relation
 {
 private:

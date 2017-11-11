@@ -60,6 +60,8 @@ private:
 
 protected :
     Tache(  const QString& f, const QString& ti, const QString& a="", const QDate &d=QDate(0,0,0), const QString &p="Faible", const QString &s="en attente", const bool &e = false, const bool &ps = false);
+    Tache(const Tache& copy);
+    Tache& operator=(const Tache& copy);
 
 public:
 

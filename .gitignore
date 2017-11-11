@@ -3,6 +3,7 @@
 ### Qt ###
 # C++ objects and libs
 
+*.exe
 *.slo
 *.lo
 *.o

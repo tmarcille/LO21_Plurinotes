@@ -4,11 +4,8 @@
 
 /**
  * \brief La classe Article hérite de Note
- * \details Un article possède un texte
+ * \details Type de note possédant un texte.
  */
-
-
-
 class Article : public Note {
 
 private:
@@ -21,8 +18,7 @@ private:
      */
 	QString text;
 	void saveAttributesInFile(QXmlStreamWriter& stream) const;
-    Article(const Article& copy);
-    Article& operator=(const Article& copy);
+
 
 protected:
     /**
@@ -32,6 +28,8 @@ protected:
     * \param    te QString contenant la valeur de \a text.
     */
     Article(const QString& f, const QString& ti="", const QString& te="");
+    Article(const Article& copy);
+    Article& operator=(const Article& copy);
 
 public:
     /**

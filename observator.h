@@ -3,7 +3,11 @@
 
 #endif // OBSERVATOR_H
 
-
+/**
+ * \brief Classe abstraite du design pattern Observer
+ * \details Un Observer surveille une classe et effectue une action dès qu'un objet
+ * de cette classe est modifié.
+ */
 template <class T>
 class Observer
    {
@@ -17,7 +21,10 @@ class Observer
       virtual void update(T *subject)= 0;
    };
 
-
+/**
+ * \brief Classe abstraite du design pattern Observer
+ * \details Une classe qui hérite de Subject peut être surveillé par un Observer.
+ */
 template <class T>
 class Subject
    {

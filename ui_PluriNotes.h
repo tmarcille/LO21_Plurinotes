@@ -44,6 +44,7 @@ public:
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout_2;
+    QLabel *label_3;
     QListWidget *listWidget;
     QPushButton *removeNoteBtn;
     QVBoxLayout *verticalLayout;
@@ -61,7 +62,6 @@ public:
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuNouveau;
-    QMenu *menuEdition;
     QStatusBar *statusBar;
     QToolBar *toolBar;
 
@@ -90,6 +90,11 @@ public:
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        label_3 = new QLabel(centralWidget);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        verticalLayout_2->addWidget(label_3);
+
         listWidget = new QListWidget(centralWidget);
         listWidget->setObjectName(QStringLiteral("listWidget"));
         listWidget->setEnabled(true);
@@ -212,8 +217,6 @@ public:
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menuNouveau = new QMenu(menuFichier);
         menuNouveau->setObjectName(QStringLiteral("menuNouveau"));
-        menuEdition = new QMenu(menuBar);
-        menuEdition->setObjectName(QStringLiteral("menuEdition"));
         PluriNotesClass->setMenuBar(menuBar);
         statusBar = new QStatusBar(PluriNotesClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -223,7 +226,6 @@ public:
         PluriNotesClass->addToolBar(Qt::TopToolBarArea, toolBar);
 
         menuBar->addAction(menuFichier->menuAction());
-        menuBar->addAction(menuEdition->menuAction());
         menuFichier->addAction(menuNouveau->menuAction());
         menuFichier->addSeparator();
         menuFichier->addAction(actionOptions);
@@ -243,6 +245,7 @@ public:
         actionDossier_de_stockage->setText(QApplication::translate("PluriNotesClass", "Dossier de stockage", Q_NULLPTR));
         actionOptions->setText(QApplication::translate("PluriNotesClass", "Settings...", Q_NULLPTR));
         actionRelations->setText(QApplication::translate("PluriNotesClass", "Relations..", Q_NULLPTR));
+        label_3->setText(QApplication::translate("PluriNotesClass", "Notes :", Q_NULLPTR));
         removeNoteBtn->setText(QApplication::translate("PluriNotesClass", "Supprimer Note", Q_NULLPTR));
         label->setText(QApplication::translate("PluriNotesClass", "To-Do List :", Q_NULLPTR));
         label_2->setText(QApplication::translate("PluriNotesClass", "Corbeille :", Q_NULLPTR));
@@ -250,7 +253,6 @@ public:
         toggleBtn->setText(QApplication::translate("PluriNotesClass", "Arborescence", Q_NULLPTR));
         menuFichier->setTitle(QApplication::translate("PluriNotesClass", "Fichiers", Q_NULLPTR));
         menuNouveau->setTitle(QApplication::translate("PluriNotesClass", "Nouveau", Q_NULLPTR));
-        menuEdition->setTitle(QApplication::translate("PluriNotesClass", "Edition", Q_NULLPTR));
         toolBar->setWindowTitle(QApplication::translate("PluriNotesClass", "toolBar", Q_NULLPTR));
     } // retranslateUi
 

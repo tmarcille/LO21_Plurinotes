@@ -50,7 +50,11 @@
 #include <QLabel>
 #include <QVideoWidget>
 
-
+/**
+ * \brief Player vidéo
+ * \details Permet de lire des vidéos, images et musiques. Possède également un bouton
+ * pause et un slider de position.
+ */
 class VideoPlayer : public QWidget
 {
     Q_OBJECT

@@ -22,9 +22,6 @@ private:
      */
     QString file;
     void saveAttributesInFile(QXmlStreamWriter& stream) const;
-    Media(const Media& copy);
-    Media& operator=(const Media& copy);
-
 
 protected :
     /**
@@ -36,6 +33,9 @@ protected :
 
     */
     Media(const QString& fp, const QString& ti="", const QString& des="", const QString& f="");
+    Media(const Media& copy);
+    Media& operator=(const Media& copy);
+
 
 public:
     /**
